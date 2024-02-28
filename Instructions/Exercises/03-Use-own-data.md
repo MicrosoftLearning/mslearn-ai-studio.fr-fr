@@ -9,7 +9,7 @@ La génération augmentée e récupération (RAG, Retrieval Augmented Generation
 
 Dans cet exercice, vous allez utiliser Azure AI Studio pour intégrer des données personnalisées dans un flux d’invite d’IA générative.
 
-> **Remarque** : Azure AI Studio est en préversion au moment de la rédaction du présent document et fait l’objet d’un développement actif. Certains éléments du service peuvent ne pas être exactement tels qu’ils sont décrits, et certaines fonctionnalités peuvent ne pas fonctionner comme prévu.
+> **Remarque** : Azure AI Studio est en préversion au moment de la rédaction du présent document et fait l’objet d’un développement actif. Il est possible que certains éléments du service ne soient pas exactement tels qu’ils sont décrits et que certaines fonctionnalités ne fonctionnent pas comme prévu.
 
 Cet exercice prend environ **45** minutes.
 
@@ -31,29 +31,35 @@ Votre solution de copilote va intégrer des données personnalisées dans un flu
 Vous êtes maintenant prêt à créer un projet Azure AI Studio et les ressources Azure AI pour le prendre en charge.
 
 1. Dans un navigateur web, ouvrez [Azure AI Studio](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
-1. Dans la page **Build**, sélectionnez **+ Nouveau projet**. Ensuite, dans l’Assistant **Création d’un projet**, créez un projet avec les paramètres suivants :
+1. Dans la page **Générer**, sélectionnez **+ Nouveau projet**. Puis dans l’Assistant **Démarrage**, créez un projet avec les paramètres suivants :
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub AI** : *Créez une ressource avec les paramètres suivants :*
         - **Nom du hub IA** : *Un nom unique*
         - **Abonnement Azure** : *Votre abonnement Azure*
-        - **Groupe de ressources** : *Sélectionnez le groupe de ressources contenant votre ressource Recherche Azure AI*
+        - **Groupe de ressources** : *Sélectionner le groupe de ressources contenant votre ressource Recherche Azure AI*
         - **Emplacement** : *Le même emplacement que votre ressource Recherche Azure AI (ou un emplacement géographiquement proche)*
-        - **Azure OpenAI** : (Nouveau) *nom_hub*
+        - **Azure OpenAI** : (Nouveauté) *Permet de remplir automatiquement le nom de votre hub sélectionné*
         - **Recherche Azure AI** : *Sélectionnez votre ressource Recherche Azure AI*
+
 1. Attendez que votre projet soit créé.
 
 ## Déployer des modèles
 
-Vous aurez besoin de deux modèles pour implémenter votre solution :
+Vous avez besoin de deux modèles pour implémenter votre solution :
 
 - Un modèle *d’incorporation* pour vectoriser les données texte pour une indexation et un traitement efficaces.
 - Un modèle qui peut générer des réponses en langage naturel aux questions en fonction de vos données.
 
-1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
-1. Créez un déploiement (en utilisant un point de terminaison en temps réel) du modèle **text-embedding-ada-002** avec le nom `text-embedding-ada-002`. Définissez les options **Avancées** pour utiliser le filtre de contenu par défaut et pour limiter les jetons par minute (TPM) à **5 000**.
-1. Créez un déploiement du modèle **gpt-35-turbo** avec le nom `gpt-35-turbo`. Définissez les options **Avancées** pour utiliser le filtre de contenu par défaut et pour limiter les jetons par minute (TPM) à **5 000**.
+1. Dans votre projet d’Azure AI Studio, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
+1. Créez un déploiement (en utilisant un **point de terminaison en temps réel**) du modèle **text-embedding-ada-002** avec les paramètres suivants :
 
-> **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
+    - **Nom du déploiement **: `text-embedding-ada-002`
+    - **Version du modèle** : *Par défaut*
+    - **Options avancées** :
+        - **Filtre de contenu** : *Par défaut*
+        - **Limitation du débit en jetons par minute** : `5K`
+
+> **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
 ## Ajouter des données dans votre projet
 
@@ -61,7 +67,10 @@ Les données de votre copilote sont constituées d’un ensemble de brochures de
 
 1. Téléchargez l’[archive compressée des brochures](https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip) depuis `https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip` et décompressez-la dans un dossier nommé **brochures** sur votre système de fichiers local.
 1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Données**.
-1. Sélectionnez **+ Nouvelles données** et ajoutez une nouvelle connexion de source de données en chargeant le dossier **brochures** (choisissez l’option de chargement d’un *dossier*, et non pas d’un *fichier*). Nommez la nouvelle source de données **brochures**.
+1. Sélectionnez **+ Nouvelles données**.
+1. Dans l’Assistant **Ajouter vos données**, développez le menu déroulant pour sélectionner **Charger des fichiers/dossiers**.
+1. Sélectionnez **Charger un dossier**, puis sélectionnez le dossier **brochures**.
+1. Définissez le nom des données sur **brochures**.
 
 ## Créer un index pour vos données
 
@@ -82,9 +91,10 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
         - **Nom de l’index** : brochures-index
         - **Machine virtuelle** : Sélection automatique
 1. Attendez que votre index soit prêt, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
-    - Décomposer, segmenter et incorporer les jetons de texte dans les données de vos brochures
-    - Mettre à jour l’index
-    - Inscrire la ressource d’index
+
+    - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
+    - Mettre à jour l’index.
+    - Inscrivez la ressource d’index.
 
 ## Tester l’index
 
@@ -200,4 +210,3 @@ Pour éviter des coûts Azure inutiles et une utilisation non nécessaire des re
 
 1. Dans Azure AI Studio, affichez la page **Build**. Sélectionnez ensuite le projet que vous avez créé dans cet exercice et utilisez le bouton **Supprimer le projet** pour le supprimer. La suppression de tous les composants peut prendre quelques minutes.
 1. Si vous avez terminé d’explorer Azure AI Studio, revenez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous si nécessaire en utilisant vos informations d’identification Azure. Supprimez ensuite le groupe de ressources que vous avez créé pour vos ressources Recherche Azure AI et Azure AI.
-
