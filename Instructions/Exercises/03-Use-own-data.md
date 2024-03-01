@@ -19,11 +19,13 @@ Votre solution de copilote va intégrer des données personnalisées dans un flu
 
 1. Dans un navigateur web, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 1. Dans la page d’accueil, sélectionnez **+ Créer une ressource**, puis recherchez `Azure AI Search`. Créez ensuite une ressource Recherche Azure AI avec les paramètres suivants :
+
     - **Abonnement** : *Sélectionnez votre abonnement Azure*.
     - **Groupe de ressources** : *sélectionnez ou créez un groupe de ressources*.
     - **Nom du service** : *Entrez un nom de service unique*
     - **Emplacement** : *Sélectionnez un des emplacements disponibles*
     - **Niveau tarifaire** : Standard
+
 1. Attendez que votre déploiement de la ressource Recherche Azure AI soit terminé.
 
 ## Créer un projet Azure AI
@@ -32,8 +34,10 @@ Vous êtes maintenant prêt à créer un projet Azure AI Studio et les ressource
 
 1. Dans un navigateur web, ouvrez [Azure AI Studio](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 1. Dans la page **Générer**, sélectionnez **+ Nouveau projet**. Puis dans l’Assistant **Démarrage**, créez un projet avec les paramètres suivants :
+
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub AI** : *Créez une ressource avec les paramètres suivants :*
+
         - **Nom du hub IA** : *Un nom unique*
         - **Abonnement Azure** : *Votre abonnement Azure*
         - **Groupe de ressources** : *Sélectionner le groupe de ressources contenant votre ressource Recherche Azure AI*
@@ -104,19 +108,23 @@ Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allon
 1. Dans la page Playground, dans le volet **Configuration**, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le volet **Session de conversation**, soumettez l’invite `Where can I stay in New York?`.
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le volet **Configuration de l’Assistant**, sélectionnez **Ajouter vos données**, puis ajoutez une source de données avec les paramètres suivants :
+
     - **Source des données** :
         - **Sélectionner la source de données** : Recherche Azure AI
         - **Abonnement** : *votre abonnement Azure*
         - **Service Recherche Azure AI** : *Votre ressource Recherche Azure AI*
         - **Index Recherche Azure AI** : brochures-index
-        - **Ajouter une recherche vectorielle** : <u>non</u> sélectionné
+        - **Ajouter une recherche vectorielle** : <u>Dé</u>coché
+        - **Utiliser le mappage de champs personnalisé** : Sélectionné
+        - Cochez la case pour confirmer l’utilisation engagée.
     - **Mappage des champs de données** :
         - **Données de contenu** : contenu
         - **Nom de fichier** : chemin d’accès du fichier
         - **Titre** : titre
         - **URL** : url
     - **Gestion des données** :
-        - **type de recherche** : mot clé
+        - **type de recherche** : Mot clé
+
 1. Une fois la source de données ajoutée et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être basée sur les données de l’index.
 
@@ -125,46 +133,64 @@ Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allon
 Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce qui vous permet de l’utiliser facilement dans un flux d’invite.
 
 1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez **Données**.
-1. Sélectionnez le dossier **brochures-index** qui contient les données pour l’index que vous avez créé précédemment.
-1. Dans la section **Liens de données** pour votre index, copiez la valeur de **URI de stockage** dans le Presse-papiers (il doit ressembler à `https://xxx.blob.core.windows.net/xxx/azureml/xxx/index/`). Vous aurez besoin de cet URI pour vous connecter aux données de votre index dans le flux d’invite.
+1. Sélectionnez le dossier **brochures-index** qui contient l’index que vous avez créé précédemment.
+1. Dans la section **Liens de données** pour votre index, copiez la valeur de l’**URI de connexion de données** dans le Presse-papiers (il doit ressembler à `azureml://subscriptions/xxx/resourcegroups/xxx/workspaces/xxx/datastores/workspaceblobstore/paths/azureml/xxx/index/`). Vous aurez besoin de cet URI pour vous connecter à votre index dans le flux d’invite.
 1. Dans votre projet, dans le volet de navigation de gauche, sous **Outils**, sélectionnez la page **Flux d’invite**.
 1. Créez un flux d’invite en clonant l’exemple **Multi-Round Q&A on Your Data** (Questions et réponses à plusieurs tours sur vos données) dans la galerie. Enregistrez votre clone de cet exemple dans un dossier nommé `brochure-flow`.
 1. Quand la page du concepteur de flux d’invite s’ouvre, passez en revue **brochure-flow**. Son graphique devrait ressembler à l’image suivante :
 
-    ![Une capture d’écran d’un graphique de flux d’invite](./media/brochure-flow.png)
+    ![Une capture d’écran d’un graphique de flux d’invite](./media/chat-flow.png)
 
     L’exemple de flux d’invite que vous utilisez implémente la logique d’invite pour une application de conversation dans laquelle l’utilisateur peut soumettre de façon itérative une entrée de texte à l’interface de conversation. L’historique de la conversation est conservé et inclus dans le contexte de chaque itération. Le flux d’invite orchestre une séquence d’*outils* pour :
 
-    1. Ajoutez l’historique à l’entrée de conversation pour définir une invite sous la forme d’une forme contextualisée d’une question.
-    1. Créez une *incorporation* pour la question (utilisez un modèle d’incorporation pour convertir le texte en vecteurs).
-    1. Rechercher dans un index vectoriel des informations pertinentes en fonction de la question.
-    1. Générer un contexte d’invite en utilisant les données récupérées dans l’index pour augmenter la question.
-    1. Créez des variantes d’invite en ajoutant un message système et en structurant l’historique de la conversation.
-    1. Soumettre l’invite à un modèle de langage pour générer une réponse en langage naturel.
+    - Ajoutez l’historique à l’entrée de conversation pour définir une invite sous la forme d’une forme contextualisée d’une question.
+    - Récupérez le contexte à l’aide de votre index et d’un type de requête de votre choix en fonction de la question.
+    - Générer un contexte d’invite en utilisant les données récupérées dans l’index pour augmenter la question.
+    - Créez des variantes d’invite en ajoutant un message système et en structurant l’historique de la conversation.
+    - Soumettre l’invite à un modèle de langage pour générer une réponse en langage naturel.
 
-1. Dans la liste **Runtime**, sélectionnez **Démarrer** pour démarrer le runtime automatique. Attendez ensuite qu’il démarre. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
-1. Dans la section **Entrées**, vérifiez que les entrées incluent **chat_history** et **chat_input**. L’historique de conversation par défaut de cet exemple inclut une conversation sur l’IA.
-1. Dans la section **Sorties**, vérifiez que la valeur de **chat_output** est *${chat_with_context.output}*.
+1. Dans la liste **Runtime**, sélectionnez **Démarrer** pour démarrer le runtime automatique.
+
+    Attendez ensuite qu’il démarre. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
+
+1. Dans la section **Entrées**, vérifiez que les entrées incluent :
+    - **chat_history**
+    - **chat_input**
+
+    L’historique de conversation par défaut de cet exemple inclut une conversation sur l’IA.
+
+1. Dans la section **Sorties**, vérifiez que la sortie inclut :
+
+    - **chat_output** avec la valeur `${chat_with_context.output}`
+
 1. Dans la section **modify_query_with_history**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
-    - **Connexion** : Default_AzureOpenAI
-    - **Api** : Conversation instantanée
-    - **deployment_name** : gpt-35-turbo
-    - **response_format** : {"type":"text"}
-1. Dans la section **embed_the_question**, définissez les valeurs de paramètre suivantes :
-    - **Connexion** *(Azure OpenAI, OpenAI)* : Default_AzureOpenAI
-    - **deployment_name** *(string)* : text-embedding-ada-00
-    - **input** *(string)* : ${modify_query_with_history.output}
-1. Dans la section **search_question_from_indexed_docs**, définissez les valeurs de paramètre suivantes :
-    - **path** *(string)* : *Supprimez l’URI existant et collez l’URI de votre index vectoriel*
-    - **query** *(object)* : ${embed_the_question.output}
-    - **top_k** *(int)* : 2
+
+    - **Connection** : `Default_AzureOpenAI`
+    - **Api** : `chat`
+    - **deployment_name** : `gpt-35-turbo`
+    - **response_format** : `{"type":"text"}`
+
+1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
+
+    - **mlindex_content** : *Sélectionnez le champ vide pour ouvrir le volet Générer*
+        - **index_type** : `MLIndex file from path`
+        - **mlindex_path** : *Coller l’URI de votre index vectoriel*
+    - **requêtes** : `${modify_query_with_history.output}`
+    - **query_type** : `Hybrid (vector + keyword)`
+    - **top_k** : 2
+
 1. Dans la section **generate_prompt_context**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
+
     - **search_result** *(object)* : ${search_question_from_indexed_docs.output}
+
 1. Dans la section **Prompt_variants**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
+
     - **contexts** *(string)* : ${generate_prompt_context.output}
     - **chat_history** *(string)* : ${inputs.chat_history}
     - **chat_input** *(string)* : ${inputs.chat_input}
+
 1. Dans la section **chat_with_context**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
+
     - **Connexion** : Default_AzureOpenAI
     - **Api** : Conversation instantanée
     - **deployment_name** : gpt-35-turbo
