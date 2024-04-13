@@ -62,8 +62,9 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
     - **Options avancées** :
         - **Filtre de contenu** : *Par défaut*
         - **Limitation du débit en jetons par minute** : `5K`
+1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo** avec le nom `gpt-35-turbo` du déploiement.
 
-> **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
+    > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
 ## Ajouter des données dans votre projet
 
@@ -90,14 +91,14 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
     - **Paramètres de recherche** :
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
         - **Ressource Azure OpenAI** : Default_AzureOpenAI
-        - *Confirmer qu’un modèle d’incorporation va être déployé*
+        - *Confirmer qu’un modèle d’incorporation va être déployé si ce n’est pas déjà le cas*
     - **Paramètres d’index** :
         - **Nom de l’index** : brochures-index
         - **Machine virtuelle** : Sélection automatique
-1. Attendez que votre index soit prêt, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
+1. Attendez que le processus d'indexation soit terminé, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
-    - Mettre à jour l’index.
+    - Mettez à jour Recherche Azure AI avec le nouvel index.
     - Inscrivez la ressource d’index.
 
 ## Tester l’index
@@ -105,37 +106,17 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
 1. Dans le volet de navigation de gauche, sous **Outils**, sélectionnez la page **Playground**.
-1. Dans la page Playground, dans le volet **Configuration**, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le volet **Session de conversation**, soumettez l’invite `Where can I stay in New York?`.
+1. Dans la page Playground, dans le panneau Options, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
-1. Dans le volet **Configuration de l’Assistant**, sélectionnez **Ajouter vos données**, puis ajoutez une source de données avec les paramètres suivants :
-
-    - **Source des données** :
-        - **Sélectionner la source de données** : Recherche Azure AI
-        - **Abonnement** : *votre abonnement Azure*
-        - **Service Recherche Azure AI** : *Votre ressource Recherche Azure AI*
-        - **Index Recherche Azure AI** : brochures-index
-        - **Ajouter une recherche vectorielle** : <u>Dé</u>coché
-        - **Utiliser le mappage de champs personnalisé** : Sélectionné
-        - Cochez la case pour confirmer l’utilisation engagée.
-    - **Mappage des champs de données** :
-        - **Données de contenu** : contenu
-        - **Nom de fichier** : chemin d’accès du fichier
-        - **Titre** : titre
-        - **URL** : url
-    - **Gestion des données** :
-        - **type de recherche** : Mot clé
-
-1. Une fois la source de données ajoutée et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
+1. Dans le panneau Configuration, sélectionnez l’onglet **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
+1. Une fois l’index ajouté et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être basée sur les données de l’index.
 
 ## Utiliser l’index dans un flux d’invite
 
 Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce qui vous permet de l’utiliser facilement dans un flux d’invite.
 
-1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez **Données**.
-1. Sélectionnez le dossier **brochures-index** qui contient l’index que vous avez créé précédemment.
-1. Dans la section **Liens de données** pour votre index, copiez la valeur de l’**URI de connexion de données** dans le Presse-papiers (il doit ressembler à `azureml://subscriptions/xxx/resourcegroups/xxx/workspaces/xxx/datastores/workspaceblobstore/paths/azureml/xxx/index/`). Vous aurez besoin de cet URI pour vous connecter à votre index dans le flux d’invite.
-1. Dans votre projet, dans le volet de navigation de gauche, sous **Outils**, sélectionnez la page **Flux d’invite**.
+1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Outils**, sélectionnez la page **Flux d’invite**.
 1. Créez un flux d’invite en clonant l’exemple **Multi-Round Q&A on Your Data** (Questions et réponses à plusieurs tours sur vos données) dans la galerie. Enregistrez votre clone de cet exemple dans un dossier nommé `brochure-flow`.
 1. Quand la page du concepteur de flux d’invite s’ouvre, passez en revue **brochure-flow**. Son graphique devrait ressembler à l’image suivante :
 
@@ -151,7 +132,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
 1. Dans la liste **Runtime**, sélectionnez **Démarrer** pour démarrer le runtime automatique.
 
-    Attendez ensuite qu’il démarre. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
+    Attendez le démarrage du runtime. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
 
 1. Dans la section **Entrées**, vérifiez que les entrées incluent :
     - **chat_history**
@@ -173,15 +154,15 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
 
     - **mlindex_content** : *Sélectionnez le champ vide pour ouvrir le volet Générer*
-        - **index_type** : `MLIndex file from path`
-        - **mlindex_path** : *Coller l’URI de votre index vectoriel*
+        - **index_type** : Index inscrit
+        - **mlindex_asset_id** : brochures-index : 1
     - **requêtes** : `${modify_query_with_history.output}`
     - **query_type** : `Hybrid (vector + keyword)`
     - **top_k** : 2
 
 1. Dans la section **generate_prompt_context**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
 
-    - **search_result** *(object)* : ${search_question_from_indexed_docs.output}
+    - **search_result** *(objet)*  : ${lookup.output}
 
 1. Dans la section **Prompt_variants**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
 
@@ -216,16 +197,15 @@ Maintenant que vous disposez d’un flux opérationnel qui utilise vos données 
 1. Créez un déploiement avec les paramètres suivants :
     - **Paramètres de base** :
         - **Point de terminaison** : Nouvelle
-        - **Nom du point de terminaison** : brochure-endpoint
+        - **Nom du point de terminaison** : `brochure-endpoint`
         - **Nom du déploiement** : brochure-endpoint-1
         - **Machine virtuelle** : Standard_DS3_v2
         - **Nombre d’instances** : 3
         - **Collecte des données d’inférence** : Sélectionné
-        - **Diagnostics Application Insights** : Sélectionné
     - **Paramètres avancés** :
         - *Utiliser les paramètres par défaut*
 1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
-1. Continuez à actualiser la vue jusqu’à ce que le déploiement **brochure-endpoint-1** ait l’état *réussi* sous le point de terminaison **brochure-endpoint** (ceci peut prendre un certain temps).
+1. Continuez à actualiser la vue jusqu’à ce que le déploiement **brochure-endpoint-1** ait l’état *réussi* sous le point de terminaison **brochure-endpoint** (ceci peut prendre un certain temps).
 1. Une fois le déploiement réussi, sélectionnez-le. Ensuite, dans sa page **Test**, entrez l’invite `What is there to do in San Francisco?` et examinez la réponse.
 1. Entrez l’invite `Where else could I go?` et examinez la réponse.
 1. Visualisez la page **Consommer** pour le point de terminaison et notez qu’elle contient des informations de connexion et un exemple de code que vous pouvez utiliser pour créer une application cliente pour votre point de terminaison, ce qui vous permet d’intégrer la solution de flux d’invite dans une application en tant que copilote personnalisé.
