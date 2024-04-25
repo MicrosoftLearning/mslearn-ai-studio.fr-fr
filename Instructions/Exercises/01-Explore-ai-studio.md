@@ -31,9 +31,21 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
     - **Nom du hub Azure AI** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
-    - **Emplacement** : *Choisir n’importe quel emplacement pris en charge par le service Azure OpenAI*
+    - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
+        - Australie Est
+        - Est du Canada
+        - USA Est
+        - USA Est 2
+        - France Centre
+        - Japon Est
+        - Centre-Nord des États-Unis
+        - Suède Centre
+        - Suisse Nord
+        - Sud du Royaume-Uni
     - **Azure OpenAI** : (Nouveau) ai-*nom_hub*
     - **Recherche IA** : (Aucun)
+
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un locataire avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
     Une fois le hub Azure AI créé, il doit être similaire à l’image suivante :
 

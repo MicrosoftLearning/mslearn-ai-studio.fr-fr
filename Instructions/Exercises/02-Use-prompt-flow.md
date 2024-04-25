@@ -29,7 +29,20 @@ Vous commencez par créer un projet Azure AI Studio et un hub Azure AI pour le p
         - **Nom du hub IA** : *Un nom unique*
         - **Abonnement** : *votre abonnement Azure*
         - **Groupe de ressources** : *Un nouveau groupe de ressources*
-        - **Emplacement** : *Choisir un emplacement près de chez vous*
+        - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
+        - Australie Est
+        - Est du Canada
+        - USA Est
+        - USA Est 2
+        - France Centre
+        - Japon Est
+        - Centre-Nord des États-Unis
+        - Suède Centre
+        - Suisse Nord
+        - Sud du Royaume-Uni
+
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un locataire avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+
 1. Examinez votre configuration et créez votre projet.
 1. Patientez entre 5 et 10 minutes jusqu’à la création de votre projet.
 
