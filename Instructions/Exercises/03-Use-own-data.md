@@ -23,8 +23,19 @@ Votre solution de copilote va intégrer des données personnalisées dans un flu
     - **Abonnement** : *Sélectionnez votre abonnement Azure*.
     - **Groupe de ressources** : *sélectionnez ou créez un groupe de ressources*.
     - **Nom du service** : *Entrez un nom de service unique*
-    - **Emplacement** : *Sélectionnez un des emplacements disponibles*
+    - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
+        - Australie Est
+        - Est du Canada
+        - USA Est
+        - USA Est 2
+        - France Centre
+        - Japon Est
+        - Centre-Nord des États-Unis
+        - Suède Centre
+        - Suisse 
     - **Niveau tarifaire** : Standard
+
+    > \* Plus tard, vous allez créer un hub Azure AI (qui inclut un service Azure OpenAI) dans la même région que votre ressource Recherche Azure AI. Les ressources Azure OpenAI sont limitées au niveau du tenant par des quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un tenant avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre hub Azure AI dans une autre région.
 
 1. Attendez que votre déploiement de la ressource Recherche Azure AI soit terminé.
 
@@ -41,7 +52,7 @@ Vous êtes maintenant prêt à créer un projet Azure AI Studio et les ressource
         - **Nom du hub IA** : *Un nom unique*
         - **Abonnement Azure** : *Votre abonnement Azure*
         - **Groupe de ressources** : *Sélectionner le groupe de ressources contenant votre ressource Recherche Azure AI*
-        - **Emplacement** : *Le même emplacement que votre ressource Recherche Azure AI (ou un emplacement géographiquement proche)*
+        - **Emplacement** : *La même localisation que votre ressource Recherche Azure AI*
         - **Azure OpenAI** : (Nouveauté) *Permet de remplir automatiquement le nom de votre hub sélectionné*
         - **Recherche Azure AI** : *Sélectionnez votre ressource Recherche Azure AI*
 
