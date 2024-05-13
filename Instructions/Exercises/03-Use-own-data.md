@@ -221,6 +221,18 @@ Maintenant que vous disposez d’un flux opérationnel qui utilise vos données 
 1. Entrez l’invite `Where else could I go?` et examinez la réponse.
 1. Visualisez la page **Consommer** pour le point de terminaison et notez qu’elle contient des informations de connexion et un exemple de code que vous pouvez utiliser pour créer une application cliente pour votre point de terminaison, ce qui vous permet d’intégrer la solution de flux d’invite dans une application en tant que copilote personnalisé.
 
+## Défi 
+
+Maintenant que vous avez découvert comment intégrer vos propres données dans un copilote créé avec Azure AI Studio, nous allons explorer davantage !
+
+Essayez d’ajouter une nouvelle source de données via Azure AI Studio, indexez-la et intégrez les données indexées dans un flux d’invite. Voici quelques jeux de données que vous pouvez essayer :
+
+- Une collection d’articles (de recherche) que vous avez sur votre ordinateur.
+- Un ensemble de présentations de conférences passées.
+- N’importe quels jeux de données disponibles dans le référentiel [Exemples de données Recherche Azure](https://github.com/Azure-Samples/azure-search-sample-data).
+
+Utilisez toutes vos ressources possibles pour créer votre source de données et l’intégrer dans votre flux d’invite. Essayez le nouveau flux d’invite et envoyez des invites auxquelles seul le jeu de données que vous avez choisi peut répondre !
+
 ## Nettoyage
 
 Pour éviter des coûts Azure inutiles et une utilisation non nécessaire des ressources, vous devez supprimer les ressources que vous avez déployées dans cet exercice.
