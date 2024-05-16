@@ -95,17 +95,17 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Index**.
 1. Ajoutez un nouvel index avec les paramètres suivants :
     - **Données sources** :
-        - **Source de données** : Utiliser des données de projet existantes
+        - **Source de données** : Données dans Azure AI Studio
             - *Sélectionnez la source de données **brochures***
-    - **Stockage de l’index** :
-        - *Sélectionnez la connexion **AzureAISearch** à votre ressource Recherche Azure AI*
+    - **Paramètres d’index** :
+        - **Sélectionnez Service Recherche Azure AI** : *Sélectionnez la connexion **AzureAISearch** à votre ressource Recherche Azure AI*
+        - **Nom de l’index** : brochures-index
+        - **Machine virtuelle** : Sélection automatique
     - **Paramètres de recherche** :
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
         - **Ressource Azure OpenAI** : Default_AzureOpenAI
-        - *Confirmer qu’un modèle d’incorporation va être déployé si ce n’est pas déjà le cas*
-    - **Paramètres d’index** :
-        - **Nom de l’index** : brochures-index
-        - **Machine virtuelle** : Sélection automatique
+        - *Si vous y êtes invité(e), confirmez qu’un modèle d’incorporation va être déployé si ce n’est pas déjà le cas*
+        
 1. Attendez que le processus d'indexation soit terminé, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
