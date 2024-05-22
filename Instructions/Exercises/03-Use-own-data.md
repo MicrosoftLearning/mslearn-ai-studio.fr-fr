@@ -44,12 +44,12 @@ Votre solution de copilote va intégrer des données personnalisées dans un flu
 Vous êtes maintenant prêt à créer un projet Azure AI Studio et les ressources Azure AI pour le prendre en charge.
 
 1. Dans un navigateur web, ouvrez [Azure AI Studio](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
-1. Dans la page **Générer**, sélectionnez **+ Nouveau projet**. Puis dans l’Assistant **Démarrage**, créez un projet avec les paramètres suivants :
+1. Dans la page **Accueil** d’Azure AI Studio, sélectionnez **+ Nouveau projet**. Dans l’Assistant **Créer un projet**, créez ensuite un projet avec les paramètres suivants :
 
     - **Nom du projet** : *Un nom unique pour votre projet*
-    - **Hub AI** : *Créez une ressource avec les paramètres suivants :*
+    - **Hub** : *Créez une ressource avec les paramètres suivants :*
 
-        - **Nom du hub IA** : *Un nom unique*
+        - **Hub name** : *Un nom unique*
         - **Abonnement Azure** : *Votre abonnement Azure*
         - **Groupe de ressources** : *Sélectionner le groupe de ressources contenant votre ressource Recherche Azure AI*
         - **Emplacement** : *La même localisation que votre ressource Recherche Azure AI*
@@ -116,8 +116,8 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
-1. Dans le volet de navigation de gauche, sous **Outils**, sélectionnez la page **Playground**.
-1. Dans la page Playground, dans le panneau Options, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
+1. Dans le volet de navigation de gauche, sous **Terrain de jeu de projet**, sélectionnez la page **Conversation**.
+1. Dans la page Conversation du volet Options, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le panneau Configuration, sélectionnez l’onglet **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
 1. Une fois l’index ajouté et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
