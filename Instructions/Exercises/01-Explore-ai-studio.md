@@ -27,8 +27,8 @@ Commençons par examiner Azure AI Studio.
 
 Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger des projets. Vous pouvez créer cette ressource lors de la création d’un projet ou bien l’approvisionner à l’avance (c’est ce que nous allons faire dans cet exercice).
 
-1. Dans la page **Gérer**, sélectionnez **+ Nouveau hub Azure AI**. Ensuite, dans l’Assistant **Création d’un hub Azure AI**, créez une ressource avec les paramètres suivants :
-    - **Nom du hub Azure AI** : *Un nom unique*
+1. Dans la section **Gestion**, sélectionnez **Tous les hubs**, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
+    - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
     - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
@@ -42,8 +42,8 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
         - Suède Centre
         - Suisse Nord
         - Sud du Royaume-Uni
-    - **Azure OpenAI** : (Nouveau) ai-*nom_hub*
-    - **Recherche IA** : (Aucun)
+    - **Connecter Azure AI Services ou Azure OpenAI** : sélectionner ce paramètre pour créer un service IA ou utiliser un service existant
+    - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un locataire avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
@@ -65,7 +65,7 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
 
 1. Dans Azure AI Studio, sur la page **Build**, sélectionnez **+ Nouveau projet**. Ensuite, dans l’Assistant **Création d’un projet**, créez un projet avec les paramètres suivants :
     - **Nom du projet** : *Un nom unique pour votre projet*
-    - **Hub AI** : *Votre hub AI*
+    - **Hub** : *Votre hub AI*
 1. Attendez que votre projet soit créé. Quand il est prêt, il doit ressembler à l’image suivante :
 
     ![Capture d’écran de la page Détails du projet dans Azure AI Studio.](./media/azure-ai-project.png)
