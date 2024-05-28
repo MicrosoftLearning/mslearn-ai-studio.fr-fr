@@ -73,7 +73,7 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
     - **Options avancées** :
         - **Filtre de contenu** : *Par défaut*
         - **Limitation du débit en jetons par minute** : `5K`
-1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo** avec le nom `gpt-35-turbo` du déploiement.
+1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo-16k** avec le nom de déploiement `gpt-35-turbo-16k`.
 
     > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
@@ -117,7 +117,7 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
 1. Dans le volet de navigation de gauche, sous **Terrain de jeu de projet**, sélectionnez la page **Conversation**.
-1. Dans la page Conversation du volet Options, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
+1. Dans la page Conversation, dans le volet Options, vérifiez que votre modèle de déploiement **gpt-35-turbo-16k** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le panneau Configuration, sélectionnez l’onglet **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
 1. Une fois l’index ajouté et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
@@ -159,7 +159,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
     - **Connection** : `Default_AzureOpenAI`
     - **Api** : `chat`
-    - **deployment_name** : `gpt-35-turbo`
+    - **deployment_name** : `gpt-35-turbo-16k`
     - **response_format** : `{"type":"text"}`
 
 1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
@@ -185,7 +185,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
     - **Connexion** : Default_AzureOpenAI
     - **Api** : Conversation instantanée
-    - **deployment_name** : gpt-35-turbo
+    - **deployment_name** : gpt-35-turbo-16k
     - **response_format** : {"type":"text"}
 
     Vérifiez ensuite que les **entrées** pour cet outil incluent les paramètres suivants :
@@ -203,6 +203,8 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 ## Déployer le flux
 
 Maintenant que vous disposez d’un flux opérationnel qui utilise vos données indexées, vous pouvez le déployer en tant que service pour être consommé par une application copilote.
+
+> **Remarque** : Selon la région et la charge du centre de données, les déploiements peuvent parfois prendre un certain temps. N’hésitez pas à passer à la section défi ci-dessous pendant le déploiement ou ignorez le test de votre déploiement si vous manquez de temps.
 
 1. Dans la barre d’outils, sélectionnez **Déployer**.
 1. Créez un déploiement avec les paramètres suivants :
