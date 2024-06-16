@@ -66,7 +66,7 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
 - Un modèle qui peut générer des réponses en langage naturel aux questions en fonction de vos données.
 
 1. Dans votre projet d’Azure AI Studio, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
-1. Créez un déploiement (en utilisant un **point de terminaison en temps réel**) du modèle **text-embedding-ada-002** avec les paramètres suivants :
+1. Créez un déploiement du modèle **text-embedding-ada-002** avec les paramètres suivants :
 
     - **Nom du déploiement **: `text-embedding-ada-002`
     - **Version du modèle** : *Par défaut*
@@ -141,7 +141,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
     - Créez des variantes d’invite en ajoutant un message système et en structurant l’historique de la conversation.
     - Soumettre l’invite à un modèle de langage pour générer une réponse en langage naturel.
 
-1. Dans la liste **Runtime**, sélectionnez **Démarrer** pour démarrer le runtime automatique.
+1. Utilisez le bouton **Démarrer la session de calcul** pour démarrer le calcul d’exécution du flux.
 
     Attendez le démarrage du runtime. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
 
@@ -153,22 +153,22 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
 1. Dans la section **Sorties**, vérifiez que la sortie inclut :
 
-    - **chat_output** avec la valeur `${chat_with_context.output}`
+    - **chat_output** avec la valeur ${chat_with_context.output}
 
 1. Dans la section **modify_query_with_history**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
 
-    - **Connection** : `Default_AzureOpenAI`
-    - **Api** : `chat`
-    - **deployment_name** : `gpt-35-turbo-16k`
-    - **response_format** : `{"type":"text"}`
+    - **Connexion** : *La ressource Azure OpenAI par défaut pour votre hub IA*
+    - **Api**: conversation
+    - **deployment_name** : gpt-35-turbo-16k
+    - **response_format** : {"type":"text"}
 
 1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
 
     - **mlindex_content** : *Sélectionnez le champ vide pour ouvrir le volet Générer*
         - **index_type** : Index inscrit
         - **mlindex_asset_id** : brochures-index : 1
-    - **requêtes** : `${modify_query_with_history.output}`
-    - **query_type** : `Hybrid (vector + keyword)`
+    - **requêtes**: ${modify_query_with_history.output}
+    - **query_type** : Hybride (vecteur + mot clé)
     - **top_k** : 2
 
 1. Dans la section **generate_prompt_context**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
