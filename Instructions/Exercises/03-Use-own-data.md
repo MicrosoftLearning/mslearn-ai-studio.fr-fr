@@ -86,7 +86,8 @@ Les données de votre copilote sont constituées d’un ensemble de brochures de
 1. Sélectionnez **+ Nouvelles données**.
 1. Dans l’Assistant **Ajouter vos données**, développez le menu déroulant pour sélectionner **Charger des fichiers/dossiers**.
 1. Sélectionnez **Charger un dossier**, puis sélectionnez le dossier **brochures**.
-1. Définissez le nom des données sur **brochures**.
+1. Définissez le nom des données sur `brochures`.
+1. Attendez que le dossier soit chargé et notez qu’il contient plusieurs fichiers .pdf.
 
 ## Créer un index pour vos données
 
@@ -99,17 +100,16 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
             - *Sélectionnez la source de données **brochures***
     - **Paramètres d’index** :
         - **Sélectionnez Service Recherche Azure AI** : *Sélectionnez la connexion **AzureAISearch** à votre ressource Recherche Azure AI*
-        - **Nom de l’index** : brochures-index
+        - **index_name** : `brochures-index`
         - **Machine virtuelle** : Sélection automatique
     - **Paramètres de recherche** :
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
-        - **Ressource Azure OpenAI** : Default_AzureOpenAI
-        - *Si vous y êtes invité(e), confirmez qu’un modèle d’incorporation va être déployé si ce n’est pas déjà le cas*
+        - **Sélectionnez un modèle d’incorporation** : *Sélectionnez la ressource Azure OpenAI par défaut pour votre hub.*
         
 1. Attendez que le processus d'indexation soit terminé, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
-    - Mettez à jour Recherche Azure AI avec le nouvel index.
+    - Créez l’index Recherche Azure AI.
     - Inscrivez la ressource d’index.
 
 ## Tester l’index
@@ -210,8 +210,8 @@ Maintenant que vous disposez d’un flux opérationnel qui utilise vos données 
 1. Créez un déploiement avec les paramètres suivants :
     - **Paramètres de base** :
         - **Point de terminaison** : Nouvelle
-        - **Nom du point de terminaison** : `brochure-endpoint`
-        - **Nom du déploiement** : brochure-endpoint-1
+        - **Nom du point de terminaison** : *Utilisez le nom de point de terminaison unique par défaut*
+        - **Nom du déploiement** : *Utilisez le nom de point de terminaison de déploiement par défaut*
         - **Machine virtuelle** : Standard_DS3_v2
         - **Nombre d’instances** : 3
         - **Collecte des données d’inférence** : Sélectionné
@@ -239,5 +239,4 @@ Utilisez toutes vos ressources possibles pour créer votre source de données et
 
 Pour éviter des coûts Azure inutiles et une utilisation non nécessaire des ressources, vous devez supprimer les ressources que vous avez déployées dans cet exercice.
 
-1. Dans Azure AI Studio, affichez la page **Build**. Sélectionnez ensuite le projet que vous avez créé dans cet exercice et utilisez le bouton **Supprimer le projet** pour le supprimer. La suppression de tous les composants peut prendre quelques minutes.
-1. Si vous avez terminé d’explorer Azure AI Studio, revenez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous si nécessaire en utilisant vos informations d’identification Azure. Supprimez ensuite le groupe de ressources que vous avez créé pour vos ressources Recherche Azure AI et Azure AI.
+1. Si vous avez terminé d’explorer Azure AI Studio, revenez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous si nécessaire en utilisant vos informations d’identification Azure. Supprimez ensuite les ressources dans le groupe de ressources où vous avez provisionné vos ressources Recherche Azure AI et Azure AI.
