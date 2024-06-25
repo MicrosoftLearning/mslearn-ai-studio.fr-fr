@@ -44,12 +44,12 @@ Votre solution de copilote va intégrer des données personnalisées dans un flu
 Vous êtes maintenant prêt à créer un projet Azure AI Studio et les ressources Azure AI pour le prendre en charge.
 
 1. Dans un navigateur web, ouvrez [Azure AI Studio](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
-1. Dans la page **Générer**, sélectionnez **+ Nouveau projet**. Puis dans l’Assistant **Démarrage**, créez un projet avec les paramètres suivants :
+1. Dans la page **Accueil** d’Azure AI Studio, sélectionnez **+ Nouveau projet**. Dans l’Assistant **Créer un projet**, créez ensuite un projet avec les paramètres suivants :
 
     - **Nom du projet** : *Un nom unique pour votre projet*
-    - **Hub AI** : *Créez une ressource avec les paramètres suivants :*
+    - **Hub** : *Créez une ressource avec les paramètres suivants :*
 
-        - **Nom du hub IA** : *Un nom unique*
+        - **Hub name** : *Un nom unique*
         - **Abonnement Azure** : *Votre abonnement Azure*
         - **Groupe de ressources** : *Sélectionner le groupe de ressources contenant votre ressource Recherche Azure AI*
         - **Emplacement** : *La même localisation que votre ressource Recherche Azure AI*
@@ -66,14 +66,14 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
 - Un modèle qui peut générer des réponses en langage naturel aux questions en fonction de vos données.
 
 1. Dans votre projet d’Azure AI Studio, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
-1. Créez un déploiement (en utilisant un **point de terminaison en temps réel**) du modèle **text-embedding-ada-002** avec les paramètres suivants :
+1. Créez un déploiement du modèle **text-embedding-ada-002** avec les paramètres suivants :
 
     - **Nom du déploiement **: `text-embedding-ada-002`
     - **Version du modèle** : *Par défaut*
     - **Options avancées** :
         - **Filtre de contenu** : *Par défaut*
         - **Limitation du débit en jetons par minute** : `5K`
-1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo** avec le nom `gpt-35-turbo` du déploiement.
+1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo-16k** avec le nom de déploiement `gpt-35-turbo-16k`.
 
     > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
@@ -86,7 +86,8 @@ Les données de votre copilote sont constituées d’un ensemble de brochures de
 1. Sélectionnez **+ Nouvelles données**.
 1. Dans l’Assistant **Ajouter vos données**, développez le menu déroulant pour sélectionner **Charger des fichiers/dossiers**.
 1. Sélectionnez **Charger un dossier**, puis sélectionnez le dossier **brochures**.
-1. Définissez le nom des données sur **brochures**.
+1. Définissez le nom des données sur `brochures`.
+1. Attendez que le dossier soit chargé et notez qu’il contient plusieurs fichiers .pdf.
 
 ## Créer un index pour vos données
 
@@ -95,29 +96,28 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 1. Dans Azure AI Studio, dans votre projet, dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Index**.
 1. Ajoutez un nouvel index avec les paramètres suivants :
     - **Données sources** :
-        - **Source de données** : Utiliser des données de projet existantes
+        - **Source de données** : Données dans Azure AI Studio
             - *Sélectionnez la source de données **brochures***
-    - **Stockage de l’index** :
-        - *Sélectionnez la connexion **AzureAISearch** à votre ressource Recherche Azure AI*
+    - **Paramètres d’index** :
+        - **Sélectionnez Service Recherche Azure AI** : *Sélectionnez la connexion **AzureAISearch** à votre ressource Recherche Azure AI*
+        - **index_name** : `brochures-index`
+        - **Machine virtuelle** : Sélection automatique
     - **Paramètres de recherche** :
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
-        - **Ressource Azure OpenAI** : Default_AzureOpenAI
-        - *Confirmer qu’un modèle d’incorporation va être déployé si ce n’est pas déjà le cas*
-    - **Paramètres d’index** :
-        - **Nom de l’index** : brochures-index
-        - **Machine virtuelle** : Sélection automatique
+        - **Sélectionnez un modèle d’incorporation** : *Sélectionnez la ressource Azure OpenAI par défaut pour votre hub.*
+        
 1. Attendez que le processus d'indexation soit terminé, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
-    - Mettez à jour Recherche Azure AI avec le nouvel index.
+    - Créez l’index Recherche Azure AI.
     - Inscrivez la ressource d’index.
 
 ## Tester l’index
 
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
-1. Dans le volet de navigation de gauche, sous **Outils**, sélectionnez la page **Playground**.
-1. Dans la page Playground, dans le panneau Options, vérifiez que votre modèle de déploiement **gpt-35-turbo** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
+1. Dans le volet de navigation de gauche, sous **Terrain de jeu de projet**, sélectionnez la page **Conversation**.
+1. Dans la page Conversation, dans le volet Options, vérifiez que votre modèle de déploiement **gpt-35-turbo-16k** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le panneau Configuration, sélectionnez l’onglet **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
 1. Une fois l’index ajouté et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
@@ -141,7 +141,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
     - Créez des variantes d’invite en ajoutant un message système et en structurant l’historique de la conversation.
     - Soumettre l’invite à un modèle de langage pour générer une réponse en langage naturel.
 
-1. Dans la liste **Runtime**, sélectionnez **Démarrer** pour démarrer le runtime automatique.
+1. Utilisez le bouton **Démarrer la session de calcul** pour démarrer le calcul d’exécution du flux.
 
     Attendez le démarrage du runtime. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
 
@@ -153,22 +153,22 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
 1. Dans la section **Sorties**, vérifiez que la sortie inclut :
 
-    - **chat_output** avec la valeur `${chat_with_context.output}`
+    - **chat_output** avec la valeur ${chat_with_context.output}
 
 1. Dans la section **modify_query_with_history**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
 
-    - **Connection** : `Default_AzureOpenAI`
-    - **Api** : `chat`
-    - **deployment_name** : `gpt-35-turbo`
-    - **response_format** : `{"type":"text"}`
+    - **Connexion** : *La ressource Azure OpenAI par défaut pour votre hub IA*
+    - **Api**: conversation
+    - **deployment_name** : gpt-35-turbo-16k
+    - **response_format** : {"type":"text"}
 
 1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
 
     - **mlindex_content** : *Sélectionnez le champ vide pour ouvrir le volet Générer*
         - **index_type** : Index inscrit
         - **mlindex_asset_id** : brochures-index : 1
-    - **requêtes** : `${modify_query_with_history.output}`
-    - **query_type** : `Hybrid (vector + keyword)`
+    - **requêtes**: ${modify_query_with_history.output}
+    - **query_type** : Hybride (vecteur + mot clé)
     - **top_k** : 2
 
 1. Dans la section **generate_prompt_context**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
@@ -185,7 +185,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
     - **Connexion** : Default_AzureOpenAI
     - **Api** : Conversation instantanée
-    - **deployment_name** : gpt-35-turbo
+    - **deployment_name** : gpt-35-turbo-16k
     - **response_format** : {"type":"text"}
 
     Vérifiez ensuite que les **entrées** pour cet outil incluent les paramètres suivants :
@@ -204,12 +204,14 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Studio, ce 
 
 Maintenant que vous disposez d’un flux opérationnel qui utilise vos données indexées, vous pouvez le déployer en tant que service pour être consommé par une application copilote.
 
+> **Remarque** : Selon la région et la charge du centre de données, les déploiements peuvent parfois prendre un certain temps. N’hésitez pas à passer à la section défi ci-dessous pendant le déploiement ou ignorez le test de votre déploiement si vous manquez de temps.
+
 1. Dans la barre d’outils, sélectionnez **Déployer**.
 1. Créez un déploiement avec les paramètres suivants :
     - **Paramètres de base** :
         - **Point de terminaison** : Nouvelle
-        - **Nom du point de terminaison** : `brochure-endpoint`
-        - **Nom du déploiement** : brochure-endpoint-1
+        - **Nom du point de terminaison** : *Utilisez le nom de point de terminaison unique par défaut*
+        - **Nom du déploiement** : *Utilisez le nom de point de terminaison de déploiement par défaut*
         - **Machine virtuelle** : Standard_DS3_v2
         - **Nombre d’instances** : 3
         - **Collecte des données d’inférence** : Sélectionné
@@ -237,5 +239,4 @@ Utilisez toutes vos ressources possibles pour créer votre source de données et
 
 Pour éviter des coûts Azure inutiles et une utilisation non nécessaire des ressources, vous devez supprimer les ressources que vous avez déployées dans cet exercice.
 
-1. Dans Azure AI Studio, affichez la page **Build**. Sélectionnez ensuite le projet que vous avez créé dans cet exercice et utilisez le bouton **Supprimer le projet** pour le supprimer. La suppression de tous les composants peut prendre quelques minutes.
-1. Si vous avez terminé d’explorer Azure AI Studio, revenez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous si nécessaire en utilisant vos informations d’identification Azure. Supprimez ensuite le groupe de ressources que vous avez créé pour vos ressources Recherche Azure AI et Azure AI.
+1. Si vous avez terminé d’explorer Azure AI Studio, revenez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous si nécessaire en utilisant vos informations d’identification Azure. Supprimez ensuite les ressources dans le groupe de ressources où vous avez provisionné vos ressources Recherche Azure AI et Azure AI.
