@@ -1,8 +1,3 @@
----
-lab:
-  title: Créer un copilote personnalisé qui utilise vos propres données
----
-
 # Créer un copilote personnalisé qui utilise vos propres données
 
 La génération augmentée e récupération (RAG, Retrieval Augmented Generation) est une technique utilisée pour créer des applications qui intègrent des données provenant de sources de données personnalisées dans une invite pour un modèle d’IA générative. RAG est un modèle couramment utilisé pour développer des *copilotes* personnalisés, qui sont des applications basées sur la conversation utilisant un modèle de langage pour interpréter les entrées et générer des réponses appropriées.
