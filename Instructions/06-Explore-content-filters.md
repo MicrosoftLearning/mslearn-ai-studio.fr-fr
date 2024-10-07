@@ -17,7 +17,7 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
 
 1. Dans un navigateur web, ouvrez [https://ai.azure.com](https://ai.azure.com) et connectez-vous à l’aide de vos informations d’identification Azure.
 
-1. Dans la section Gestion, sélectionnez Tous les hubs, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
+1. Dans la section Gestion, sélectionnez Toutes les ressources, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
@@ -50,7 +50,7 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
 
 Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet dans votre hub Azure AI.
 
-1. Dans Azure AI Studio, sur la page **Build**, sélectionnez **+ Nouveau projet**. Ensuite, dans l’Assistant **Création d’un projet**, créez un projet avec les paramètres suivants :
+1. Dans Azure AI Studio, sur la page **Vue d’ensemble du hub**, sélectionnez **+ Nouveau projet**. Ensuite, dans l’Assistant **Création d’un projet**, créez un projet avec les paramètres suivants :
 
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub** : *Votre hub AI*
@@ -82,7 +82,7 @@ Vous êtes maintenant prêt à déployer un modèle à utiliser via **Azure AI S
 
 Des filtres de contenu sont appliqués aux invites et aux réponses afin d’éviter tout langage potentiellement préjudiciable ou offensant.
 
-1. Sur la page **Générer**, sélectionnez **Filtres de contenu** dans la barre de navigation de gauche, puis sélectionnez **+ Créer un filtre de contenu**.
+1. Sous **Composants** dans la barre de navigation de gauche, sélectionnez **Filtres de contenu**, puis sélectionnez **+ Créer un filtre de contenu**.
 
 1. Sous l’onglet **Informations de base**, fournissez les informations suivantes : 
     - **Nom** : *Un nom unique pour votre filtre de contenu*
@@ -117,7 +117,7 @@ Des filtres de contenu sont appliqués aux invites et aux réponses afin d’év
 
 Examinons le comportement du modèle dans le cadre d’une interaction conversationnelle.
 
-1. Accédez au **Playground** dans le volet gauche.
+1. Accédez au **Terrain de jeu de projet** dans le volet gauche.
 
 1. Dans le mode **Conversation**, entrez l’invite suivante dans la section **Session de conversation**.
 

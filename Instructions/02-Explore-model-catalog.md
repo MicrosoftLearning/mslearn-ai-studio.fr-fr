@@ -15,7 +15,7 @@ Cet exercice prend environ **25** minutes.
 
 Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger des projets. Vous pouvez créer cette ressource lors de la création d’un projet ou bien l’approvisionner à l’avance (c’est ce que nous allons faire dans cet exercice).
 
-1. Dans la section **Gestion**, sélectionnez **Tous les hubs**, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
+1. Dans la section **Gestion**, sélectionnez **Toutes les ressources**, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
