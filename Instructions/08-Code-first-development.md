@@ -51,13 +51,13 @@ L’étape suivante consiste à connecter votre environnement de développement 
 
 1. Tout d’abord, vérifiez que la [dernière version](https://github.com/Azure/azure-dev/releases/tag/azure-dev-cli_1.9.3) d’Azure Developer CLI est installée.
     ```bash
-        azd version
+    azd version
     ```
 
 1. Ensuite, connectez-vous à votre compte Azure à partir du terminal VS Code.
 
     ```bash
-        azd auth login 
+    azd auth login 
     ```
 
 ## Approvisionner des ressources Azure pour votre projet
@@ -67,7 +67,7 @@ Une fois connecté, vous êtes prêt à approvisionner les ressources Azure pour
 1. Approvisionnez *et déployez* votre application IA à l’aide d’azd.
 
     ```bash
-        azd up
+    azd up
     ```
 
 1. Les invites suivantes doivent s’afficher. Répondez à l’aide des instructions ci-dessous :
@@ -144,7 +144,7 @@ Pour vérifier que le copilote déployé fonctionne, utilisez la fonctionnalité
 1. Pour le moment, testez le déploiement de copilote avec l’**entrée** de test suivante :
 
     ```bash
-      {"question": "tell me about your hiking shoes", "customerId": "2", "chat_history": []}
+    {"question": "tell me about your hiking shoes", "customerId": "2", "chat_history": []}
     ```
 
 Vous devriez obtenir une réponse JSON valide dans le composant de sortie, comme indiqué.
@@ -193,13 +193,13 @@ La commande **azd up** approvisionne et déploie l’application sur Azure ; el
 1. Vérifiez que les **outils Promptflow** sont installés dans votre environnement de développement.
 
     ```bash
-        pf version
+    pf version
     ```
 
 1. Utilisez l’outil de **test de flux pf** pour tester l’application de flux flexible **contoso_chat** localement, avec l’exemple de question ci-dessous. Faites attention à la syntaxe de la commande pour transmettre les entrées :
 
     ```bash
-        pf flow test --flow ./contoso_chat --inputs question="tell me about your jackets" customerId="3" chat_history=[]
+    pf flow test --flow ./contoso_chat --inputs question="tell me about your jackets" customerId="3" chat_history=[]
     ```
 
 La réponse doit ressembler à ceci :
@@ -211,7 +211,7 @@ La réponse doit ressembler à ceci :
 1. Vous pouvez suivre les détails de votre exécution avec l’indicateur `--ui` , comme indiqué ci-dessous.
 
     ```bash
-        pf flow test --flow ./contoso_chat --inputs question="tell me about your jackets" customerId="3" chat_history=[] --ui
+    pf flow test --flow ./contoso_chat --inputs question="tell me about your jackets" customerId="3" chat_history=[] --ui
     ```
 
 Cette commande doit afficher une **vue de suivi** dans votre navigateur (dans un nouvel onglet), sous forme d’un tableau comportant des informations détaillées sur cette exécution de test, notamment l’utilisation de la latence et des jetons.
@@ -316,7 +316,7 @@ Remplacez le jeu de données de test utilisé pour exécuter le pipeline d’év
 Ce projet utilise des modèles et des services (par exemple, Recherche Azure AI) qui peuvent entraîner des coûts non négligeables à long terme. Une fois l’exploration de ce modèle Azure AI AZD terminée, supprimez les ressources créées afin d’éviter des coûts Azure superflus. Pour ce faire, exécutez la commande suivante dans le terminal VS Code :
 
 ```bash
-    azd down
+azd down
 ```
 
 Non seulement cela annule les étapes ayant servi à approvisionner et à déployer l’application, mais cela permet également de *supprimer définitivement* les ressources qui auraient pu être conservées dans un état de « suppression réversible », impactant ainsi votre capacité à réutiliser les noms de ressources ou à récupérer le quota de modèles. **Cette commande vous demandera de confirmer ces actions pendant l’arrêt. Veillez donc à répondre correctement**.
