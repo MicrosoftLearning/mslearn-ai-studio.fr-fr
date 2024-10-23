@@ -18,22 +18,12 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
 1. Dans la section **Gestion**, sélectionnez **Toutes les ressources**, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
-    - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
-    - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - Australie Est
-        - Est du Canada
-        - USA Est
-        - USA Est 2
-        - France Centre
-        - Japon Est
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse Nord
-        - Sud du Royaume-Uni
-    - **Connecter Azure AI Services ou Azure OpenAI** : *Sélectionnez ce paramètre pour créer un service IA ou utilisez un service existant*
+    - **Groupe de ressources** : *Un nouveau groupe de ressources*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un locataire avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
 
     Une fois le hub Azure AI créé, il doit être similaire à l’image suivante :
 
@@ -94,12 +84,13 @@ Commençons par déployer un modèle à partir du catalogue de modèles. Cette o
 
 1. Accédez à la page **Catalogue de modèles** dans la section **Prise en main**, à l’aide du menu de gauche.
 1. Recherchez et déployez le modèle `gpt-35-turbo`, préparé par Azure AI, avec les paramètres suivants :
-    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, indiquant qu’il s’agit d’un modèle GPT-3.5*
-    - **Version du modèle** : *Sélectionnez la version par défaut*
+    - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
-    - **Ressource Azure OpenAI connectée** : *Sélectionnez la connexion par défaut qui a été créée lors de la création de votre hub*
+    - **Version du modèle** : *Sélectionnez la version par défaut*
+    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
-    - **Filtre de contenu** : valeur par défaut
+    - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
 
 ### Déployer un modèle via la page Déploiements
 
@@ -108,12 +99,13 @@ Si vous savez déjà quel modèle vous souhaitez déployer, vous pouvez le faire
 1. Accédez à la page **Déploiements** dans la section **Composants**, à l’aide du menu de gauche.
 1. Dans le panneau **Déploiements de modèles**, créez un déploiement avec les paramètres suivants :
     - **Modèle** : gpt-4
-    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, indiquant qu’il s’agit d’un modèle GPT-4*
-    - **Version du modèle** : *Sélectionnez la version par défaut*
+    - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
-    - **Ressource Azure OpenAI connectée** : *Sélectionnez la connexion par défaut qui a été créée lors de la création de votre hub*
+    - **Version du modèle** : *Sélectionnez la version par défaut*
+    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
-    - **Filtre de contenu** : valeur par défaut
+    - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
 
     > **Remarque** : vous avez peut-être remarqué que certains modèles comportent les benchmarks de modèle, mais ce n’est pas une option dans votre catalogue de modèles. La disponibilité des modèles dépend de l’emplacement. Votre emplacement est affiché au niveau du hub d’IA, vous pouvez y utiliser l’**assistant Emplacement** pour spécifier le modèle que vous souhaitez déployer afin d’obtenir la liste des emplacements dans lesquels vous pouvez le déployer.
 
@@ -132,11 +124,11 @@ Maintenant que nous avons deux modèles à comparer, examinons leur comportement
    You are an AI travel assistant that helps people plan their trips. Your objective is to offer support for travel-related inquiries, such as visa requirements, weather forecasts, local attractions, and cultural norms.
    ```
 
-1. Sélectionnez **Appliquer les modifications** et **Effacer la conversation**.
+1. Sélectionnez **Enregistrer** et **Effacer la conversation**.
 1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la nouvelle réponse. Elle devrait être très différente de la réponse que vous avez reçue précédemment. La réponse est maintenant adaptée au contexte de voyages.
 1. Poursuivez la conversation en demandant : `I'm planning a trip to London, what can I do there?` Le copilote affichera de nombreuses informations liées aux voyages. Vous souhaiterez peut-être améliorer davantage la qualité de cette réponse. Par exemple, afin qu’elle soit plus succincte.
 1. Mettez à jour le message système en ajoutant `Answer with a maximum of two sentences.` à la fin du message. Appliquez la modification, effacez la conversation et procédez à un nouveau test en demandant : `I'm planning a trip to London, what can I do there?` Vous voudrez peut-être également que votre copilote continue la conversation au lieu de simplement répondre à la question.
-1. Mettez à jour le message système en ajoutant `End your answer with a follow-up question.` à la fin du message. Appliquez la modification, effacez la conversation et testez à nouveau la conversation en demandant : `I'm planning a trip to London, what can I do there?`
+1. Mettez à jour le message système en ajoutant `End your answer with a follow-up question.` à la fin du message. Appliquez la modification, effacez la conversation, puis testez à nouveau la conversation en demandant : `I'm planning a trip to London, what can I do there?`
 1. Remplacez votre **Déploiement** par votre modèle GPT-4 et répétez toutes les étapes de cette section. Vous devriez observer des différences entre les réponses des deux modèles.
 1. Enfin, testez les deux modèles avec la requête `Who is the prime minister of the UK?`. Avec cette question, le niveau de performance dépend du fondement (la capacité à fournir des réponses factuellement exactes) des modèles. Les performances correspondent-elles aux conclusions des benchmarks de modèle ?
 
