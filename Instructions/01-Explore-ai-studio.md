@@ -23,26 +23,19 @@ Commençons par explorer Azure AI Studio.
 
 Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger des projets. Vous pouvez créer cette ressource lors de la création d’un projet ou bien l’approvisionner à l’avance (c’est ce que nous allons faire dans cet exercice).
 
-1. Dans la section **Gestion**, sélectionnez **Tous les hubs**, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
+1. Dans la section **Gestion**, sélectionnez **Toutes les ressources**, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
-    - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - Australie Est
-        - Est du Canada
-        - USA Est
-        - USA Est 2
-        - France Centre
-        - Japon Est
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse Nord
-        - Sud du Royaume-Uni
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : *Sélectionnez ce paramètre pour créer un service IA ou utilisez un service existant*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un locataire avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
+1. Sélectionnez **Suivant** et passez en revue votre configuration.
+1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
+   
     Une fois le hub Azure AI créé, il doit être similaire à l’image suivante :
 
     ![Capture d’écran des détails d’un hub Azure AI dans Azure AI Studio.](./media/azure-ai-resource.png)
@@ -76,16 +69,17 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
 Vous pouvez utiliser un projet pour créer des solutions IA complexes basées sur des modèles IA génératifs. Une exploration complète de toutes les options de développement disponibles dans Azure AI Studio dépasse l’étendue de cet exercice, mais nous allons explorer des fonctions de base que vous pouvez utiliser pour travailler avec des modèles dans un projet.
 
 1. Dans le volet de gauche de votre projet, dans la section **Composants**, sélectionnez la page **Déploiements**.
-1. Sur la page **Déploiements**, sous l’onglet **Déploiements de modèles**, sélectionnez **+ Créer un déploiement**.
+1. Sur la page **Déploiements**, dans l’onglet **Déploiements de modèles**, sélectionnez **+ Déployer un modèle**.
 1. Recherchez le modèle **gpt-35-turbo** dans la liste, sélectionnez et confirmez.
 1. Déployez le modèle avec les paramètres suivants :
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
-    - **Version du modèle** : *Sélectionnez la version par défaut*
     - **Type de déploiement** : Standard
-    - **Ressource Azure OpenAI connectée** : *Sélectionnez la connexion par défaut qui a été créée lors de la création de votre hub*
+    - **Version du modèle** : *Sélectionnez la version par défaut*
+    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
-    - **Filtre de contenu** : valeur par défaut
-
+    - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
+      
     > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
 1. Une fois le modèle déployé, sur la page de vue d’ensemble du déploiement, sélectionnez **Ouvrir dans le terrain de jeu**.

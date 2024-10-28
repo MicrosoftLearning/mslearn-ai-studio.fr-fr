@@ -15,30 +15,18 @@ Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI 
 
 1. Dans un navigateur web, ouvrez [https://ai.azure.com](https://ai.azure.com) et connectez-vous à l’aide de vos informations d’identification Azure.
 1. Sélectionnez la page **Accueil**, puis sélectionnez **+ Nouveau projet**.
-1. Dans l’Assistant **Créer un projet**, créez ensuite un projet avec les paramètres suivants :
-    - **Nom du projet** : *Un nom unique pour votre projet*
-    - **Hub** : *Créer un hub avec les paramètres suivants :*
-        - **Hub name** : *Un nom unique*
-        - **Abonnement** : *votre abonnement Azure*
-        - **Groupe de ressources** : *Un nouveau groupe de ressources*
-        - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - Australie Est
-        - Est du Canada
-        - USA Est
-        - USA Est 2
-        - France Centre
-        - Japon Est
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse Nord
-        - Sud du Royaume-Uni
+1. Dans l’Assistant **Créer un projet**, donnez un nom unique à votre projet, puis sélectionnez **Personnaliser** et définissez les paramètres suivants :
+    - **Hub name** : *Un nom unique*
+    - **Abonnement** : *votre abonnement Azure*
+    - **Groupe de ressources** : *Un nouveau groupe de ressources*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
 
-1. Examinez votre configuration et créez votre projet.
-1. Attendez que votre projet soit créé.
+1. Sélectionnez **Suivant** et passez en revue votre configuration.
+1. Sélectionnez **Créer un projet** et patientez jusqu’à ce que l’opération se termine.
 
 ## Déployer un modèle GPT
 
@@ -47,11 +35,12 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
 1. Dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
 1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants :
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
-    - **Version du modèle** : *Sélectionnez la version par défaut*
     - **Type de déploiement** : Standard
-    - **Ressource Azure OpenAI connectée** : *Sélectionner la connexion par défaut*
+    - **Version du modèle** : *Sélectionnez la version par défaut*
+    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
-    - **Filtre de contenu** : valeur par défaut
+    - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
 1. Attendez que le modèle soit déployé. Lorsque le déploiement est prêt, sélectionnez **Ouvrir dans le terrain de jeu**.
 1. Remplacez le **message système** par les éléments suivants :
 
@@ -73,7 +62,7 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
    5. Encourage the user to ask follow-up questions for further assistance.
    ```
 
-1. Sélectionnez **Appliquer les modifications**.
+1. Cliquez sur **Enregistrer**.
 1. Dans la fenêtre de conversation, entrez la requête : `What can you do?` pour vérifier que le modèle de langage se comporte comme prévu.
 
 Maintenant que vous avez déployé un modèle avec un message système mis à jour, vous pouvez évaluer le modèle.
@@ -118,7 +107,7 @@ Vous pouvez examiner manuellement les réponses de modèle en fonction des donn�
 1. Sélectionnez **Exécuter** dans la barre supérieure pour générer des sorties pour toutes les questions que vous avez ajoutées en tant qu’entrées.
 1. Vous pouvez maintenant examiner manuellement les sorties de chaque question en sélectionnant l’icône vers le haut ou vers le bas en bas d’une réponse. Évaluez chaque réponse, en vous assurant d’inclure au moins un pouce vers le haut et un pouce vers le bas dans vos évaluations.
 1. Sélectionnez **Enregistrer les résultats** dans la barre supérieure. Entrez `manual_evaluation_results` comme nom pour les résultats.
-1. À l’aide du menu de gauche, accédez à **Évaluations**.
+1. À l’aide du menu de gauche, accédez à **Évaluation**.
 1. Sélectionnez l’onglet **Évaluations manuelles** pour trouver les évaluations manuelles que vous venez d’enregistrer. Notez que vous pouvez explorer vos évaluations manuelles créées précédemment, continuer là où vous êtes parti et enregistrer les évaluations mises à jour.
 
 ## Évaluer votre copilote avec des métriques intégrées
@@ -130,7 +119,7 @@ Après avoir créé un copilote avec un flux de conversation, vous pouvez évalu
         <p>Si vous recevez une erreur d’autorisations lorsque vous créez un flux d’invite, essayez ce qui suit :</p>
         <ul>
           <li>Dans le Portail Azure, sélectionnez la ressource AI Services.</li>
-          <li>Sur la page IAM, sous l’onglet Identité, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
+          <li>Dans l’onglet Identité, dans Gestion des ressources, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
           <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez une attribution de rôle <em>Lecteur des données blob du stockage</em>.</li>
           <li>Sous <strong>Attribuer l’accès à</strong>, sélectionnez <strong>Identité managée</strong>, <strong>+ Sélectionner des membres</strong>, puis sélectionnez <strong>Toutes les identités managées affectées par le système</strong>.</li>
           <li>À l’aide de Passer en revue et attribuer, enregistrez les nouveaux paramètres et procédez à nouveau à l’étape précédente.</li>
@@ -140,11 +129,13 @@ Après avoir créé un copilote avec un flux de conversation, vous pouvez évalu
     - **Que voulez-vous évaluer ?**  : jeu de données
     - **Nom d’évaluation**: *Entrez un nom unique*
     - **Quel type de scénario évaluez-vous ?**: Question et réponse sans contexte
+    - Sélectionnez **Suivant**.
     - **Sélectionner les données que vous souhaitez évaluer**: Ajouter votre jeu de données
         - Téléchargez le fichier JSONL https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl et chargez-le dans l’interface utilisateur.
     - **Sélectionner des métriques**: Cohérence, fluidité
     - **Connexion** : *Votre connexion à vos services IA*
     - **nom de déploiement/Modèle** : *Votre modèle GPT-3.5 déployé*
+1. Sélectionnez **Suivant**, puis passez en revue vos données et soumettez la nouvelle évaluation.
 1. Attendez que les évaluations soient terminées, vous devrez peut-être actualiser.
 1. Sélectionnez l’exécution d’évaluation que vous venez de créer.
 1. Explorez le **tableau de bord métriques** et **résultat détaillé des métriques**.
