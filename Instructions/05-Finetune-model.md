@@ -75,9 +75,9 @@ Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester 
 1. Dans la fenêtre de conversation, entrez la requête `What can you do?` Notez que même si vous n’avez pas spécifié de message système indiquant à votre modèle de répondre aux questions liées aux voyages, le modèle sait déjà ce sur quoi il doit se concentrer.
 1. Essayez avec une autre requête, comme `Where should I go on holiday for my 30th birthday?`
 
-## Supprimer les ressources Azure
+## Nettoyage
 
-Une fois l’exploration d’Azure AI Studio terminée, supprimez les ressources créées afin d’éviter des coûts Azure superflus.
+Lorsque vous avez terminé d’explorer Azure AI Studio, supprimez les ressources que vous avez créées afin d’éviter des coûts Azure inutiles.
 
 - Accédez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com`.
 - Dans le portail Azure, dans la page **Accueil**, sélectionnez **Groupes de ressources**.
