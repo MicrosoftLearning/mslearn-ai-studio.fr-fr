@@ -18,24 +18,14 @@ Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI 
 1. Dans l’Assistant **Créer un projet**, créez ensuite un projet avec les paramètres suivants :
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub** : *Créer un hub avec les paramètres suivants :*
-        - **Hub name** : *Un nom unique*
-        - **Abonnement** : *votre abonnement Azure*
-        - **Groupe de ressources** : *Un nouveau groupe de ressources*
-        - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - Australie Est
-        - Est du Canada
-        - USA Est
-        - USA Est 2
-        - France Centre
-        - Japon Est
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse Nord
-        - Sud du Royaume-Uni
+    - **Hub name** : *Un nom unique*
+    - **Abonnement** : *votre abonnement Azure*
+    - **Groupe de ressources** : *Un nouveau groupe de ressources*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
 
 1. Examinez votre configuration et créez votre projet.
 1. Attendez que votre projet soit créé.
@@ -47,11 +37,12 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
 1. Dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
 1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants :
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
-    - **Version du modèle** : *Sélectionnez la version par défaut*
     - **Type de déploiement** : Standard
-    - **Ressource Azure OpenAI connectée** : *Sélectionner la connexion par défaut*
+    - **Version du modèle** : *Sélectionnez la version par défaut*
+    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
-    - **Filtre de contenu** : valeur par défaut
+    - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
 1. Attendez que le modèle soit déployé. Lorsque le déploiement est prêt, sélectionnez **Ouvrir dans le terrain de jeu**.
 1. Dans la fenêtre de conversation, entrez la requête `What can you do?`.
 
@@ -77,7 +68,7 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
    5. Encourage the user to ask follow-up questions for further assistance.
    ```
 
-1. Sélectionnez **Appliquer les modifications**.
+1. Cliquez sur **Enregistrer**.
 1. Dans la fenêtre de conversation, entrez la même requête que précédemment : `What can you do?` Notez la modification en réponse.
 
 Maintenant que vous avez joué avec le message système pour le modèle GPT déployé, vous pouvez personnaliser davantage l'application en travaillant avec le flux d'invite.

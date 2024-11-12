@@ -20,7 +20,7 @@ Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI 
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Un nouveau groupe de ressources*
     - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
+    - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
@@ -33,7 +33,7 @@ Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI 
 Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abord déployer un modèle. Azure AI Studio vous permet de déployer des modèles OpenAI à utiliser dans vos flux.
 
 1. Dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
-1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants :
+1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’Assistant **Déployer le modèle** :
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
     - **Version du modèle** : *Sélectionnez la version par défaut*
@@ -42,7 +42,7 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
 1. Attendez que le modèle soit déployé. Lorsque le déploiement est prêt, sélectionnez **Ouvrir dans le terrain de jeu**.
-1. Remplacez le **message système** par les éléments suivants :
+1. Dans la zone de texte **Donner des instructions et du contexte au modèle**, remplacez le contenu par ce qui suit :
 
    ```
    **Objective**: Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent.
@@ -128,14 +128,17 @@ Après avoir créé un copilote avec un flux de conversation, vous pouvez évalu
 
     - **Que voulez-vous évaluer ?**  : jeu de données
     - **Nom d’évaluation**: *Entrez un nom unique*
-    - **Quel type de scénario évaluez-vous ?**: Question et réponse sans contexte
     - Sélectionnez **Suivant**.
     - **Sélectionner les données que vous souhaitez évaluer**: Ajouter votre jeu de données
         - Téléchargez le fichier JSONL https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl et chargez-le dans l’interface utilisateur.
+    - Sélectionnez **Suivant**.
     - **Sélectionner des métriques**: Cohérence, fluidité
     - **Connexion** : *Votre connexion à vos services IA*
     - **nom de déploiement/Modèle** : *Votre modèle GPT-3.5 déployé*
-1. Sélectionnez **Suivant**, puis passez en revue vos données et soumettez la nouvelle évaluation.
+    - **requête** : sélectionner une **question** comme source de données
+    - **réponse** : sélectionner la **réponse** comme source de données
+      
+1. Sélectionnez **Suivant**, puis passez en revue vos données et **soumettez** la nouvelle évaluation.
 1. Attendez que les évaluations soient terminées, vous devrez peut-être actualiser.
 1. Sélectionnez l’exécution d’évaluation que vous venez de créer.
 1. Explorez le **tableau de bord métriques** et **résultat détaillé des métriques**.

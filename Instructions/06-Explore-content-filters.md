@@ -20,22 +20,12 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
 1. Dans la section Gestion, sélectionnez Toutes les ressources, puis **+ Nouveau hub**. Créez un hub avec les paramètres suivants :
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
-    - **Groupe de ressources** : *Créer un groupe de ressources avec un nom unique ou sélectionner un groupe de ressources existant*
-    - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - Australie Est
-        - Est du Canada
-        - USA Est
-        - USA Est 2
-        - France Centre
-        - Japon Est
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse Nord
-        - Sud du Royaume-Uni
-    - **Connecter Azure AI Services ou Azure OpenAI** : sélectionner ce paramètre pour créer un service IA ou utiliser un service existant
+    - **Groupe de ressources** : *Un nouveau groupe de ressources*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un locataire avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
 
 1. Sélectionnez **Créer**. La création du premier hub peut prendre quelques minutes. Lors de la création du hub, les ressources IA suivantes seront également créées pour vous : 
     - Services IA
@@ -68,14 +58,14 @@ Vous êtes maintenant prêt à déployer un modèle à utiliser via **Azure AI S
 1. Dans Azure AI Studio, créez un déploiement avec les paramètres suivants :
 
     - **Modèle** : gpt-35-turbo
+    - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
-    - **Ressource Azure OpenAI connectée** : *Votre connexion Azure OpenAI*
-    - **Version du modèle** : mise à jour automatique avec la valeur par défaut
-    - **Nom du déploiement** : *nom unique de votre choix*
-    - **Options avancées**
-        - **Filtre de contenu** : valeur par défaut
-        - **Limitation du débit en jetons par minute** : 5 000
-
+    - **Version du modèle** : *Sélectionnez la version par défaut*
+    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
+    - **Limite de débit en jetons par minute (en milliers)** : 5 000
+    - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
+      
 > **Remarque** : Chaque modèle Azure AI Studio est optimisé pour un équilibre différent entre les fonctionnalités et les performances. Dans cet exercice, nous utiliserons le modèle **GPT 3.5 Turbo**, qui est très performant pour la génération de langage naturel et les scénarios de conversation.
 
 ## Explorer les filtres de contenu
