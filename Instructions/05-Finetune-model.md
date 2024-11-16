@@ -5,9 +5,13 @@ lab:
 
 # Ajuster un modèle de langage pour la saisie semi-automatique de la conversation dans Azure AI Studio
 
-Dans cet exercice, vous allez ajuster un modèle de langage avec Azure AI Studio afin de l’utiliser pour un scénario de copilote personnalisé.
+Lorsque vous souhaitez qu’un modèle de langage se comporte d’une certaine façon, vous pouvez utiliser l’ingénierie d’invite pour définir le comportement souhaité. Lorsque vous souhaitez améliorer la cohérence du comportement souhaité, vous pouvez choisir d’ajuster un modèle, en le comparant à votre approche d’ingénierie d’invite pour évaluer la méthode la mieux adaptée à vos besoins.
 
-Cet exercice prend environ **45** minutes.
+Dans cet exercice, vous allez ajuster un modèle de langage avec Azure AI Studio afin de l’utiliser pour un scénario d’application de conversation personnalisée. Vous allez comparer le modèle ajusté à un modèle de base pour déterminer si le modèle ajusté correspond mieux à vos besoins.
+
+Imaginez que vous travaillez pour une agence de voyage et que vous développez une application de conversation pour aider les gens à planifier leurs vacances. L’objectif est de créer une conversation simple et inspirante qui suggère des destinations et des activités. Étant donné que la conversation n’est connectée à aucune source de données, elle ne doit **pas** fournir de recommandations spécifiques pour les hôtels, les vols ou les restaurants afin de garantir la confiance des clients.
+
+Cet exercice prend environ **60** minutes.
 
 ## Créer un hub IA et un projet dans Azure AI Studio
 
@@ -18,27 +22,26 @@ Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI 
 1. Dans l’Assistant **Créer un projet**, créez ensuite un projet avec les paramètres suivants :
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub** : *Créer un hub avec les paramètres suivants :*
-        - **Hub name** : *Un nom unique*
-        - **Abonnement** : *votre abonnement Azure*
-        - **Groupe de ressources** : *Un nouveau groupe de ressources*
-        - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - USA Est 2
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse Nord
-    - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
+    - **Hub name** : *Un nom unique*
+    - **Abonnement** : *votre abonnement Azure*
+    - **Groupe de ressources** : *Un nouveau groupe de ressources*
+    - **Emplacement** : choisissez l’une des régions suivantes : **USA Est2**, **USA Centre Nord**, **Suède Centre**, **Suisse Ouest**\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/en-us/azure/ai-studio/concepts/fine-tuning-overview#azure-openai-models)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur l’[ajustement des régions de modèle](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions#fine-tuning-models)
 
 1. Examinez votre configuration et créez votre projet.
 1. Attendez que votre projet soit créé.
 
 ## Ajuster un modèle GPT-3.5
 
-Avant de pouvoir ajuster un modèle, vous avez besoin d’un jeu de données.
+Étant donné que l’ajustement d’un modèle prend un certain temps, vous commencerez par la tâche d’ajustement. Avant de pouvoir ajuster un modèle, vous avez besoin d’un jeu de données.
 
-1. Enregistrez le jeu de données de démo localement en tant que fichier JSONL : https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-finetune.jsonl
+1. Enregistrez le jeu de données de démo localement en tant que fichier JSONL : [https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-finetune.jsonl](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl)
+
+    > **Remarque** : votre appareil peut par défaut enregistrer le fichier en tant que fichier .txt. Sélectionnez tous les fichiers et supprimez le suffixe .txt pour vous assurer que vous enregistrez le fichier au format JSONL.
+
 1. Accédez à la page **Ajustement** sous la section **Outils**, à l’aide du menu de gauche.
 1. Sélectionnez le bouton pour ajouter un nouveau modèle ajusté, sélectionnez le modèle `gpt-35-turbo`, puis sélectionnez **Confirmer**.
 1. **Ajustez** le modèle à l’aide de la configuration suivante :
@@ -46,19 +49,66 @@ Avant de pouvoir ajuster un modèle, vous avez besoin d’un jeu de données.
     - **Suffixe de modèle** : `ft-travel`
     - **Connexion Azure OpenAI** : *sélectionnez la connexion qui a été créée lors de la création de votre hub*
     - **Données d’apprentissage** : charger des fichiers
+
+    <details>  
+    <summary><b>Conseil de résolution des problèmes</b> : erreur d’autorisations</summary>
+    <p>Si vous recevez une erreur d’autorisations lorsque vous créez un flux d’invite, essayez ce qui suit :</p>
+    <ul>
+        <li>Dans le Portail Azure, sélectionnez la ressource AI Services.</li>
+        <li>Sur la page IAM, sous l’onglet Identité, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
+        <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez une attribution de rôle <em>Lecteur des données blob du stockage</em>.</li>
+        <li>Sous <strong>Attribuer l’accès à</strong>, sélectionnez <strong>Identité managée</strong>, <strong>+ Sélectionner des membres</strong>, puis sélectionnez <strong>Toutes les identités managées affectées par le système</strong>.</li>
+        <li>À l’aide de Passer en revue et attribuer, enregistrez les nouveaux paramètres et procédez à nouveau à l’étape précédente.</li>
+    </ul>
+    </details>
+
     - **Charger fichier** : sélectionnez le fichier JSONL que vous avez téléchargé lors d’une étape précédente.
-
-    > **Conseil** : vous n’avez pas besoin d’attendre que le traitement des données soit terminé pour passer à l’étape suivante.
-
     - **Données de validation** : aucune
     - **Paramètres de tâche** : *conserver les paramètres par défaut*
 1. L’ajustement commence et peut prendre un certain temps.
 
-> **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps. Vérifiez l’avancement régulièrement afin de pouvoir effectuer l’étape suivante.
+> **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps. Vous devrez donc peut-être vérifier l’avancement régulièrement. Vous pouvez déjà continuer avec l’étape suivante pendant que vous attendez.
+
+## Discuter avec un modèle de base
+
+Pendant que vous attendez la fin de la tâche d’ajustement, nous allons discuter avec un modèle GPT 3.5 de base pour évaluer son fonctionnement.
+
+1. Accédez à la page **Déploiements** dans la section **Composants**, à l’aide du menu de gauche.
+1. Sélectionnez le bouton **+ Déployer un modèle**, puis sélectionnez l’option **Déployer le modèle de base**.
+1. Déployez un modèle `gpt-35-turbo`, qui est le même type de modèle que celui que vous avez utilisé lors de l’ajustement.
+1. Une fois le déploiement terminé, accédez à la page **Conversation** sous la section **Terrain de jeu du projet**.
+1. Sélectionnez votre modèle de base déployé `gpt-35-model` dans le déploiement de l’installation.
+1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la réponse.
+    Elle sera très générique. N’oubliez pas que nous voulons créer une application de conversation qui inspire les gens à voyager.
+1. Mettez à jour le message système avec l’invite suivante :
+    ```md
+    You are an AI assistant that helps people plan their holidays.
+    ```
+1. Sélectionnez **Enregistrer**, puis **Effacer la conversation** et demandez à nouveau `What can you do?` En réponse, l’assistant peut vous indiquer qu’il peut vous aider à réserver des vols, des hôtels et des voitures de location pour votre voyage. Supposons que vous souhaitez éviter ce comportement.
+1. Remettez à jour le message système avec une nouvelle invite :
+
+    ```md
+    You are an AI travel assistant that helps people plan their trips. Your objective is to offer support for travel-related inquiries, such as visa requirements, weather forecasts, local attractions, and cultural norms.
+    You should not provide any hotel, flight, rental car or restaurant recommendations.
+    Ask engaging questions to help someone plan their trip and think about what they want to do on their holiday.
+    ```
+
+1. Sélectionnez **Enregistrer** et **Effacer la conversation**.
+1. Continuez à tester votre application de conversation pour vérifier qu’elle ne fournit aucune information qui ne soit fondée sur des données récupérées. Par exemple, posez les questions suivantes et explorez les réponses du modèle :
+   
+    `Where in Rome should I stay?`
+    
+    `I'm mostly there for the food. Where should I stay to be within walking distance of affordable restaurants?`
+
+    `Give me a list of five bed and breakfasts in Trastevere.`
+
+    Le modèle peut vous fournir une liste d’hôtels, même lorsque vous lui avez demandé de ne pas donner de recommandations d’hôtel. Il s’agit d’un exemple de comportement incohérent. Examinons si le modèle ajusté fonctionne mieux dans ces cas.
+
+1. Accédez à la page **Ajustement** sous **Outils** pour trouver votre tâche d’ajustement et son statut. Si elle est toujours en cours d’exécution, vous pouvez choisir de continuer à évaluer manuellement votre modèle de base déployé. Si elle est terminée, vous pouvez continuer avec la section suivante.
 
 ## Déployer le modèle ajusté
 
-Une fois l’ajustement terminé, vous pouvez déployer le modèle.
+Une fois l’ajustement terminé, vous pouvez déployer le modèle ajusté.
 
 1. Sélectionnez le modèle ajusté. Sélectionnez l’onglet **Métriques** et explorez les métriques ajustées.
 1. Déployez le modèle ajusté avec les paramètres suivants :
@@ -66,14 +116,28 @@ Une fois l’ajustement terminé, vous pouvez déployer le modèle.
     - **Type de déploiement** : Standard
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : valeur par défaut
+1. Attendez que le déploiement soit terminé avant de pouvoir le tester, cela peut prendre un certain temps.
 
 ## Tester le modèle ajusté
 
-Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester comme n’importe quel autre modèle déployé.
+Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester comme votre modèle de base déployé.
 
 1. Une fois le déploiement terminé, accédez au modèle ajusté et sélectionnez **Ouvrir dans le terrain de jeu**.
-1. Dans la fenêtre de conversation, entrez la requête `What can you do?` Notez que même si vous n’avez pas spécifié de message système indiquant à votre modèle de répondre aux questions liées aux voyages, le modèle sait déjà ce sur quoi il doit se concentrer.
-1. Essayez avec une autre requête, comme `Where should I go on holiday for my 30th birthday?`
+1. Mettez à jour le message système avec les instructions suivantes :
+
+    ```md
+    You are an AI travel assistant that helps people plan their trips. Your objective is to offer support for travel-related inquiries, such as visa requirements, weather forecasts, local attractions, and cultural norms.
+    You should not provide any hotel, flight, rental car or restaurant recommendations.
+    Ask engaging questions to help someone plan their trip and think about what they want to do on their holiday.
+    ```
+
+1. Testez votre modèle ajusté pour évaluer si son comportement est plus cohérent maintenant. Par exemple, reposez les questions suivantes et explorez les réponses du modèle :
+   
+    `Where in Rome should I stay?`
+    
+    `I'm mostly there for the food. Where should I stay to be within walking distance of affordable restaurants?`
+
+    `Give me a list of five bed and breakfasts in Trastevere.`
 
 ## Nettoyage
 
