@@ -1,17 +1,17 @@
 ---
 lab:
-  title: "Évaluer les performances de votre copilote personnalisé dans Azure\_AI\_Studio"
+  title: "Évaluer les performances de votre copilote personnalisé dans Azure\_AI\_Foundry"
 ---
 
-# Évaluer les performances de votre copilote personnalisé dans Azure AI Studio
+# Évaluer les performances de votre copilote personnalisé dans Azure AI Foundry
 
-Dans cet exercice, vous allez explorer les évaluations intégrées et personnalisées pour évaluer et comparer les performances de vos applications IA avec Azure AI Studio.
+Dans cet exercice, vous allez explorer les évaluations intégrées et personnalisées pour évaluer et comparer les performances de vos applications IA avec le portail Azure AI Foundry.
 
 Cet exercice prend environ **30** minutes.
 
-## Créer un hub IA et un projet dans Azure AI Studio
+## Créer un hub IA et un projet dans Azure AI Foundry
 
-Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI :
+Vous commencez par créer un projet Azure AI Foundry au sein d’un hub Azure AI :
 
 1. Dans un navigateur web, ouvrez [https://ai.azure.com](https://ai.azure.com) et connectez-vous à l’aide de vos informations d’identification Azure.
 1. Sélectionnez la page **Accueil**, puis sélectionnez **+ Nouveau projet**.
@@ -30,9 +30,10 @@ Vous commencez par créer un projet Azure AI Studio au sein d’un hub Azure AI 
 
 ## Déployer un modèle GPT
 
-Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abord déployer un modèle. Azure AI Studio vous permet de déployer des modèles OpenAI à utiliser dans vos flux.
+Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abord déployer un modèle. Le portail Azure AI Foundry vous permet de déployer des modèles OpenAI à utiliser dans vos flux.
 
-1. Dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
+1. Accédez à la page **Modèles + points de terminaison** dans la section **Mes ressources**, à l’aide du menu de gauche.
+1. Sélectionnez le bouton **+ Déployer un modèle**, puis sélectionnez l’option **Déployer le modèle de base**.
 1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’Assistant **Déployer le modèle** :
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
@@ -62,12 +63,12 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
    5. Encourage the user to ask follow-up questions for further assistance.
    ```
 
-1. Cliquez sur **Enregistrer**.
-1. Dans la fenêtre de conversation, entrez la requête : `What can you do?` pour vérifier que le modèle de langage se comporte comme prévu.
+1. Sélectionnez **Appliquer les modifications**.
+1. Dans la fenêtre de conversation (historique), entrez la requête : `What can you do?` pour vérifier que le modèle de langage se comporte comme prévu.
 
 Maintenant que vous avez déployé un modèle avec un message système mis à jour, vous pouvez évaluer le modèle.
 
-## Évaluer manuellement un modèle de langage dans Azure AI Studio
+## Évaluer manuellement un modèle de langage dans le portail Azure AI Foundry
 
 Vous pouvez examiner manuellement les réponses de modèle en fonction des données de test. L’examen manuel vous permet de tester différentes entrées une à la fois pour évaluer si le modèle s’exécute comme prévu.
 
@@ -112,7 +113,13 @@ Vous pouvez examiner manuellement les réponses de modèle en fonction des donn�
 
 ## Évaluer votre copilote avec des métriques intégrées
 
-Après avoir créé un copilote avec un flux de conversation, vous pouvez évaluer ce flux en effectuant une exécution par lot et en évaluant les performances du flux avec des métriques intégrées.
+Après avoir créé une application de conversation avec un flux d’invite, vous pouvez évaluer ce flux en effectuant une exécution par lot et en évaluant les performances du flux avec des mesures intégrées.
+
+![Diagramme de la construction du jeu de données d’entrée à des fins d’évaluation.](./media/diagram-dataset-evaluation.png)
+
+Pour évaluer un flux de conversation, les requêtes utilisateur et les réponses de conversation sont fournies comme entrée pour une évaluation.
+
+Pour gagner du temps, nous avons créé un jeu de données de sortie par lot pour vous qui contient les résultats de plusieurs entrées traitées par un flux d’invite. Chacun des résultats est stocké dans le jeu de données que vous allez évaluer à l’étape suivante.
 
 1. Sélectionnez l’onglet **Évaluations automatisées** et créez une **nouvelle évaluation** avec les paramètres suivants : <details>  
       <summary><b>Conseil de résolution des problèmes</b> : erreur d’autorisations</summary>
@@ -130,7 +137,7 @@ Après avoir créé un copilote avec un flux de conversation, vous pouvez évalu
     - **Nom d’évaluation**: *Entrez un nom unique*
     - Sélectionnez **Suivant**.
     - **Sélectionner les données que vous souhaitez évaluer**: Ajouter votre jeu de données
-        - Téléchargez le fichier JSONL https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl et chargez-le dans l’interface utilisateur.
+        - Téléchargez le [jeu de données de validation](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl) à l’adresse `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl`, enregistrez-le en tant que fichier JSONL et chargez-le dans l’interface utilisateur.
     - Sélectionnez **Suivant**.
     - **Sélectionner des métriques**: Cohérence, fluidité
     - **Connexion** : *Votre connexion à vos services IA*
@@ -145,7 +152,7 @@ Après avoir créé un copilote avec un flux de conversation, vous pouvez évalu
 
 ## Supprimer les ressources Azure
 
-Une fois l’exploration d’Azure AI Studio terminée, supprimez les ressources créées afin d’éviter des coûts Azure superflus.
+Une fois l’exploration d’Azure AI Foundry terminée, supprimez les ressources créées afin d’éviter des coûts Azure superflus.
 
 - Accédez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com`.
 - Dans le portail Azure, dans la page **Accueil**, sélectionnez **Groupes de ressources**.

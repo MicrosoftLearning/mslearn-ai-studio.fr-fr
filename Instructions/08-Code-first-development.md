@@ -5,7 +5,7 @@ lab:
 
 # Créer un copilote personnalisé à l’aide d’outils de développement orientés code
 
-Dans cet exercice, vous allez cloner et déployer un modèle Azure Developer CLI qui approvisionne et [déploie votre projet IA sur un point de terminaison en ligne](https://learn.microsoft.com/azure/developer/azure-developer-cli/azure-ai-ml-endpoints?WT.mc_id=academic-140829-cacaste) sur Azure AI Studio. Vous l’utiliserez ensuite comme base pour créer votre propre copilote personnalisé avec Azure AI et une expérience orientée code.
+Dans cet exercice, vous allez cloner et déployer un modèle Azure Developer CLI qui approvisionne et [déploie votre projet IA sur un point de terminaison en ligne](https://learn.microsoft.com/azure/developer/azure-developer-cli/azure-ai-ml-endpoints?WT.mc_id=academic-140829-cacaste) sur Azure AI Foundry. Vous l’utiliserez ensuite comme base pour créer votre propre copilote personnalisé avec Azure AI et une expérience orientée code.
 
 Cet exercice prend environ **90** minutes.
 
@@ -21,7 +21,7 @@ Pour effectuer cet exercice, vous avez besoin des éléments suivants :
 
 Pour commencer à utiliser le modèle de projet IA Azure Developer CLI, accédez à la [collection Azure AI Templates with Azure Developer CLI](https://learn.microsoft.com/collections/5pq0uompdgje8d/?WT.mc_id=academic-140829-cacaste). En explorant la collection, vous trouverez plusieurs projets regroupés par technologie et cas d’usage, notamment des exemples de projets multimodaux et multi-agents, des projets de copilote et des exemples intégrant différents frameworks et services Azure.
 
-Pour cet exercice, vous allez vous servir du modèle de projet de **[copilote Contoso Chat Retail avec Azure AI Studio & PromptFlow (Python)](https://aka.ms/contoso-retail-sample)** comme point de départ. Ce modèle de projet est une expérience orientée code qui utilise Prompty et PromptFlow pour créer un copilote personnalisé (IA de conversation) qui peut être intégré au site web de vente au détail (interface utilisateur de conversation) d’une société fictive appelée Contoso Outdoors.
+Pour cet exercice, vous allez vous servir du modèle de projet **[copilote Contoso Chat Retail avec Azure AI Foundry & PromptFlow (Python)](https://aka.ms/contoso-retail-sample)** comme point de départ. Ce modèle de projet est une expérience orientée code qui utilise Prompty et PromptFlow pour créer un copilote personnalisé (IA de conversation) qui peut être intégré au site web de vente au détail (interface utilisateur de conversation) d’une société fictive appelée Contoso Outdoors.
 
 ![Interface utilisateur/expérience utilisateur de conversation Contoso](./media/contoso_outdoors_website.png)
 
@@ -83,7 +83,7 @@ Une fois connecté, vous êtes prêt à approvisionner les ressources Azure pour
 L’approvisionnement et le déploiement d’une application IA à l’aide d’azd peuvent prendre 10 minutes ou plus. Vous pouvez suivre la progression en :
 
 - Affichant la progression détaillée dans le [Portail Azure](https://ms.portal.azure.com/). Recherchez le groupe de ressources correspondant au nom de votre environnement. Sélectionnez l’option **Déploiements** dans la barre latérale, puis surveillez l’état du déploiement des ressources en cours de création.
-- Visitant le portail [Azure AI Studio](https://ai.azure.com). Connectez-vous à l'aide de votre compte Azure. Recherchez le hub d’IA correspondant au groupe de ressources ci-dessus (vous devrez peut-être actualiser quelques fois). Sélectionnez le projet IA, puis sélectionnez **Déploiements** dans la barre latérale pour suivre l’état des modèles et des déploiements d’applications de conversation.
+- Visitez le [portail Azure AI Foundry](https://ai.azure.com). Connectez-vous à l'aide de votre compte Azure. Recherchez le hub d’IA correspondant au groupe de ressources ci-dessus (vous devrez peut-être actualiser quelques fois). Sélectionnez le projet IA, puis sélectionnez **Déploiements** dans la barre latérale pour suivre l’état des modèles et des déploiements d’applications de conversation.
 
 Examinons comment valider l’approvisionnement des ressources à l’aide du Portail Azure.
 
@@ -92,13 +92,13 @@ Examinons comment valider l’approvisionnement des ressources à l’aide du Po
 
     ![Vue d’ensemble du groupe de ressources dans le Portail Azure](./media/azure-portal-resource-group.png)
 
-1. Commençons par vérifier que les ressources clés d’[architecture Azure AI Studio](https://learn.microsoft.com/azure/ai-studio/concepts/architecture) ont été créées. L’illustration ci-dessous décrit en détails ce que chacune de ces ressources fournit à notre application d’IA.
+1. Commençons par vérifier que les ressources clés d’[architecture Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/architecture) ont été créées. L’illustration ci-dessous décrit en détails ce que chacune de ces ressources fournit à notre application d’IA.
 
     - **Hub Azure AI** : ressource Azure de niveau supérieur. Fournit un environnement de collaboration pour les équipes.
     - **Projet Azure AI** : enfant du hub. Regroupe les composants d’application pour l’orchestration et la personnalisation.
     - **Services Azure AI** : gère vos points de terminaison de modèle.
 
-    ![Architecture d’Azure AI Studio](./media/resource-provider-connected-resources.svg)
+    ![Architecture Azure AI Foundry](./media/resource-provider-connected-resources.svg)
 
 1. Ensuite, vérifions que nous avons approvisionné deux ressources clés pour implémenter notre modèle de conception de [génération augmentée de récupération](https://learn.microsoft.com/azure/ai-studio/concepts/retrieval-augmented-generation) en stockant le produit et les données client pour la récupération pilotée par des requêtes.
 
@@ -115,11 +115,11 @@ Examinons comment valider l’approvisionnement des ressources à l’aide du Po
 
 1. Enfin, détail d’importance, vous remarquerez une nouvelle ressource de type **Déploiement en ligne Machine Learning**. Il s’agit de la ressource correspondant à notre point de terminaison de projet Azure AI déployé (pour le copilote de conversation).
 
-## Valider le déploiement à l’aide d’Azure AI Studio
+## Valider le déploiement à l’aide d’Azure AI Foundry
 
-Le Portail Azure vous aide à gérer les ressources Azure sous-jacentes pour votre projet. Le portail Azure AI Studio vous permet de *créer et de gérer* les projets d’IA eux-mêmes, de bout en bout, de la sélection du modèle au déploiement d’applications. La commande `azd up` doit avoir permis de terminer l’intégralité du processus, de l’approvisionnement des modèles requis au déploiement et à l’hébergement du point de terminaison de l’API copilote à des fins d’utilisation. Vérifions que l’application fonctionne comme prévu.
+Le Portail Azure vous aide à gérer les ressources Azure sous-jacentes pour votre projet. Le portail Azure AI Foundry vous permet de *créer et de gérer* les projets IA eux-mêmes, de bout en bout, de la sélection du modèle au déploiement d’applications. La commande `azd up` doit avoir permis de terminer l’intégralité du processus, de l’approvisionnement des modèles requis au déploiement et à l’hébergement du point de terminaison de l’API copilote à des fins d’utilisation. Vérifions que l’application fonctionne comme prévu.
 
-1. Visitez la page **Gérer** dans [Azure AI Studio](https://ai.azure.com/manage) pour afficher tous les hubs Azure AI dans votre abonnement.
+1. Visitez la page **Gérer** dans le [portail Azure AI Foundry](https://ai.azure.com/manage) pour afficher tous les hubs Azure AI dans votre abonnement.
 1. Sélectionnez le hub de votre groupe de ressources pour afficher tous les projets Azure AI qu’il contient.
 1. Sélectionnez le projet IA par défaut dans le hub, puis sélectionnez **Déploiements** dans le menu de gauche.
 1. Sous **Déploiements de modèles**, vérifiez que vous disposez d’une connexion Azure OpenAI comprenant les déploiements suivants :
@@ -131,13 +131,13 @@ Le Portail Azure vous aide à gérer les ressources Azure sous-jacentes pour vot
 
     ![Déploiements de projets Azure AI](./media/azure-ai-project-deployment.png)
 
-## Tester le déploiement (dans le cloud) à l’aide d’Azure AI Studio
+## Tester le déploiement (dans le cloud) à l’aide d’Azure AI Foundry
 
-Pour vérifier que le copilote déployé fonctionne, utilisez la fonctionnalité de terrain de jeu de test intégrée dans Azure AI Studio.
+Pour vérifier que le copilote déployé fonctionne, utilisez la fonctionnalité de terrain de jeu de test intégrée dans le portail Azure AI Foundry.
 
 ![Détails du déploiement de conversation](./media/chat-deployment-details.png)
 
-1. Dans Azure AI Studio, dans la liste **Déploiements d’applications**, sélectionnez le déploiement **chat-deployment-xxxx**.
+1. Dans le portail Azure AI Foundry, dans la liste **Déploiements d’applications**, sélectionnez le déploiement **chat-deployment-xxxx**.
 1. Dans la page **Détails** de l’application de conversation déployée, sélectionnez l’onglet **Test** pour obtenir l’interface de test.
 
     Notez que l’onglet **Détails** comporte également les valeurs `Target URI` et `Key` que vous pouvez utiliser avec d’autres applications front-end (par exemple, le site web Contoso Outdoor) afin d’intégrer cet assistant de conversation pour des interactions utilisateur réelles.

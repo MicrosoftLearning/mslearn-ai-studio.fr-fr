@@ -1,9 +1,9 @@
 ---
 lab:
-  title: "Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER) dans Azure\_AI\_Studio"
+  title: "Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER) dans le portail Azure\_AI\_Foundry"
 ---
 
-# Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER) dans Azure AI Studio
+# Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER) dans le portail Azure AI Foundry
 
 L’extraction d’informations précieuses à partir d’un texte est appelée reconnaissance d’entité nommée (NER). Les entités sont des mots clés qui vous intéressent dans un texte donné.
 
@@ -11,39 +11,41 @@ L’extraction d’informations précieuses à partir d’un texte est appelée 
 
 Les grands modèles de langage (LLM) peuvent être utilisés pour effectuer une NER. Pour créer une application prenant un texte en tant qu’entités d’entrée et de sortie, vous pouvez créer un flux qui utilise un nœud LLM avec un flux d’invite.
 
-Dans cet exercice, vous allez utiliser un flux d’invite d’Azure AI Studio pour créer une application LLM qui attend un type d’entité et du texte comme entrée. Il appelle un modèle GPT d’Azure OpenAI au travers d’un nœud LLM pour extraire l’entité requise du texte donné, nettoie le résultat et génère les entités extraites.
+Dans cet exercice, vous allez utiliser un flux d’invite du portail Azure AI Foundry pour créer une application LLM qui attend un type d’entité et du texte comme entrée. Il appelle un modèle GPT d’Azure OpenAI au travers d’un nœud LLM pour extraire l’entité requise du texte donné, nettoie le résultat et génère les entités extraites.
 
 ![Vue d’ensemble de l’exercice](./media/get-started-lab.png)
 
-Vous devez d’abord créer un projet dans Azure AI Studio pour créer les ressources Azure nécessaires. Ensuite, vous pouvez déployer un modèle GPT avec le service Azure OpenAI. Une fois les ressources nécessaires disponibles, vous pouvez créer le flux. Enfin, vous exécutez le flux pour le tester et afficher l’exemple de sortie.
+Vous devez d’abord créer un projet dans Azure AI Foundry pour créer les ressources Azure nécessaires. Ensuite, vous pouvez déployer un modèle GPT avec le service Azure OpenAI. Une fois les ressources nécessaires disponibles, vous pouvez créer le flux. Enfin, vous exécutez le flux pour le tester et afficher l’exemple de sortie.
 
-## Créer un projet dans Azure AI Studio
+## Créer un projet dans le portail Azure AI Foundry
 
-Vous commencez par créer un projet Azure AI Studio et un hub Azure AI pour le prendre en charge.
+Commencez par créer un projet de portail Azure AI Foundry et un hub Azure AI pour le prendre en charge.
 
 1. Dans un navigateur web, ouvrez [https://ai.azure.com](https://ai.azure.com) et connectez-vous à l’aide de vos informations d’identification Azure.
-1. Sélectionnez la page **Accueil**, puis sélectionnez **+ Nouveau projet**.
-1. Dans l’Assistant **Créer un projet**, créez ensuite un projet avec les paramètres suivants :
+1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
+1. Dans l’assistant **Créer un projet**, vous pouvez voir toutes les ressources Azure qui seront créées automatiquement avec votre projet, ou vous pouvez personnaliser les paramètres suivants en sélectionnant **Personnaliser** avant de sélectionner **Créer** :
+
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub** : *Créer un hub avec les paramètres suivants :*
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Un nouveau groupe de ressources*
     - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *Créer une connexion*
+    - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
 
-1. Examinez votre configuration et créez votre projet.
-1. Attendez que votre projet soit créé.
+1. Si vous avez sélectionné **Personnaliser**, sélectionnez **Suivant** et passez en revue votre configuration.
+1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 
 ## Déployer un modèle GPT
 
-Pour utiliser un modèle LLM dans un flux d’invite, vous devez d’abord le déployer. Azure AI Studio vous permet de déployer des modèles OpenAI à utiliser dans vos flux.
+Pour utiliser un modèle LLM dans un flux d’invite, vous devez d’abord le déployer. Le portail Azure AI Foundry vous permet de déployer des modèles OpenAI à utiliser dans vos flux.
 
-1. Dans le volet de navigation de gauche, sous **Composants**, sélectionnez la page **Déploiements**.
-1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants :
+1. Dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
+1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiment :
+   
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
     - **Version du modèle** : *Sélectionnez la version par défaut*
@@ -52,9 +54,9 @@ Pour utiliser un modèle LLM dans un flux d’invite, vous devez d’abord le d�
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
    
-Votre modèle LLM étant déployé, vous pouvez créer un flux qui l’appelle dans Azure AI Studio.
+Votre modèle de langage étant déployé, vous pouvez créer un flux qui l’appelle dans le portail Azure AI Foundry.
 
-## Créer et exécuter un flux dans Azure AI Studio
+## Créer et exécuter un flux dans le portail Azure AI Foundry
 
 Maintenant que vous disposez de toutes les ressources nécessaires approvisionnées, vous pouvez créer un flux.
 
@@ -62,7 +64,7 @@ Maintenant que vous disposez de toutes les ressources nécessaires approvisionn�
 
 Pour créer un flux avec un modèle, vous pouvez sélectionner l’un des types de flux à développer.
 
-1. Dans le volet de navigation de gauche, sous **Outils**, sélectionnez **Flux d’invite**.
+1. Dans le volet de navigation de gauche, dans **Créer et personnaliser**, sélectionnez **Flux d’invite**.
 1. Sélectionnez **+ Créer** pour créer un flux.
 1. Créez un **flux Standard** et entrez `entity-recognition` comme nom du dossier.
 
@@ -71,7 +73,7 @@ Pour créer un flux avec un modèle, vous pouvez sélectionner l’un des types 
     <p>Si vous recevez une erreur d’autorisations lorsque vous créez un flux d’invite, essayez ce qui suit :</p>
     <ul>
         <li>Dans le Portail Azure, sélectionnez la ressource AI Services.</li>
-        <li>Sur la page IAM, sous l’onglet Identité, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
+        <li>Dans l’onglet Identité, dans Gestion des ressources, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
         <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez une attribution de rôle <em>Lecteur des données blob du stockage</em>.</li>
         <li>Sous <strong>Attribuer l’accès à</strong>, sélectionnez <strong>Identité managée</strong>, <strong>+ Sélectionner des membres</strong>, puis sélectionnez <strong>Toutes les identités managées affectées par le système</strong>.</li>
         <li>À l’aide de Passer en revue et attribuer, enregistrez les nouveaux paramètres et procédez à nouveau à l’étape précédente.</li>
@@ -108,12 +110,11 @@ Le flux Standard contient déjà un nœud qui utilise l’outil LLM. Vous pouvez
 
 1. Accédez au **nœud LLM** nommé `joke`.
 1. Remplacez le nom par `NER_LLM`
-1. Pour la **Connexion**, sélectionnez la connexion `Default_AzureOpenAI`.
+1. Pour **Connexion**, sélectionnez la connexion qui a été créée pour vous lorsque vous avez créé le hub IA.
 1. Pour la valeur **deployment_name**, sélectionnez le modèle `gpt-35-turbo` que vous avez déployé.
 1. Remplacez le champ de l’invite par le code suivant :
 
    ```yml
-   {% raw %}
    system:
 
    Your task is to find entities of a certain type from the given text content.
@@ -126,7 +127,6 @@ Le flux Standard contient déjà un nœud qui utilise l’outil LLM. Vous pouvez
    Entity type: {{entity_type}}
    Text content: {{text}}
    Entities:
-   {% endraw %}
    ```
 
 1. Sélectionnez **Valider et analyser l’entrée**.
@@ -180,7 +180,7 @@ Votre flux étant à présent développé, vous pouvez l’exécuter pour le tes
 
 ## Supprimer les ressources Azure
 
-Une fois l’exploration d’Azure AI Studio terminée, supprimez les ressources créées afin d’éviter des coûts Azure superflus.
+Une fois l’exploration d’Azure AI Foundry terminée, supprimez les ressources créées afin d’éviter des coûts Azure superflus.
 
 - Accédez au [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com`.
 - Dans le portail Azure, dans la page **Accueil**, sélectionnez **Groupes de ressources**.
