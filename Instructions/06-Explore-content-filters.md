@@ -1,13 +1,13 @@
 ---
 lab:
-  title: "Explorer les filtres de contenu pour empêcher la production de contenu dangereux dans Azure\_AI\_Studio"
+  title: "Explorer les filtres de contenu pour empêcher la production de contenu dangereux dans Azure\_AI\_Foundry"
 ---
 
-# Explorer les filtres de contenu pour empêcher la production de contenu dangereux dans Azure AI Studio
+# Explorer les filtres de contenu pour empêcher la production de contenu dangereux dans Azure AI Foundry
 
-Azure AI Studio inclut des filtres de contenu par défaut pour contribuer à garantir que les invites et les compléments potentiellement nuisibles sont identifiés et supprimés lors des interactions avec le service. Vous pouvez également demander l’autorisation de définir des filtres de contenu personnalisés pour vos besoins spécifiques afin de vous assurer que vos modèles de déploiements appliquent les principes d’IA responsable appropriés pour votre scénario d’IA générative. Lorsque l’on travaille avec des modèles d’IA générative, le filtrage du contenu est l’un des éléments d’une approche efficace de l’IA responsable.
+Azure AI Foundry inclut des filtres de contenu par défaut pour contribuer à garantir que les invites et les saisies semi-automatiques potentiellement dangereuses sont identifiées et supprimées lors des interactions avec le service. Vous pouvez également demander l’autorisation de définir des filtres de contenu personnalisés pour vos besoins spécifiques afin de vous assurer que vos modèles de déploiements appliquent les principes d’IA responsable appropriés pour votre scénario d’IA générative. Lorsque l’on travaille avec des modèles d’IA générative, le filtrage du contenu est l’un des éléments d’une approche efficace de l’IA responsable.
 
-Dans cet exercice, vous explorerez l’impact des filtres de contenu par défaut dans Azure AI Studio.
+Dans cet exercice, vous allez explorerer l’impact des filtres de contenu par défaut dans Azure AI Foundry.
 
 Cet exercice prend environ **25** minutes.
 
@@ -34,28 +34,28 @@ Vous avez besoin d’un hub Azure AI dans votre abonnement Azure pour héberger 
 
 1. Une fois le hub Azure AI créé, il doit être similaire à l’image suivante :
 
-    ![Capture d’écran des détails d’un hub Azure AI dans Azure AI Studio.](./media/azure-ai-overview.png)
+    ![Capture d’écran des détails d’un hub Azure AI dans le portail Azure AI Foundry.](./media/azure-ai-overview.png)
 
-## Créer un projet
+## Création d’un projet
 
 Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet dans votre hub Azure AI.
 
-1. Dans Azure AI Studio, sur la page **Vue d’ensemble du hub**, sélectionnez **+ Nouveau projet**. Ensuite, dans l’Assistant **Création d’un projet**, créez un projet avec les paramètres suivants :
+1. Dans le portail Azure AI Foundry, sur la page **Vue d’ensemble du hub**, sélectionnez **+ Nouveau projet**. Ensuite, dans l’Assistant **Création d’un projet**, créez un projet avec les paramètres suivants :
 
     - **Nom du projet** : *Un nom unique pour votre projet*
     - **Hub** : *Votre hub AI*
 
 1. Attendez que votre projet soit créé. Quand il est prêt, il doit ressembler à l’image suivante :
 
-    ![Capture d’écran de la page Détails du projet dans Azure AI Studio.](./media/azure-ai-project.png)
+    ![Capture d’écran de la page Détails du projet dans le portail Azure AI Foundry.](./media/azure-ai-project.png)
 
 1. Affichez les pages du volet de gauche, en développant chaque section, et notez les tâches que vous pouvez effectuer et les ressources que vous pouvez gérer dans un projet.
 
 ## Déployer un modèle
 
-Vous êtes maintenant prêt à déployer un modèle à utiliser via **Azure AI Studio**. Lorsque le modèle est déployé, vous l’utilisez pour générer du contenu en langage naturel.
+Vous pouvez désormais déployer un modèle à utiliser par le biais du **portail Azure AI Foundry**. Lorsque le modèle est déployé, vous l’utilisez pour générer du contenu en langage naturel.
 
-1. Dans Azure AI Studio, créez un déploiement avec les paramètres suivants :
+1. Dans le portail Azure AI Foundry, créez un déploiement avec les paramètres suivants :
 
     - **Modèle** : gpt-35-turbo
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
@@ -66,7 +66,7 @@ Vous êtes maintenant prêt à déployer un modèle à utiliser via **Azure AI S
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
       
-> **Remarque** : Chaque modèle Azure AI Studio est optimisé pour un équilibre différent entre les fonctionnalités et les performances. Dans cet exercice, nous utiliserons le modèle **GPT 3.5 Turbo**, qui est très performant pour la génération de langage naturel et les scénarios de conversation.
+> **Remarque** : chaque modèle Azure AI Foundry est optimisé pour un équilibre différent entre les fonctionnalités et les performances. Dans cet exercice, nous utiliserons le modèle **GPT 3.5 Turbo**, qui est très performant pour la génération de langage naturel et les scénarios de conversation.
 
 ## Explorer les filtres de contenu
 
@@ -101,7 +101,7 @@ Des filtres de contenu sont appliqués aux invites et aux réponses afin d’év
 
 1. Revenez à la page des déploiements et notez que votre déploiement fait désormais référence au filtre de contenu personnalisé que vous avez créé.
 
-    ![Capture d’écran de la page de déploiement dans Azure AI Studio.](./media/azure-ai-deployment.png)
+    ![Capture d’écran de la page de déploiement dans le portail Azure AI Foundry.](./media/azure-ai-deployment.png)
 
 ## Générer des résultats en langage naturel
 
@@ -131,9 +131,9 @@ Examinons le comportement du modèle dans le cadre d’une interaction conversat
    Describe characteristics of Scottish people.
     ```
 
-8. Observez le résultat, qui devrait indiquer que la demande d’être raciste et désobligeant n’est pas prise en compte.érogative n’est pas prise en charge. Les filtres de contenu par défaut d’Azure AI Studio permettent d’éviter les contenus offensants.
+8. Observez le résultat, qui devrait indiquer que la demande d’être raciste et désobligeant n’est pas prise en compte.érogative n’est pas prise en charge. Les filtres de contenu par défaut dans le portail Azure AI Foundry permettent d’éviter les contenus offensants.
 
-> **Conseil** : Pour plus de détails sur les catégories et les niveaux de sévérité utilisés dans les filtres de contenu, consultez [Filtrage de contenu](https://learn.microsoft.com/azure/ai-studio/concepts/content-filtering) dans la documentation du service Azure AI Studio.
+> **Conseil** : pour plus de détails sur les catégories et les niveaux de sévérité utilisés dans les filtres de contenu, consultez [Filtrage de contenu](https://learn.microsoft.com/azure/ai-studio/concepts/content-filtering) dans la documentation du service dans le portail Azure AI Foundry.
 
 ## Nettoyage
 
