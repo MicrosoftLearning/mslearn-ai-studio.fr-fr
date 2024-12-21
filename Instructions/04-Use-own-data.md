@@ -1,11 +1,11 @@
 ---
 lab:
-  title: Créer un copilote personnalisé qui utilise vos propres données
+  title: Créer une application d’IA générative qui utilise vos propres données
 ---
 
-# Créer un copilote personnalisé qui utilise vos propres données
+# Créer une application d’IA générative qui utilise vos propres données
 
-La génération augmentée e récupération (RAG, Retrieval Augmented Generation) est une technique utilisée pour créer des applications qui intègrent des données provenant de sources de données personnalisées dans une invite pour un modèle d’IA générative. RAG est un modèle couramment utilisé pour développer des *copilotes* personnalisés, qui sont des applications basées sur la conversation utilisant un modèle de langage pour interpréter les entrées et générer des réponses appropriées.
+La génération augmentée e récupération (RAG, Retrieval Augmented Generation) est une technique utilisée pour créer des applications qui intègrent des données provenant de sources de données personnalisées dans une invite pour un modèle d’IA générative. La RAG est un modèle couramment utilisé pour développer des applications d’IA générative, qui sont des applications basées sur la conversation instantanée utilisant un modèle de langage pour interpréter les entrées et générer des réponses appropriées.
 
 Dans cet exercice, vous allez utiliser le portail Azure AI Foundry pour intégrer des données personnalisées dans un flux d’invite d’IA générative.
 
@@ -13,7 +13,7 @@ Cet exercice prend environ **45** minutes.
 
 ## Créer une ressource Recherche Azure AI
 
-Votre solution de copilote va intégrer des données personnalisées dans un flux d’invite. Pour prendre en charge cette intégration, vous aurez besoin d’une ressource Recherche Azure AI avec laquelle indexer vos données.
+Votre solution d’application d’IA générative va intégrer des données personnalisées dans un flux d’invite. Pour prendre en charge cette intégration, vous aurez besoin d’une ressource Recherche Azure AI avec laquelle indexer vos données.
 
 1. Dans un navigateur web, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 1. Dans la page d’accueil, sélectionnez **+ Créer une ressource**, puis recherchez `Azure AI Search`. Créez ensuite une ressource Recherche Azure AI avec les paramètres suivants :
@@ -240,7 +240,7 @@ Maintenant que vous disposez d’un flux opérationnel qui utilise vos données 
 
 ## Défi 
 
-Maintenant que vous avez découvert comment intégrer vos propres données dans un copilote créé avec le portail Azure AI Foundry, allons plus loin !
+Maintenant que vous avez découvert comment intégrer vos propres données dans une application d’IA générative créée avec le portail Azure AI Foundry, allons plus loin.
 
 Essayez d’ajouter une nouvelle source de données via le portail Azure AI Foundry, indexez-la et intégrez les données indexées dans un flux d’invite. Voici quelques jeux de données que vous pouvez essayer :
 

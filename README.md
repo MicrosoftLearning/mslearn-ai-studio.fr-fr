@@ -1,6 +1,6 @@
-# Exercices Azure AI Studio
+# Exercices Azure AI Foundry
 
-Ce référentiel contient des instructions et des ressources pour prendre en charge des exercices pratiques dans les [modules Microsoft Learn sur Azure AI Studio](https://docs.microsoft.com/training).
+Ce référentiel contient les instructions et les ressources nécessaires pour les exercices pratiques dans les [modules Microsoft Learn sur le portail Azure AI Foundry](https://learn.microsoft.com/en-us/training/paths/create-custom-copilots-ai-studio/).
 
 ## Signaler un problème
 
