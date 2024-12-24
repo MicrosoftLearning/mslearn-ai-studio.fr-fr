@@ -4,7 +4,7 @@ permalink: index.html
 layout: home
 ---
 
-# Développer des applications d’IA générative avec Azure AI Studio
+# Développer des applications d’IA générative sur le portail Azure AI Foundry
 
 Les exercices suivants sont conçus pour vous fournir une expérience d’apprentissage pratique qui va vous permettre d’explorer les modèles et techniques courants que les développeurs utilisent pour créer des applications d’IA génératives telles que des « copilotes » basés sur la conversation, et d’apprendre à implémenter ces modèles à l’aide d’Azure AI Services , notamment Azure OpenAI Service et Azure AI Studio.
 
