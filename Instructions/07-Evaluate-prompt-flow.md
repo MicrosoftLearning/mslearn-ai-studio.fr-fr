@@ -42,6 +42,9 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
+
+    > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
+
 1. Attendez que le modèle soit déployé. Lorsque le déploiement est prêt, sélectionnez **Ouvrir dans le terrain de jeu**.
 1. Dans la zone de texte **Donner des instructions et du contexte au modèle**, remplacez le contenu par ce qui suit :
 
@@ -142,8 +145,8 @@ Pour gagner du temps, nous avons créé un jeu de données de sortie par lot pou
     - **Sélectionner des métriques**: Cohérence, fluidité
     - **Connexion** : *Votre connexion à vos services IA*
     - **nom de déploiement/Modèle** : *Votre modèle GPT-3.5 déployé*
-    - **requête** : sélectionner une **question** comme source de données
-    - **réponse** : sélectionner la **réponse** comme source de données
+    - **Requête** : sélectionne la **requête** comme source de données.
+    - **Réponse** : sélectionne la **réponse** comme source de données.
       
 1. Sélectionnez **Suivant**, puis passez en revue vos données et **soumettez** la nouvelle évaluation.
 1. Attendez que les évaluations soient terminées, vous devrez peut-être actualiser.

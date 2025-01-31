@@ -55,9 +55,9 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
     <p>Si vous recevez une erreur d’autorisation, essayez ce qui suit pour résoudre le problème :</p>
     <ul>
         <li>Dans le Portail Azure, sélectionnez la ressource AI Services.</li>
-        <li>Sur la page IAM, sous l’onglet Identité, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
-        <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez une attribution de rôle <em>Lecteur des données blob du stockage</em>.</li>
-        <li>Sous <strong>Attribuer l’accès à</strong>, sélectionnez <strong>Identité managée</strong>, <strong>+ Sélectionner des membres</strong>, puis sélectionnez <strong>Toutes les identités managées affectées par le système</strong>.</li>
+        <li>Dans l’onglet Identité, dans Gestion des ressources, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
+        <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez l’attribution de rôle <em>Propriétaire des données blob du stockage</em>.</li>
+        <li>Sous <strong>Attribuer l’accès à</strong>, choisissez <strong>Identité managée</strong>, <strong>+Sélectionner des membres</strong>, <strong>Toutes les identités managées attribuées par le système</strong>, puis sélectionnez votre ressource Azure AI Services.</li>
         <li>À l’aide de Passer en revue et attribuer, enregistrez les nouveaux paramètres et procédez à nouveau à l’étape précédente.</li>
     </ul>
     </details>
@@ -76,6 +76,9 @@ Pendant que vous attendez la fin de la tâche d’ajustement, nous allons discut
 1. Accédez à la page **Modèles + points de terminaison** dans la section **Mes ressources**, à l’aide du menu de gauche.
 1. Sélectionnez le bouton **+ Déployer un modèle**, puis sélectionnez l’option **Déployer le modèle de base**.
 1. Déployez un modèle `gpt-35-turbo`, qui est le même type de modèle que celui que vous avez utilisé lors de l’ajustement.
+
+> **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
+
 1. Lorsque le déploiement est terminé, sélectionnez le bouton **Ouvrir dans le terrain de jeu**.
 1. Vérifiez que votre modèle de base déployé `gpt-35-model` est sélectionné dans le volet d’installation.
 1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la réponse.
@@ -122,7 +125,7 @@ Une fois l’ajustement terminé, vous pouvez déployer le modèle ajusté.
 
 ## Tester le modèle ajusté
 
-Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester comme votre modèle de base déployé.
+Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester de la même manière que votre modèle de base déployé.
 
 1. Une fois le déploiement terminé, accédez au modèle ajusté et sélectionnez **Ouvrir dans le terrain de jeu**.
 1. Mettez à jour le message système avec les instructions suivantes :

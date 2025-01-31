@@ -15,6 +15,8 @@ Cet exercice prend environ **25** minutes.
 
 Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet et un hub Azure AI.
 
+1. Dans un navigateur web, ouvrez le [portail Azure Ai Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
+
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**. Dans l’assistant **Créer un projet**, vous pouvez voir toutes les ressources Azure qui seront créées automatiquement avec votre projet, ou vous pouvez personnaliser les paramètres suivants en sélectionnant **Personnaliser** avant de sélectionner **Créer** :
 
     - **Hub name** : *Un nom unique*
@@ -27,7 +29,7 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
     > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
 
 1. Si vous avez sélectionné **Personnaliser**, sélectionnez **Suivant** et passez en revue votre configuration.
-1. 1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
+1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
    
     Une fois le projet et le hub Azure AI créés, ils devraient ressembler à l’image suivante :
 
@@ -50,16 +52,16 @@ Imaginez que vous souhaitez créer un copilote personnalisé pour servir d’ass
 
 Votre copilote devra pour cela fournir des informations justes, et par conséquent fondées. Facteur secondaire mais important également, les réponses du copilote devront être faciles à lire et à comprendre. Par conséquent, vous avez besoin d’un modèle cohérent et doté d’une bonne fluidité.
 
-1. Dans le portail de projet Azure AI Foundry, accédez à **Benchmarks de modèle** à l’aide du menu de gauche.
-    Sous l’onglet **Benchmarks de qualité**, vous trouverez certains graphiques déjà affichés, comparant différents modèles.
-1. Filtrez les modèles affichés :
-    - **Tâches** : réponses aux questions
-    - **Collections** : Azure OpenAI
-    - **Métriques** : cohérence, fluidité, fondement
-1. Explorez les graphiques résultants et la table de comparaison. Durant votre exploration, vous pouvez essayer de répondre aux questions suivantes :
+1. Dans le portail de projet Azure AI Foundry, accédez au **Catalogue de modèles** à l’aide du menu de gauche.
+    Sur la page du catalogue, sélectionnez **Comparer avec les benchmarks**. Dans la page Benchmarks de modèles, vous pouvez voir un graphique déjà construit pour vous, qui compare différents modèles.
+1. Sélectionnez **+ Modèle à comparer** et ajoutez **gpt-4-32k** et **gpt-4** au graphique de mesures. Dans le menu déroulant **Axe X**, sous **Qualité**, sélectionnez les mesures suivantes et observez chaque graphique obtenu avant de passer au suivant :
+    - Cohérence
+    - Maîtrise
+    - Fondement
+1. Lorsque vous passez en revue les résultats, vous pouvez essayer de répondre aux questions suivantes :
     - Remarquez-vous une différence de performances entre les modèles GPT-3.5 et GPT-4 ?
     - Existe-t-il une différence entre différentes versions du même modèle ?
-    - Comment les variantes 32k diffèrent-elles des modèles de base ?
+    - En quoi les variantes 32k de GPT-4 diffèrent-elles du modèle de base ?
 
 Dans la collection Azure OpenAI, vous pouvez choisir entre les modèles GPT-3.5 et GPT-4. Déployons ces deux modèles et comparons leur efficacité pour votre cas d’usage.
 
@@ -82,6 +84,8 @@ Commençons par déployer un modèle à partir du catalogue de modèles. Cette o
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
 
+    > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
+
 ### Déployer un modèle par le biais de Modèles + points de terminaison
 
 Si vous savez déjà quel modèle vous souhaitez déployer, vous pouvez le faire par le biais de la page **Modèles + points de terminaison**.
@@ -96,8 +100,6 @@ Si vous savez déjà quel modèle vous souhaitez déployer, vous pouvez le faire
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
-
-    > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
 
 ## Tester vos modèles dans le terrain de jeu de conversation
 
