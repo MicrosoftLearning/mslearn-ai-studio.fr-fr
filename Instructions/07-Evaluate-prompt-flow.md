@@ -141,6 +141,9 @@ Pour gagner du temps, nous avons créé un jeu de données de sortie par lot pou
     - Sélectionnez **Suivant**.
     - **Sélectionner les données que vous souhaitez évaluer**: Ajouter votre jeu de données
         - Téléchargez le [jeu de données de validation](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl) à l’adresse `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/main/data/travel-qa.jsonl`, enregistrez-le en tant que fichier JSONL et chargez-le dans l’interface utilisateur.
+
+    > **Remarque** : votre appareil peut par défaut enregistrer le fichier en tant que fichier .txt. Sélectionnez tous les fichiers et supprimez le suffixe .txt pour vous assurer que vous enregistrez le fichier au format JSONL.
+
     - Sélectionnez **Suivant**.
     - **Sélectionner des métriques**: Cohérence, fluidité
     - **Connexion** : *Votre connexion à vos services IA*
