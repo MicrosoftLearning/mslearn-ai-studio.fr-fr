@@ -1,9 +1,10 @@
 ---
 lab:
-  title: "Évaluer les performances de votre copilote personnalisé dans Azure\_AI\_Foundry"
+  title: Évaluer les performances de l’IA générative
+  description: Découvrez comment évaluer les modèles et les flux de conversation pour optimiser les performances de votre application de conversation et sa capacité à répondre de manière appropriée.
 ---
 
-# Évaluer les performances de votre copilote personnalisé dans Azure AI Foundry
+# Évaluer les performances de l’IA générative
 
 Dans cet exercice, vous allez explorer les évaluations intégrées et personnalisées pour évaluer et comparer les performances de vos applications IA avec le portail Azure AI Foundry.
 
@@ -114,7 +115,7 @@ Vous pouvez examiner manuellement les réponses de modèle en fonction des donn�
 1. À l’aide du menu de gauche, accédez à **Évaluation**.
 1. Sélectionnez l’onglet **Évaluations manuelles** pour trouver les évaluations manuelles que vous venez d’enregistrer. Notez que vous pouvez explorer vos évaluations manuelles créées précédemment, continuer là où vous êtes parti et enregistrer les évaluations mises à jour.
 
-## Évaluer votre copilote avec des métriques intégrées
+## Évaluer votre application de conversation avec des mesures intégrées
 
 Après avoir créé une application de conversation avec un flux d’invite, vous pouvez évaluer ce flux en effectuant une exécution par lot et en évaluant les performances du flux avec des mesures intégrées.
 

@@ -1,9 +1,10 @@
 ---
 lab:
-  title: "Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER) dans le portail Azure\_AI\_Foundry"
+  title: Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER)
+  description: "L’IA générative n’est pas seulement destinée aux applications de conversation\_: découvrez comment utiliser le flux d’invite dans un scénario d’analyse de texte dans lequel les entités nommées doivent être extraites du texte."
 ---
 
-# Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER) dans le portail Azure AI Foundry
+# Utiliser un flux d’invite pour la reconnaissance d’entité nommée (NER)
 
 L’extraction d’informations précieuses à partir d’un texte est appelée reconnaissance d’entité nommée (NER). Les entités sont des mots clés qui vous intéressent dans un texte donné.
 
@@ -124,8 +125,10 @@ Le flux Standard contient déjà un nœud qui utilise l’outil LLM. Vous pouvez
 
    user:
    
+   {% raw %}
    Entity type: {{entity_type}}
    Text content: {{text}}
+   {% endraw %}
    Entities:
    ```
 

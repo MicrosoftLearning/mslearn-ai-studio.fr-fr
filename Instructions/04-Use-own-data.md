@@ -1,6 +1,7 @@
 ---
 lab:
   title: Créer une application d’IA générative qui utilise vos propres données
+  description: Découvrez comment utiliser le modèle RAG (génération augmentée de récupération) pour créer une application de conversation qui déclenche des invites à l’aide de vos propres données.
 ---
 
 # Créer une application d’IA générative qui utilise vos propres données
@@ -72,7 +73,9 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
-      
+
+    > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
+
 1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo-16k** avec le nom de déploiement `gpt-35-turbo-16k`.
 
     > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
