@@ -1,11 +1,12 @@
 ---
 lab:
-  title: "Créer des copilotes personnalisés avec un flux d’invite dans le portail Azure\_AI\_Foundry"
+  title: Utiliser un flux d’invite pour gérer la conversation dans une application de conversation
+  description: Découvrez comment utiliser des flux d’invite pour gérer les dialogues conversationnels et vérifier que les invites sont construites et orchestrées pour obtenir de meilleurs résultats.
 ---
 
-# Créer des copilotes personnalisés avec un flux d’invite dans le portail Azure AI Foundry
+# Utiliser un flux d’invite pour gérer la conversation dans une application de conversation
 
-Dans cet exercice, vous allez utiliser le flux d’invite du portail Azure AI Foundry pour créer un copilote personnalisé qui utilise une invite utilisateur et l’historique de conversation instantanée comme entrées, et qui utilise un modèle GPT d’Azure OpenAI pour générer un résultat.
+Dans cet exercice, vous allez utiliser le flux d’invite du portail Azure AI Foundry pour créer une application de conversation personnalisée qui utilise une invite utilisateur et un historique des conversations comme entrées, et qui utilise un modèle GPT d’Azure OpenAI pour générer un résultat.
 
 Cet exercice prend environ **30** minutes.
 

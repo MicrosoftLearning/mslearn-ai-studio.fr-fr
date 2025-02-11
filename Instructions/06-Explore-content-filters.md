@@ -1,9 +1,10 @@
 ---
 lab:
-  title: "Explorer les filtres de contenu pour empêcher la production de contenu dangereux dans Azure\_AI\_Foundry"
+  title: Appliquer les filtres de contenu pour empêcher la production de contenu dangereux
+  description: Découvrez comment appliquer des filtres de contenu qui atténuent la production de contenu potentiellement choquant ou dangereux dans votre application d’IA générative.
 ---
 
-# Explorer les filtres de contenu pour empêcher la production de contenu dangereux dans Azure AI Foundry
+# Appliquer les filtres de contenu pour empêcher la production de contenu dangereux
 
 Azure AI Foundry inclut des filtres de contenu par défaut pour contribuer à garantir que les invites et les saisies semi-automatiques potentiellement dangereuses sont identifiées et supprimées lors des interactions avec le service. Vous pouvez également demander l’autorisation de définir des filtres de contenu personnalisés pour vos besoins spécifiques afin de vous assurer que vos modèles de déploiements appliquent les principes d’IA responsable appropriés pour votre scénario d’IA générative. Lorsque l’on travaille avec des modèles d’IA générative, le filtrage du contenu est l’un des éléments d’une approche efficace de l’IA responsable.
 

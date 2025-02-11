@@ -1,9 +1,10 @@
 ---
 lab:
-  title: "Explorer, déployer et converser avec des modèles de langage dans Azure\_AI\_Foundry"
+  title: Choisir et déployer un modèle de langage
+  description: Les applications IA génératives sont basées sur un ou plusieurs modèles de langage. Découvrez comment rechercher et sélectionner les modèles appropriés pour votre projet d’IA générative.
 ---
 
-# Explorer, déployer et converser avec des modèles de langage dans Azure AI Foundry
+# Choisir et déployer un modèle de langage
 
 Le catalogue de modèles d’Azure AI Foundry sert de référentiel central où vous pouvez explorer et utiliser une variété de modèles, facilitant ainsi la création de votre scénario d’IA générative.
 

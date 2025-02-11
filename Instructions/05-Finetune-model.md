@@ -1,9 +1,10 @@
 ---
 lab:
-  title: "Ajuster un modèle de langage pour la saisie semi-automatique de la conversation dans Azure\_AI\_Foundry"
+  title: Ajuster un modèle de langage
+  description: Découvrez comment utiliser vos propres données d’apprentissage supplémentaires pour ajuster un modèle et personnaliser son comportement.
 ---
 
-# Ajuster un modèle de langage pour la saisie semi-automatique de la conversation dans Azure AI Foundry
+# Ajuster un modèle de langage
 
 Lorsque vous souhaitez qu’un modèle de langage se comporte d’une certaine façon, vous pouvez utiliser l’ingénierie d’invite pour définir le comportement souhaité. Lorsque vous souhaitez améliorer la cohérence du comportement souhaité, vous pouvez choisir d’ajuster un modèle, en le comparant à votre approche d’ingénierie d’invite pour évaluer la méthode la mieux adaptée à vos besoins.
 
