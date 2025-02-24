@@ -35,7 +35,7 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
 1. Examinez votre configuration et créez votre projet.
 1. Attendez que votre projet soit créé.
 
-## Ajuster un modèle GPT-3.5
+## Ajuster un modèle GPT-4
 
 Étant donné que l’ajustement d’un modèle prend un certain temps, vous commencerez par la tâche d’ajustement. Avant de pouvoir ajuster un modèle, vous avez besoin d’un jeu de données.
 
@@ -44,7 +44,7 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
     > **Remarque** : votre appareil peut par défaut enregistrer le fichier en tant que fichier .txt. Sélectionnez tous les fichiers et supprimez le suffixe .txt pour vous assurer que vous enregistrez le fichier au format JSONL.
 
 1. Accédez à la page **Ajustement** dans la section **Créer et personnaliser**, à l’aide du menu de gauche.
-1. Sélectionnez le bouton pour ajouter un nouveau modèle ajusté, sélectionnez le modèle `gpt-35-turbo`, puis **Suivant** et **Confirmer**.
+1. Sélectionnez le bouton pour ajouter un nouveau modèle ajusté, sélectionnez le modèle `gpt-4`, puis **Suivant** et **Confirmer**.
 1. **Ajustez** le modèle à l’aide de la configuration suivante :
     - **Version du modèle** : *Sélectionnez la version par défaut*
     - **Suffixe de modèle** : `ft-travel`
@@ -72,16 +72,16 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
 
 ## Discuter avec un modèle de base
 
-Pendant que vous attendez la fin de la tâche d’ajustement, nous allons discuter avec un modèle GPT 3.5 de base pour évaluer son fonctionnement.
+Pendant que vous attendez la fin de la tâche d’ajustement, nous allons discuter avec un modèle GPT 4 de base pour évaluer son fonctionnement.
 
 1. Accédez à la page **Modèles + points de terminaison** dans la section **Mes ressources**, à l’aide du menu de gauche.
 1. Sélectionnez le bouton **+ Déployer un modèle**, puis sélectionnez l’option **Déployer le modèle de base**.
-1. Déployez un modèle `gpt-35-turbo`, qui est le même type de modèle que celui que vous avez utilisé lors de l’ajustement.
+1. Déployez un modèle `gpt-4`, qui est le même type de modèle que celui que vous avez utilisé lors de l’ajustement.
 
 > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
 
 1. Lorsque le déploiement est terminé, sélectionnez le bouton **Ouvrir dans le terrain de jeu**.
-1. Vérifiez que votre modèle de base déployé `gpt-35-model` est sélectionné dans le volet d’installation.
+1. Vérifiez que votre modèle de base déployé `gpt-4` est sélectionné dans le volet d’installation.
 1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la réponse.
     Elle sera très générique. N’oubliez pas que nous voulons créer une application de conversation qui inspire les gens à voyager.
 1. Mettez à jour le message système dans le volet d’installation avec l’invite suivante :
