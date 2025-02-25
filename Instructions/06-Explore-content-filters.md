@@ -23,11 +23,11 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Un nouveau groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#availability)
 
 1. Si vous avez sélectionné **Personnaliser**, sélectionnez **Suivant** et passez en revue votre configuration.
 1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
@@ -37,7 +37,7 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
 Vous pouvez désormais déployer un modèle à utiliser par le biais du **portail Azure AI Foundry**. Lorsque le modèle est déployé, vous l’utilisez pour générer du contenu en langage naturel.
 
 1. Dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’Assistant Déployer le modèle :
+1. Créez un déploiement du modèle **gpt-4** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’Assistant Déployer le modèle :
    
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
@@ -47,7 +47,7 @@ Vous pouvez désormais déployer un modèle à utiliser par le biais du **portai
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
       
-> **Remarque** : chaque modèle Azure AI Foundry est optimisé pour un équilibre différent entre les fonctionnalités et les performances. Dans cet exercice, nous utiliserons le modèle **GPT 3.5 Turbo**, qui est très performant pour la génération de langage naturel et les scénarios de conversation.
+> **Remarque** : chaque modèle Azure AI Foundry est optimisé pour un équilibre différent entre les fonctionnalités et les performances. Dans cet exercice, nous utiliserons le modèle **GPT-4**, qui est très performant pour la génération de langage naturel et les scénarios de conversation.
 
 ## Explorer les filtres de contenu
 
@@ -84,7 +84,7 @@ Des filtres de contenu sont appliqués aux invites et aux réponses afin d’év
 
 1. Revenez sur la page **Modèles + points de terminaison** et notez que votre déploiement inclut désormais le filtre de contenu personnalisé que vous avez créé.
 
-    ![Capture d’écran de la page de déploiement dans le portail Azure AI Foundry.](./media/azure-ai-deployment.png)
+    ![Capture d’écran de la page de déploiement dans le portail Azure AI Foundry.](./media/model-gpt-4-custom-filter.png)
 
 ## Générer des résultats en langage naturel
 
