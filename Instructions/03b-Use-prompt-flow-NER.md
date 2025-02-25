@@ -31,11 +31,11 @@ Commencez par créer un projet de portail Azure AI Foundry et un hub Azure AI
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Un nouveau groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#availability)
 
 1. Si vous avez sélectionné **Personnaliser**, sélectionnez **Suivant** et passez en revue votre configuration.
 1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
@@ -45,7 +45,8 @@ Commencez par créer un projet de portail Azure AI Foundry et un hub Azure AI
 Pour utiliser un modèle LLM dans un flux d’invite, vous devez d’abord le déployer. Le portail Azure AI Foundry vous permet de déployer des modèles OpenAI à utiliser dans vos flux.
 
 1. Dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiment :
+1. Sélectionnez **+ Déployer un modèle** et **Déployer un modèle de base**.
+1. Créez un déploiement du modèle **gpt-4** avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiment :
    
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
@@ -112,7 +113,7 @@ Le flux Standard contient déjà un nœud qui utilise l’outil LLM. Vous pouvez
 1. Accédez au **nœud LLM** nommé `joke`.
 1. Remplacez le nom par `NER_LLM`
 1. Pour **Connexion**, sélectionnez la connexion qui a été créée pour vous lorsque vous avez créé le hub IA.
-1. Pour la valeur **deployment_name**, sélectionnez le modèle `gpt-35-turbo` que vous avez déployé.
+1. Pour la valeur **deployment_name**, sélectionnez le modèle `gpt-4` que vous avez déployé.
 1. Remplacez le champ de l’invite par le code suivant :
 
    ```yml
@@ -125,10 +126,9 @@ Le flux Standard contient déjà un nœud qui utilise l’outil LLM. Vous pouvez
 
    user:
    
-   {% raw %}
    Entity type: {{entity_type}}
    Text content: {{text}}
-   {% endraw %}
+
    Entities:
    ```
 

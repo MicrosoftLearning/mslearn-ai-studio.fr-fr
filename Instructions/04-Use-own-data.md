@@ -76,7 +76,7 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
 
     > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
 
-1. Répétez les étapes précédentes pour déployer un modèle **gpt-35-turbo-16k** avec le nom de déploiement `gpt-35-turbo-16k`.
+1. Répétez les étapes précédentes pour déployer un modèle **gpt-4** avec le nom de déploiement `gpt-4`.
 
     > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
@@ -120,7 +120,7 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
 1. Dans le volet de navigation de gauche, sélectionnez la page **Terrains de jeu**.
-1. Dans la page Conversation, dans le volet Configuration, vérifiez que votre modèle de déploiement **gpt-35-turbo-16k** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
+1. Dans la page Conversation, dans le volet Configuration, vérifiez que votre modèle de déploiement **gpt-4** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le volet Configuration, développez le champ **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
 
@@ -177,7 +177,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, 
 
     - **Connexion** : *La ressource Azure OpenAI par défaut pour votre hub IA*
     - **Api**: conversation
-    - **deployment_name** : gpt-35-turbo-16k
+    - **deployment_name** : gpt-4
     - **response_format** : {"type":"text"}
 
 1. Attendez que la session de calcul démarre, puis dans la section de **recherche** , définissez les valeurs de paramètre suivantes :
@@ -201,9 +201,9 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, 
 
 1. Dans la section **chat_with_context**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
 
-    - **Connexion** : Default_AzureOpenAI
+    - **Connexion** : *La ressource Azure OpenAI par défaut pour votre hub IA*
     - **Api** : Conversation instantanée
-    - **deployment_name** : gpt-35-turbo-16k
+    - **deployment_name** : gpt-4
     - **response_format** : {"type":"text"}
 
     Vérifiez ensuite que les **entrées** pour cet outil incluent les paramètres suivants :
