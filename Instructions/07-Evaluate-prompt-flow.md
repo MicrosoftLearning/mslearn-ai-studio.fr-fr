@@ -20,11 +20,11 @@ Vous commencez par créer un projet Azure AI Foundry au sein d’un hub Azure�
     - **Hub name** : *Un nom unique*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *Un nouveau groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#availability)
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration.
 1. Sélectionnez **Créer un projet** et patientez jusqu’à ce que l’opération se termine.
@@ -35,7 +35,7 @@ Pour utiliser un modèle de langage dans le flux d’invite, vous devez d’abor
 
 1. Accédez à la page **Modèles + points de terminaison** dans la section **Mes ressources**, à l’aide du menu de gauche.
 1. Sélectionnez le bouton **+ Déployer un modèle**, puis sélectionnez l’option **Déployer le modèle de base**.
-1. Créez un déploiement du modèle **gpt-35-turbo** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’Assistant **Déployer le modèle** :
+1. Créez un déploiement du modèle **gpt-4** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’Assistant **Déployer le modèle** :
     - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
     - **Version du modèle** : *Sélectionnez la version par défaut*
@@ -148,7 +148,7 @@ Pour gagner du temps, nous avons créé un jeu de données de sortie par lot pou
     - Sélectionnez **Suivant**.
     - **Sélectionner des métriques**: Cohérence, fluidité
     - **Connexion** : *Votre connexion à vos services IA*
-    - **nom de déploiement/Modèle** : *Votre modèle GPT-3.5 déployé*
+    - **Nom de déploiement/modèle** : *votre modèle GPT-4 déployé*
     - **Requête** : sélectionne la **requête** comme source de données.
     - **Réponse** : sélectionne la **réponse** comme source de données.
       
