@@ -8,7 +8,7 @@ lab:
 
 Le catalogue de modèles d’Azure AI Foundry sert de référentiel central où vous pouvez explorer et utiliser une variété de modèles, facilitant ainsi la création de votre scénario d’IA générative.
 
-Dans cet exercice, vous allez explorer le catalogue de modèles dans le portail Azure AI Foundry.
+Dans cet exercice, vous allez explorer le catalogue de modèles dans le portail Azure AI Foundry et comparer les modèles potentiels pour une application d’IA générative qui aide à résoudre les problèmes.
 
 Cet exercice prend environ **25** minutes.
 
@@ -18,119 +18,168 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
 
 1. Dans un navigateur web, ouvrez le [portail Azure Ai Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 
-1. Sur la page d’accueil, sélectionnez **+Créer un projet**. Dans l’assistant **Créer un projet**, vous pouvez voir toutes les ressources Azure qui seront créées automatiquement avec votre projet, ou vous pouvez personnaliser les paramètres suivants en sélectionnant **Personnaliser** avant de sélectionner **Créer** :
-
-    - **Hub name** : *Un nom unique*
+1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
+1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
+    - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
-    - **Groupe de ressources** : *Un nouveau groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-35-turbo** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
+    - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#gpt-35-turbo-model-availability)
+    > \* Les quotas de modèles sont limités au niveau du locataire par des quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Si vous avez sélectionné **Personnaliser**, sélectionnez **Suivant** et passez en revue votre configuration.
-1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-   
-    Une fois le projet et le hub Azure AI créés, ils devraient ressembler à l’image suivante :
+1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
+1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
 
-    ![Capture d’écran des détails d’un hub Azure AI dans le portail Azure AI Foundry.](./media/azure-ai-resource.png)
+    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
 
-1. Ouvrez un nouvel onglet de navigateur (en laissant l’onglet du portail Azure AI Foundry ouvert) et accédez au portail Azure à l’adresse [https://portal.azure.com](https://portal.azure.com?azure-portal=true), en vous connectant avec vos informations d’identification Azure si vous y êtes invité.
-1. Accédez au groupe de ressources où vous avez créé votre hub Azure AI et regardez les ressources Azure qui ont été créées.
+## Configurer le déploiement du service d’inférence Azure AI
 
-    ![Capture d’écran d’un hub Azure AI et des ressources associées sur le Portail Azure.](./media/azure-portal.png)
+Il existe plusieurs options pour déployer des modèles dans le portail Azure AI Foundry. Dans cet exercice, vous allez utiliser l’option de déploiement d’**inférence de modèle Azure AI**, qui prend en charge les modèles *Azure OpenAI* et les *modèles en tant que service* du catalogue de modèles Azure AI Foundry. Étant donné que tous les modèles sont déployés sur un point de terminaison commun hébergé par votre ressource Azure AI Services, il est facile de basculer entre les modèles lors de leur test afin de comparer le comportement et les performances.
 
-1. Revenez à l’onglet du navigateur du portail Azure AI Foundry.
-1. Visualisez chacune des pages dans le volet de gauche de la page de votre hub Azure AI, et notez les artefacts que vous pouvez créer et gérer. Dans la page **Centre d’administration**, vous pouvez sélectionner les **ressources connectées**, dans votre hub ou votre projet, et observer que les connexions aux services Azure OpenAI et AI ont déjà été créées.
-1. Si vous êtes dans la page Centre d’administration, sélectionnez **Accéder au projet**.
+1. Dans la barre d’outils située en haut à droite de votre projet Azure AI Foundry, utilisez l’icône **Préversions de fonctionnalités** pour afficher ces dernières.
+1. Activez la fonctionnalité **Déployer des modèles vers le service d’inférence de modèle Azure AI**. Fermez ensuite le volet **Fonctionnalités en version préliminaire**.
 
-## Choisir un modèle à l’aide de benchmarks de modèle
+## Vérifier les détails et les benchmarks des modèles
 
-Avant de déployer un modèle, vous pouvez explorer les benchmarks de modèle pour déterminer le modèle le mieux adapté à vos besoins.
+Pour vous aider à choisir un modèle, vous pouvez explorer les descriptions et les benchmarks de modèles pour déterminer le modèle le mieux adapté à vos besoins.
 
-Imaginez que vous souhaitez créer un copilote personnalisé pour servir d’assistant de voyage. Plus précisément, vous souhaitez que votre copilote facilite les démarches liées aux voyages, telles que l’obtention d’un visa, les prévisions météorologiques, l’apprentissage des attractions locales et des normes culturelles.
+1. Dans le volet de navigation de gauche du portail de projet Azure AI Foundry, sélectionnez **Catalogue de modèles**.
+1. Dans la page d’accueil du catalogue de modèles, recherchez `gpt-4` pour trouver le modèle de saisie semi-automatique conversationnel **gpt-4**.
 
-Votre copilote devra pour cela fournir des informations justes, et par conséquent fondées. Facteur secondaire mais important également, les réponses du copilote devront être faciles à lire et à comprendre. Par conséquent, vous avez besoin d’un modèle cohérent et doté d’une bonne fluidité.
+    ![Capture d’écran d’une recherche de modèle « gpt-4 » dans le catalogue de modèles.](./media/model-catalog-search-gpt4.png)
 
-1. Dans le portail de projet Azure AI Foundry, accédez au **Catalogue de modèles** à l’aide du menu de gauche.
-    Sur la page du catalogue, sélectionnez **Comparer avec les benchmarks**. Dans la page Benchmarks de modèles, vous pouvez voir un graphique déjà construit pour vous, qui compare différents modèles.
-1. Sélectionnez **+ Modèle à comparer** et ajoutez **gpt-4-32k** et **gpt-4** au graphique de mesures. Dans le menu déroulant **Axe X**, sous **Qualité**, sélectionnez les mesures suivantes et observez chaque graphique obtenu avant de passer au suivant :
+1. Sélectionnez le modèle **gpt-4** et affichez ses détails. Lisez la description et passez en revue les autres informations disponibles sur la page.
+
+    ![Capture d’écran de la page des détails du modèle gpt-4.](./media/gpt4-details.png)
+
+1. Dans la page **gpt-4**, affichez l’onglet **Benchmarks** pour voir la comparaison du modèle à d’autres modèles utilisés dans des scénarios similaires en fonction de références de performance standard.
+
+    ![Capture d’écran de la page des benchmarks du modèle gpt-4.](./media/gpt4-benchmarks.png)
+
+1. Utilisez la flèche précédent (**&larr;**) en regard du titre de la page **gpt-4** pour revenir à la page d’accueil du catalogue de modèles.
+1. Dans le catalogue de modèles, recherchez `Phi-3.5-mini-instruct` et affichez les détails et les benchmarks du modèle **Phi-3.5-mini-instruct**.
+
+## Comparer des modèles
+
+Vous avez examiné deux modèles différents, qui peuvent être utilisés pour implémenter une application de conversation d’IA générative. Nous allons maintenant comparer visuellement les métriques de ces deux modèles.
+
+1. Revenez à la page d’accueil du **catalogue de modèles**.
+1. Sélectionnez **Comparer les modèles**. Un graphique visuel pour la comparaison de modèles s’affiche avec une sélection de modèles courants.
+
+    ![Capture d’écran de la page de comparaison des modèles.](./media/compare-models.png)
+
+1. Dans le volet **Modèles à comparer** à gauche, notez que vous pouvez sélectionner des tâches populaires, telles que les *réponses aux questions* pour sélectionner automatiquement les modèles couramment utilisés pour des tâches spécifiques.
+1. Utilisez l’icône **Effacer tous les modèles** (&#128465;) pour supprimer tous les modèles pré-sélectionnés.
+1. Utilisez le bouton **+ Modèle à comparer** pour ajouter le modèle **gpt-4** à la liste. Utilisez ensuite le même bouton pour ajouter le modèle **Phi-3.5-mini-instruct** à la liste.
+1. Passez en revue le graphique, qui compare les modèles en fonction de l’**index de qualité** (un score standardisé indiquant la qualité du modèle) et le **coût**. Vous pouvez voir les valeurs spécifiques d’un modèle en maintenant la souris sur le point qui le représente dans le graphique.
+
+    ![Capture d’écran du graphique de comparaison des modèles pour gpt-4 et Phi-3.5-mini-instruct.](./media/comparison-chart.png)
+
+1. Dans le menu déroulant **Axe X**, sous **Qualité**, sélectionnez les mesures suivantes et observez chaque graphique obtenu avant de passer au suivant :
+    - Précision
     - Cohérence
-    - Maîtrise
-    - Fondement
-1. Lorsque vous passez en revue les résultats, vous pouvez essayer de répondre aux questions suivantes :
-    - Remarquez-vous une différence de performances entre les modèles GPT-3.5 et GPT-4 ?
-    - Existe-t-il une différence entre différentes versions du même modèle ?
-    - En quoi les variantes 32k de GPT-4 diffèrent-elles du modèle de base ?
+    - Fluidité
+    - Pertinence
 
-Dans la collection Azure OpenAI, vous pouvez choisir entre les modèles GPT-3.5 et GPT-4. Déployons ces deux modèles et comparons leur efficacité pour votre cas d’usage.
-
-## Déployer des modèles Azure OpenAI
+## Déployer des modèles
 
 Maintenant que vous avez exploré vos options via des benchmarks de modèle, vous êtes prêt à déployer des modèles de langage. Vous pouvez parcourir le catalogue de modèles et en déployer un à partir de là, ou vous pouvez le faire via la page **Déploiements**. Examinons les deux options.
 
-### Déployer un modèle à partir du catalogue de modèles
+### Déployer un modèle à partir du *catalogue de modèles*
 
-Commençons par déployer un modèle à partir du catalogue de modèles. Cette option est préférable lorsque vous souhaitez filtrer tous les modèles disponibles.
+Commençons par déployer un modèle à partir du catalogue de modèles. Cette option est préférable lorsque vous souhaitez examiner plusieurs modèles disponibles.
 
-1. Accédez à la page **Catalogue de modèles** à l’aide du menu de gauche.
-1. Recherchez et déployez le modèle `gpt-35-turbo`, préparé par Azure AI, avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-   
-    - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
-    - **Type de déploiement** : Standard
+1. Revenez à la page d’accueil du **catalogue de modèles**.
+1. Recherchez et sélectionnez le modèle `gpt-4`, comme vous l’avez fait précédemment.
+1. Sur la page **gpt-4**, sélectionnez **Déployer** et déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
+    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `gpt-4-model`*
+    - **Type de déploiement** : standard global
     - **Version du modèle** : *Sélectionnez la version par défaut*
-    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
+    - **Ressource IA connectée** : *votre connexion de ressources Azure OpenAI*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
+      
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
-    > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
+1. Attendez que l’**état d’approvisionnement** du déploiement soit **Réussi**.
 
-### Déployer un modèle par le biais de Modèles + points de terminaison
+### Déployer un modèle par le biais de *Modèles + points de terminaison*
 
 Si vous savez déjà quel modèle vous souhaitez déployer, vous pouvez le faire par le biais de la page **Modèles + points de terminaison**.
 
-1. Accédez à la page **Modèles + points de terminaison** dans la section **Mes ressources**, à l’aide du menu de gauche.
-1. Dans l’onglet **Déploiements de modèles**, déployez un nouveau modèle de base avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Modèle** : gpt-4
-    - **Nom du déploiement** : *Un nom unique pour votre modèle de déploiement*
-    - **Type de déploiement** : Standard
-    - **Version du modèle** : *Sélectionnez la version par défaut*
-    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
-    - **Limite de débit en jetons par minute (en milliers)** : 5 000
-    - **Filtre de contenu** : DefaultV2
-    - **Enable dynamic quota** : désactivé
+1. Dans la barre de navigation de gauche, dans la section **Mes ressources**, sélectionnez **Modèles + points de terminaison**.
+1. Sous l’onglet **Déploiements de modèles**, dans la liste déroulante **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**. Recherchez ensuite `Phi-3.5-mini-instruct`, puis confirmez votre sélection.
+1. Acceptez la licence du modèle.
+1. Déployez un modèle **Phi-3.5-mini-instruct** avec les paramètres suivants :
+    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `phi-35-model`*
+    - **Type de déploiement** : standard global
+    - **Détails du déploiement** : *utilisez les paramètres par défaut*
+
+1. Attendez que l’**état d’approvisionnement** du déploiement soit **Réussi**.
 
 ## Tester vos modèles dans le terrain de jeu de conversation
 
-Maintenant que nous avons deux modèles à comparer, examinons leur comportement dans le cadre d’une interaction conversationnelle.
+Maintenant que vous avez deux modèles à comparer, examinons leur comportement dans le cadre d’une interaction conversationnelle.
 
-1. Accédez à la page **Terrains de jeu** à l’aide du menu de gauche.
-1. Dans le** terrain de jeu de conversation**, sélectionnez votre déploiement GPT-3.5.
-1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la réponse.
-    Elle sera très générique. Souvenez-vous que nous voulons créer un copilote personnalisé pour servir d’assistant de voyage. Vous pouvez spécifier le type d’aide souhaité tout en posant votre question.
-1. Dans la fenêtre de conversation, entrez la requête `Imagine you're a travel assistant, what can you help me with?` La réponse sera déjà plus précise. Vous voudrez peut-être éviter à vos utilisateurs finaux de devoir préciser le contexte chaque fois qu’ils interagiront avec votre copilote. Pour ajouter des instructions globales, vous pouvez modifier le message système.
-1. Dans **Configuration**, mettez à jour le champ **Donner des instructions et du contexte au modèle** à l’aide de l’invite suivante :
+### Préparer la conversation
 
-   ```
-   You are an AI travel assistant that helps people plan their trips. Your objective is to offer support for travel-related inquiries, such as visa requirements, weather forecasts, local attractions, and cultural norms.
-   ```
-
+1. Dans la barre de navigation, sélectionnez **Terrains de jeu**. Sélectionnez ensuite le **terrain de jeu de conversation**.
+1. Dans le volet **Configuration**, dans le champ **Donner des instructions et du contexte au modèle**, définissez l’invite du système sur `You are an AI assistant that helps solve problems.`.
 1. Sélectionnez **Appliquer les modifications**.
-1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la nouvelle réponse. Elle devrait être très différente de la réponse que vous avez reçue précédemment. La réponse est maintenant adaptée au contexte de voyages.
-1. Poursuivez la conversation en demandant : `I'm planning a trip to London, what can I do there?` Le copilote affichera de nombreuses informations liées aux voyages. Vous souhaiterez peut-être améliorer davantage la qualité de cette réponse. Par exemple, afin qu’elle soit plus succincte.
-1. Mettez à jour le message système en ajoutant `Answer with a maximum of two sentences.` à la fin du message. Appliquez la modification, effacez la conversation et procédez à un nouveau test en demandant : `I'm planning a trip to London, what can I do there?` Vous voudrez peut-être également que votre copilote continue la conversation au lieu de simplement répondre à la question.
-1. Mettez à jour le contexte du modèle en ajoutant `End your answer with a follow-up question.` à la fin de l’invite. Enregistrez la modification, puis testez à nouveau la conversation en demandant : `I'm planning a trip to London, what can I do there?`
-1. Remplacez votre **Déploiement** par votre modèle GPT-4 et répétez toutes les étapes de cette section. Vous devriez observer des différences entre les réponses des deux modèles.
-1. Enfin, testez les deux modèles avec la requête `Who is the prime minister of the UK?`. Avec cette question, le niveau de performance dépend du fondement (la capacité à fournir des réponses factuellement exactes) des modèles. Les performances correspondent-elles aux conclusions des benchmarks de modèle ?
 
-Maintenant que vous avez exploré les deux modèles, essayez de déterminer celui qui conviendra le mieux à votre cas d’usage. Au début, les sorties des deux modèles peuvent différer, et vous pouvez être tenté de préférer un modèle à l’autre. Toutefois, après avoir mis à jour le message système, les différences vous sembleront sans doute minimes. Dans une optique d’optimisation des coûts, vous pouvez alors opter pour le modèle GPT-3.5 plutôt que le modèle GPT-4, car leurs performances sont très similaires.
+### Discuter avec le modèle *gpt-4*
+
+Dans le volet **Configuration**, sélectionnez votre modèle *gpt-4*.
+1. Dans la fenêtre de conversation, entrez la requête suivante :
+
+    ```
+    I have a fox, a chicken, and a bag of grain that I need to take over a river in a boat. I can only take one thing at a time. If I leave the chicken and the grain unattended, the chicken will eat the grain. If I leave the fox and the chicken unattended, the fox will eat the chicken. How can I get all three things across the river without anything being eaten?
+    ```
+
+1. Affichez la réponse. Entrez ensuite la requête de suivi suivante :
+
+    ```
+    Explain your reasoning.
+    ```
+
+### Discuter avec le modèle *Phi-3.5*
+
+1. Dans le volet **Configuration**, sélectionnez votre modèle *Phi-3.5*.
+1. Vérifiez qu’une nouvelle session de conversation est démarrée avant de répéter les mêmes invites que celles que vous avez précédemment utilisées pour tester le modèle gpt-4.
+1. Dans la fenêtre de conversation, entrez la requête suivante :
+
+    ```
+    I have a fox, a chicken, and a bag of grain that I need to take over a river in a boat. I can only take one thing at a time. If I leave the chicken and the grain unattended, the chicken will eat the grain. If I leave the fox and the chicken unattended, the fox will eat the chicken. How can I get all three things across the river without anything being eaten?
+    ```
+
+1. Affichez la réponse. Entrez ensuite la requête de suivi suivante :
+
+    ```
+    Explain your reasoning.
+    ```
+
+### Effectuer une comparaison supplémentaire
+
+1. Essayez le puzzle suivant avec les deux modèles, en demandant aux modèles d’expliquer leur raisonnement (la bonne réponse est 40) :
+
+    ```
+    I have 53 socks in my drawer: 21 identical blue, 15 identical black and 17 identical red. The lights are out, and it is completely dark. How many socks must I take out to make 100 percent certain I have at least one pair of black socks?
+    ```
+
+## Réfléchir sur les modèles
+
+Vous avez comparé deux modèles, qui peuvent varier en termes de capacité à générer des réponses appropriées et dans leur coût. Dans n’importe quel scénario de génération, vous devez trouver un modèle qui offre le bon rapport entre son adéquation à la tâche à effectuer et son coût d’utilisation pour le nombre de demandes que vous prévoyer de traiter.
+
+Les détails et les benchmarks fournis dans le catalogue de modèles, ainsi que la possibilité de comparer visuellement les modèles offrent un point de départ utile lors de l’identification des modèles potentiels pour une solution d’IA générative. Vous pouvez ensuite tester les modèles potentiels avec une variété d’invites système et utilisateur dans le terrain de jeu de conversation.
 
 ## Nettoyage
 
 Si vous avez terminé d’explorer Azure AI Foundry, vous devez supprimer les ressources que vous avez créées dans cet exercice pour éviter d’entraîner des coûts Azure inutiles.
 
-1. Revenez à l’onglet du navigateur contenant le portail Azure (ou ouvrez à nouveau le [portail Azure](https://portal.azure.com?azure-portal=true) dans un nouvel onglet de navigateur) et affichez le contenu du groupe de ressources où vous avez déployé les ressources utilisées dans cet exercice.
+1. Ouvrez le [portail Azure](https://portal.azure.com) et affichez le contenu du groupe de ressources où vous avez déployé les ressources utilisées dans cet exercice.
 1. Dans la barre d’outils, sélectionnez **Supprimer le groupe de ressources**.
 1. Entrez le nom du groupe de ressources et confirmez que vous souhaitez le supprimer.
