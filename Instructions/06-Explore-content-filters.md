@@ -27,7 +27,7 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
     - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#availability)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#availability)
 
 1. Si vous avez sélectionné **Personnaliser**, sélectionnez **Suivant** et passez en revue votre configuration.
 1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
@@ -92,7 +92,7 @@ Examinons le comportement du modèle dans le cadre d’une interaction conversat
 
 1. Accédez aux **Terrains de jeux** dans le volet de gauche.
 
-1. Dans le mode **Conversation**, entrez l’invite suivante dans la section **Historique de conversation**.
+1. Ouvrez le **Terrain de jeu de conversation**, puis saisissez l’invite suivante dans la section **Historique de conversation**.
 
     ```
    Describe characteristics of Scottish people.
@@ -108,13 +108,13 @@ Examinons le comportement du modèle dans le cadre d’une interaction conversat
 
 1. Appliquez les modifications dans le message système.
 
-1. Dans la section **Session de conversation**, saisissez à nouveau l’invite suivante.
+1. Dans la section **Historique des conversations**, entrez à nouveau le prompt suivant :
 
     ```
    Describe characteristics of Scottish people.
     ```
 
-8. Observez le résultat, qui devrait indiquer que la demande d’être raciste et désobligeant n’est pas prise en compte.érogative n’est pas prise en charge. Les filtres de contenu par défaut dans le portail Azure AI Foundry permettent d’éviter les contenus offensants.
+8. Observez le résultat, qui devrait indiquer que la demande d’être raciste et désobligeant n’est pas prise en compte.érogative n’est pas prise en charge. Les filtres de contenu évitent la génération de contenus offensants.
 
 > **Conseil** : pour plus de détails sur les catégories et les niveaux de sévérité utilisés dans les filtres de contenu, consultez [Filtrage de contenu](https://learn.microsoft.com/azure/ai-studio/concepts/content-filtering) dans la documentation du service dans le portail Azure AI Foundry.
 

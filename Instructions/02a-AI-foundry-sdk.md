@@ -24,18 +24,11 @@ Commençons par créer un projet Azure AI Foundry.
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
-    - **Emplacement** : choisissez une région de manière aléatoire dans la liste suivante\* :
-        - USA Est
-        - USA Est 2
-        - Centre-Nord des États-Unis
-        - États-Unis - partie centrale méridionale
-        - Suède Centre
-        - USA Ouest
-        - USA Ouest 3
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
     - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les quotas de modèles sont limités au niveau du locataire par des quotas régionaux. Le choix d’une région aléatoire permet de distribuer la disponibilité des quotas lorsque plusieurs utilisateurs travaillent dans le même locataire. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -60,9 +53,9 @@ Vous êtes maintenant prêt à déployer un modèle de langage d’IA générati
 
 Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure AI Foundry pour développer une application qui converse avec elle.
 
-> **Conseil** : vous pouvez choisir de développer votre solution en utilisant Python ou Microsoft C#. Suivez les instructions de la section appropriée pour le langage que vous avez choisi.
+> **Conseil** : vous pouvez choisir de développer votre solution à l’aide de Python ou de Microsoft C#. Suivez les instructions de la section appropriée pour votre langue choisie.
 
-### Cloner le référentiel de l’application
+### Cloner le référentiel d’application
 
 1. Dans le portail Azure AI Foundry, affichez la page **Vue d’ensemble** de votre projet.
 1. Dans la zone **Détails du projet**, notez la **chaîne de connexion du projet**. Vous utiliserez cette chaîne de connexion pour vous connecter à votre projet dans une application cliente.
@@ -73,7 +66,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
 
 1. Dans la barre d’outils Cloud Shell, dans le menu **Paramètres**, sélectionnez **Accéder à la version classique** (cela est nécessaire pour utiliser l’éditeur de code).
 
-    > **Conseil** : lorsque vous collez des commandes dans Cloud Shell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer l’écran en entrant la commande `cls` pour pouvoir plus facilement vous concentrer sur chaque tâche.
+    > **Conseil** : lorsque vous collez des commandes dans cloudshell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
 
 1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub pour cet exercice :
 
@@ -84,7 +77,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
 
 ### Préparer la configuration de l’application
 
-> **Note** : suivez les étapes du langage de programmation que vous avez choisi.
+> **Note** : suivez les étapes de votre langage de programmation choisi.
 
 1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :  
 
@@ -100,7 +93,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
    cd mslearn-ai-foundry/labfiles/chat-app/c-sharp
     ```
 
-1. Dans le volet de ligne de commande Cloud Shell, entrez la commande suivante pour installer les bibliothèques que vous allez utiliser :
+1. Dans le volet de ligne de commande Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous utiliserez, c’est-à-dire :
 
     **Python**
 
@@ -117,7 +110,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
     ```
     
 
-1. Entrez la commande suivante pour modifier le fichier de configuration fourni :
+1. Saisissez la commande suivante pour modifier le fichier de configuration fourni :
 
     **Python**
 
@@ -140,7 +133,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
 
 > **Conseil** : lorsque vous ajoutez du code, veillez à conserver la mise en retrait correcte.
 
-1. Entrez la commande suivante pour modifier le fichier de code fourni :
+1. Saisissez la commande suivante pour modifier le fichier de code fourni :
 
     **Python**
 
@@ -154,7 +147,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
    code Program.cs
     ```
 
-1. Dans le fichier de code, notez les instructions existantes qui ont été ajoutées en haut du fichier pour importer les espaces de nom nécessaires du kit de développement logiciel (SDK). Ensuite, sous le commentaire **Ajouter des références**, ajoutez le code suivant pour référencer les espaces de noms dans les bibliothèques que vous avez installées précédemment :
+1. Dans le fichier de code, notez les instructions existantes qui ont été ajoutées en haut du fichier pour importer les espaces de noms SDK nécessaires. Ensuite, sous le commentaire **Ajouter des références**, ajoutez le code suivant pour référencer les espaces de noms dans les bibliothèques que vous avez installées précédemment :
 
     **Python**
 
