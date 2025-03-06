@@ -12,49 +12,30 @@ Dans cet exercice, vous allez utiliser le portail Azure AI Foundry pour intég
 
 Cet exercice prend environ **45** minutes.
 
-## Créer une ressource Recherche Azure AI
+## Créer un projet Azure AI Foundry
 
-Votre solution d’application d’IA générative va intégrer des données personnalisées dans un flux d’invite. Pour prendre en charge cette intégration, vous aurez besoin d’une ressource Recherche Azure AI avec laquelle indexer vos données.
+Commençons par créer un projet Azure AI Foundry et les ressources de service dont il a besoin pour prendre en charge l’utilisation de vos propres données, y compris une ressource Recherche Azure AI.
 
-1. Dans un navigateur web, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
-1. Dans la page d’accueil, sélectionnez **+ Créer une ressource**, puis recherchez `Azure AI Search`. Créez ensuite une ressource Recherche Azure AI avec les paramètres suivants :
+1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
 
-    - **Abonnement** : *Sélectionnez votre abonnement Azure*.
-    - **Groupe de ressources** : *sélectionnez ou créez un groupe de ressources*.
-    - **Nom du service** : *Entrez un nom de service unique*
-    - **Emplacement** : *Choisir de manière **aléatoire** une région parmi les suivantes*\*
-        - Australie Est
-        - Est du Canada
-        - USA Est
-        - USA Est 2
-        - France Centre
-        - Japon Est
-        - Centre-Nord des États-Unis
-        - Suède Centre
-        - Suisse 
-    - **Niveau tarifaire** : Standard
+    ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-    > \* Plus tard, vous allez créer un hub Azure AI (qui inclut un service Azure OpenAI) dans la même région que votre ressource Recherche Azure AI. Les ressources Azure OpenAI sont limitées au niveau du tenant par des quotas régionaux. Les régions répertoriées incluent le quota par défaut pour les types de modèle utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque d’atteindre sa limite de quota dans les scénarios où vous partagez un tenant avec d’autres utilisateurs. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre hub Azure AI dans une autre région.
-
-1. Attendez que votre déploiement de la ressource Recherche Azure AI soit terminé.
-
-## Créer un projet Azure AI
-
-Vous pouvez désormais créer un projet Azure AI Foundry et les ressources Azure AI pour le prendre en charge.
-
-1. Dans un navigateur web, ouvrez le [portail Azure Ai Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet** , vous pouvez voir toutes les ressources Azure qui seront créées automatiquement avec votre projet. Sélectionnez **Personnaliser** et connectez-vous à votre ressource Recherche Azure AI :
+1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
+    - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
+    - **Abonnement** : *votre abonnement Azure*
+    - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis **gpt-4** et **text-embedding-ada-002** dans la fenêtre de l’assistant d’emplacement et utilisez la région recommandée.\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
+    - **Connecter Recherche Azure AI** : *créer une ressource Recherche Azure AI avec un nom unique*
 
-    - **Hub name** : *Un nom unique*
-    - **Abonnement Azure** : *Votre abonnement Azure*
-    - **Groupe de ressources** : *Sélectionner le groupe de ressources contenant votre ressource Recherche Azure AI*
-    - **Emplacement** : *La même localisation que votre ressource Recherche Azure AI*
-    - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
-    - **Connecter Recherche Azure AI** : *Sélectionner votre ressource Recherche Azure AI*
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration.
-1. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
+1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
+1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+
+    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
    
 ## Déployer des modèles
 

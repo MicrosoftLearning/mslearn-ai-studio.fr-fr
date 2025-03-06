@@ -12,7 +12,9 @@ Dans cet exercice, vous allez ajuster un modèle de langage avec Azure AI Foun
 
 Imaginez que vous travaillez pour une agence de voyage et que vous développez une application de conversation pour aider les gens à planifier leurs vacances. L’objectif est de créer une conversation simple et inspirante qui suggère des destinations et des activités. Étant donné que la conversation n’est connectée à aucune source de données, elle ne doit **pas** fournir de recommandations spécifiques pour les hôtels, les vols ou les restaurants afin de garantir la confiance des clients.
 
-Cet exercice prend environ **60** minutes.
+Cet exercice prend environ **60 minutes**\*.
+
+> \***Note** : cette durée est une estimation basée sur une moyenne des expériences. L’ajustement dépend des ressources de l’infrastructure cloud, celles-ci pouvant nécessiter un certain temps d’approvisionnement en fonction de la capacité du centre de données et de la demande simultanée. Certaines activités de cet exercice peuvent prendre <u>beaucoup</u> de temps et nécessiter de la patience. Si des éléments prennent beaucoup de temps, envisagez de consulter la [documentation relative à l’ajustement d’Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/fine-tuning-overview) ou de prendre une pause.
 
 ## Créer un projet et un hub IA dans le portail Azure AI Foundry
 
@@ -26,18 +28,18 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
         - **Hub** : *remplissage automatique avec le nom par défaut*
         - **Abonnement** : *remplissage automatique avec votre compte connecté*
         - **Groupe de ressources** : (nouveauté) *remplissage automatique avec le nom de votre projet*
-        - **Emplacement** : choisissez l’une des régions suivantes : **USA Est2**, **USA Centre Nord**, **Suède Centre**, **Suisse Ouest**\*
+        -  **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis **gpt-4-finetune** dans la fenêtre de l’assistant Emplacement et utilisez la région recommandée \*.
         - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
         - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Le choix aléatoire d’une région réduit le risque qu’une seule région atteigne sa limite de quota. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur l’[ajustement des régions de modèle](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions#fine-tuning-models)
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur l’[ajustement des régions de modèle](https://learn.microsoft.com/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions#fine-tuning-models)
 
 1. Examinez votre configuration et créez votre projet.
 1. Attendez que votre projet soit créé.
 
 ## Ajuster un modèle GPT-4
 
-Étant donné que l’ajustement d’un modèle prend un certain temps, vous commencerez par la tâche d’ajustement. Avant de pouvoir ajuster un modèle, vous avez besoin d’un jeu de données.
+Étant donné que l’ajustement d’un modèle prend un certain temps, vous allez commencer l’ajustement dès maintenant et y revenir après avoir examiné un modèle de base qui n’a pas été ajusté, à des fins de comparaison.
 
 1. Téléchargez le [jeu de données de démo](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl) à l’adresse `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl` et enregistrez-le en tant que fichier JSONL localement.
 
@@ -68,7 +70,7 @@ Vous commencez par créer un projet de portail Azure AI Foundry au sein d’un
     - **Paramètres de tâche** : *conserver les paramètres par défaut*
 1. L’ajustement commence et peut prendre un certain temps.
 
-> **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps. Vous devrez donc peut-être vérifier l’avancement régulièrement. Vous pouvez déjà continuer avec l’étape suivante pendant que vous attendez.
+> **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps (30 minutes ou plus). Vous devrez donc peut-être vérifier l’avancement régulièrement. Vous pouvez déjà continuer avec l’étape suivante pendant que vous attendez.
 
 ## Discuter avec un modèle de base
 
@@ -76,7 +78,11 @@ Pendant que vous attendez la fin de la tâche d’ajustement, nous allons discut
 
 1. Accédez à la page **Modèles + points de terminaison** dans la section **Mes ressources**, à l’aide du menu de gauche.
 1. Sélectionnez le bouton **+ Déployer un modèle**, puis sélectionnez l’option **Déployer le modèle de base**.
-1. Déployez un modèle `gpt-4`, qui est le même type de modèle que celui que vous avez utilisé lors de l’ajustement.
+1. Déployez un modèle `gpt-4` avec les paramètres suivants :
+    - **Nom du déploiement** : *nom unique pour votre modèle ; vous pouvez utiliser la valeur par défaut*
+    - **Type de déploiement** : Standard
+    - **Limite de débit en jetons par minute (en milliers)** : 5 000
+    - **Filtre de contenu** : valeur par défaut
 
 > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
 
@@ -100,36 +106,54 @@ Pendant que vous attendez la fin de la tâche d’ajustement, nous allons discut
     ```
 
 1. Sélectionnez **Appliquer les modifications** et **Effacer la conversation**.
-1. Continuez à tester votre application de conversation pour vérifier qu’elle ne fournit aucune information qui ne soit fondée sur des données récupérées. Par exemple, posez les questions suivantes et explorez les réponses du modèle :
+1. Continuez à tester votre application de conversation pour vérifier qu’elle ne fournit aucune information qui ne soit fondée sur des données récupérées. Par exemple, posez les questions suivantes et passez en revue les réponses du modèle, en accordant une attention particulière au ton et au style d’écriture que le modèle utilise pour répondre :
    
     `Where in Rome should I stay?`
     
     `I'm mostly there for the food. Where should I stay to be within walking distance of affordable restaurants?`
 
-    `Give me a list of five bed and breakfasts in Trastevere.`
+    `What are some local delicacies I should try?`
 
-    Le modèle peut vous fournir une liste d’hôtels, même lorsque vous lui avez demandé de ne pas donner de recommandations d’hôtel. Il s’agit d’un exemple de comportement incohérent. Examinons si le modèle ajusté fonctionne mieux dans ces cas.
+    `When is the best time of year to visit in terms of the weather?`
 
-1. Accédez à la page **Ajustement** dans **Créer et personnaliser** pour trouver votre tâche d’ajustement et son statut. Si elle est toujours en cours d’exécution, vous pouvez choisir de continuer à évaluer manuellement votre modèle de base déployé. Si elle est terminée, vous pouvez continuer avec la section suivante.
+    `What's the best way to get around the city?`
+
+## Passer en revue le fichier d’entraînement
+
+Le modèle de base semble fonctionner suffisamment bien, mais vous attendez peut-être un style conversationnel particulier de votre application d’IA générative. Les données d’entraînement utilisées pour l’ajustement vous permettent de créer des exemples explicites des types de réponse que vous souhaitez obtenir.
+
+1. Ouvrez le fichier JSONL que vous avez téléchargé précédemment (vous pouvez l’ouvrir dans n’importe quel éditeur de texte).
+1. Examinez la liste des documents JSON dans le fichier de données d’entraînement. La première doit être similaire à celle-ci (mise en forme pour la lisibilité) :
+
+    ```json
+    {"messages": [
+        {"role": "system", "content": "You are an AI travel assistant that helps people plan their trips. Your objective is to offer support for travel-related inquiries, such as visa requirements, weather forecasts, local attractions, and cultural norms. You should not provide any hotel, flight, rental car or restaurant recommendations. Ask engaging questions to help someone plan their trip and think about what they want to do on their holiday."},
+        {"role": "user", "content": "What's a must-see in Paris?"},
+        {"role": "assistant", "content": "Oh la la! You simply must twirl around the Eiffel Tower and snap a chic selfie! After that, consider visiting the Louvre Museum to see the Mona Lisa and other masterpieces. What type of attractions are you most interested in?"}
+        ]}
+    ```
+
+    Chaque exemple d’interaction dans la liste inclut le même message système que celui que vous avez testé avec le modèle de base, un prompt d’utilisateur lié à une requête de voyage, et une réponse. Le style des réponses dans les données d’entraînement va aider le modèle ajusté à apprendre comment il doit répondre.
 
 ## Déployer le modèle ajusté
 
 Une fois l’ajustement terminé, vous pouvez déployer le modèle ajusté.
 
+1. Accédez à la page **Ajustement** dans **Créer et personnaliser** pour trouver votre tâche d’ajustement et son statut. Si elle est toujours en cours d’exécution, vous pouvez choisir de continuer à discuter avec votre modèle de base déployé ou de prendre une pause. Si elle est terminée, vous pouvez continuer.
 1. Sélectionnez le modèle ajusté. Sélectionnez l’onglet **Métriques** et explorez les métriques ajustées.
 1. Déployez le modèle ajusté avec les paramètres suivants :
     - **Nom du déploiement** : *nom unique pour votre modèle ; vous pouvez utiliser la valeur par défaut*
     - **Type de déploiement** : Standard
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : valeur par défaut
-1. Attendez que le déploiement soit terminé avant de pouvoir le tester, cela peut prendre un certain temps.
+1. Attendez que le déploiement soit terminé avant de le tester. Cela peut prendre un certain temps. Vérifiez **l’état d’approvisionnement** jusqu’à ce qu’il soit terminé (vous devrez peut-être actualiser le navigateur pour afficher l’état mis à jour).
 
 ## Tester le modèle ajusté
 
 Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester de la même manière que votre modèle de base déployé.
 
 1. Une fois le déploiement terminé, accédez au modèle ajusté et sélectionnez **Ouvrir dans le terrain de jeu**.
-1. Mettez à jour le message système avec les instructions suivantes :
+1. Vérifiez que le message système inclut les instructions suivantes :
 
     ```md
     You are an AI travel assistant that helps people plan their trips. Your objective is to offer support for travel-related inquiries, such as visa requirements, weather forecasts, local attractions, and cultural norms.
@@ -143,7 +167,13 @@ Maintenant que vous avez déployé votre modèle ajusté, vous pouvez le tester 
     
     `I'm mostly there for the food. Where should I stay to be within walking distance of affordable restaurants?`
 
-    `Give me a list of five bed and breakfasts in Trastevere.`
+    `What are some local delicacies I should try?`
+
+    `When is the best time of year to visit in terms of the weather?`
+
+    `What's the best way to get around the city?`
+
+1. Après avoir examiné les réponses, en quoi sont-elles différentes de celles du modèle de base ?
 
 ## Nettoyage
 
