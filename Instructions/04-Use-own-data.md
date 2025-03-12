@@ -8,7 +8,7 @@ lab:
 
 La génération augmentée e récupération (RAG, Retrieval Augmented Generation) est une technique utilisée pour créer des applications qui intègrent des données provenant de sources de données personnalisées dans une invite pour un modèle d’IA générative. La RAG est un modèle couramment utilisé pour développer des applications d’IA générative, qui sont des applications basées sur la conversation instantanée utilisant un modèle de langage pour interpréter les entrées et générer des réponses appropriées.
 
-Dans cet exercice, vous allez utiliser le portail Azure AI Foundry pour intégrer des données personnalisées dans un flux d’invite d’IA générative.
+Dans cet exercice, vous allez utiliser le portail Azure AI Foundry pour intégrer des données personnalisées dans un flux d’invite d’IA générative. Vous allez également découvrir comment implémenter le modèle RAG dans une application cliente à l’aide des kits SDK Azure AI Foundry et Azure OpenAI.
 
 Cet exercice prend environ **45** minutes.
 
@@ -89,7 +89,7 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
     - **Paramètres de recherche** :
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
         - **Connexion Azure OpenAI** : *Sélectionner la ressource Azure OpenAI par défaut pour votre hub*
-        
+
 1. Attendez que le processus d'indexation soit terminé, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
@@ -116,15 +116,16 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, 
 
 1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Créer et personnaliser**, sélectionnez la page **Flux d’invite**.
 1. Créez un flux d’invite en clonant l’exemple **Multi-Round Q&A on Your Data** (Questions et réponses à plusieurs tours sur vos données) dans la galerie. Enregistrez votre clone de cet exemple dans un dossier nommé `brochure-flow`.
-    <details>  
-      <summary><b>Conseil de résolution des problèmes</b> : erreur d’autorisations</summary>
+
+    <details> 
+        <summary><font color="red"><b>Conseil de résolution des problèmes</b> : erreur d’autorisations</font></summary>
         <p>Si vous recevez une erreur d’autorisations lorsque vous créez un flux d’invite, essayez ce qui suit :</p>
         <ul>
-          <li>Dans le Portail Azure, sélectionnez la ressource AI Services.</li>
-          <li>Dans l’onglet Identité, dans Gestion des ressources, vérifiez qu’il s’agit d’une identité managée affectée par le système.</li>
-          <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez une attribution de rôle <em>Lecteur des données blob du stockage</em>.</li>
-          <li>Sous <strong>Attribuer l’accès à</strong>, sélectionnez <strong>Identité managée</strong>, <strong>+ Sélectionner des membres</strong>, puis <strong>Toutes les identités managées affectées par le système</strong> et sélectionnez votre ressource Azure AI Services.</li>
-          <li>À l’aide de Passer en revue et attribuer, enregistrez les nouveaux paramètres et procédez à nouveau à l’étape précédente.</li>
+            <li>Dans le portail Azure, dans le groupe de ressources de votre hub Azure AI Foundry, sélectionnez la ressource AI Services.</li>
+            <li>Dans l’onglet <b>Identité</b>, dans <b>Gestion des ressources</b>, assurez-vous que le statut de l’identité managée <b>affectée par le système</b> est <b>Activé</b>.</li>
+            <li>Dans le groupe de ressources de votre hub Azure AI Foundry, sélectionnez le compte de stockage.</li>
+            <li>Dans la page <b>Contrôle d’accès (IAM)</b>, ajoutez une attribution de rôle pour affecter le rôle <b>Lecteur de données blob de stockage</b> à l’identité managée pour votre ressource Azure AI Services.</li>
+            <li>Attendez que le rôle soit attribué, puis réessayez l’étape précédente.</li>
         </ul>
     </details>
 
@@ -142,7 +143,11 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, 
 
 1. Utilisez le bouton **Démarrer la session de calcul** pour démarrer le calcul d’exécution du flux.
 
-    Attendez le démarrage du runtime. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
+    Attendez que la session de calcul démarre. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
+
+    >**Note** : en raison des limitations de l’infrastructure et de la capacité, la session de calcul peut échouer au démarrage pendant les périodes à forte demande. Si cela se produit, vous pouvez ignorer l’utilisation du flux d’invite et démarrer la tâche **Créer une application cliente RAG avec les kits SDK Azure AI Foundry et Azure OpenAI**.
+
+    Ensuite, lorsque la session de calcul a démarré...
 
 1. Dans la section **Entrées**, vérifiez que les entrées incluent :
     - **chat_history**
@@ -161,7 +166,7 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, 
     - **deployment_name** : gpt-4
     - **response_format** : {"type":"text"}
 
-1. Attendez que la session de calcul démarre, puis dans la section de **recherche** , définissez les valeurs de paramètre suivantes :
+1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
 
     - **mlindex_content** : *Sélectionnez le champ vide pour ouvrir le volet Générer*
         - **index_type** : Index inscrit
@@ -199,30 +204,140 @@ Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, 
 1. Examinez la réponse, qui doit être basée sur les données de l’index et prendre en compte l’historique de la conversation (« there » est donc compris comme étant « London »).
 1. Examinez les sorties de chaque outil dans le flux, en notant comment chaque outil du flux a fonctionné sur ses entrées pour préparer une invite contextualisée et obtenir une réponse appropriée.
 
-## Déployer le flux
+    Vous disposez maintenant d’un flux d’invite fonctionnel qui utilise votre index Recherche Azure AI pour implémenter le modèle RAG. Pour en savoir plus sur le déploiement et l’utilisation de votre flux d’invite, consultez la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/flow-deploy).
 
-Maintenant que vous disposez d’un flux opérationnel qui utilise vos données indexées, vous pouvez le déployer en tant que service pour être consommé par une application copilote.
+## Créer une application cliente RAG avec les kits SDK Azure AI Foundry et Azure OpenAI
 
-> **Remarque** : en fonction de la région et de la charge du centre de données, les déploiements peuvent parfois prendre un certain temps et génèrent par moments une erreur lors de l’interaction avec le déploiement. N’hésitez pas à passer à la section défi ci-dessous pendant le déploiement ou ignorez le test de votre déploiement si vous manquez de temps.
+Bien qu’un flux d’invite soit un excellent moyen d’encapsuler votre modèle et vos données dans une application RAG, vous pouvez également utiliser les kits SDK Azure AI Foundry et Azure OpenAI pour implémenter le modèle RAG dans une application cliente. Examinons le code pour y parvenir dans un exemple simple.
 
-1. Dans la barre d’outils, sélectionnez **Déployer**.
-1. Créez un déploiement avec les paramètres suivants :
-    - **Paramètres de base** :
-        - **Point de terminaison** : Nouvelle
-        - **Nom du point de terminaison** : *Utilisez le nom de point de terminaison unique par défaut*
-        - **Nom du déploiement** : *Utilisez le nom de point de terminaison de déploiement par défaut*
-        - **Machine virtuelle** : Standard_DS3_v2
-        - **Nombre d’instances** : 3
-        - **Collecte des données d’inférence** : Sélectionné
-    - **Paramètres avancés** :
-        - *Utiliser les paramètres par défaut*
-1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Continuez à actualiser la vue jusqu’à ce que le déploiement **brochure-endpoint-1** ait l’état *réussi* sous le point de terminaison **brochure-endpoint** (ceci peut prendre un certain temps).
-1. Une fois le déploiement réussi, sélectionnez-le. Ensuite, dans sa page **Test**, entrez l’invite `What is there to do in San Francisco?` et examinez la réponse.
-1. Entrez l’invite `Where else could I go?` et examinez la réponse.
-1. Visualisez la page **Consommer** pour le point de terminaison et notez qu’elle contient des informations de connexion et un exemple de code que vous pouvez utiliser pour créer une application cliente pour votre point de terminaison, ce qui vous permet d’intégrer la solution de flux d’invite dans une application en tant que copilote personnalisé.
+> **Conseil** : vous pouvez choisir de développer votre solution RAG à l’aide de Python ou de Microsoft C#. Suivez les instructions de la section appropriée pour votre langue choisie.
 
-## Défi 
+### Préparer la configuration de l’application
+
+1. Dans le portail Azure AI Foundry, affichez la page **Vue d’ensemble** de votre projet.
+1. Dans la zone **Détails du projet**, notez la **chaîne de connexion du projet**. Vous utiliserez cette chaîne de connexion pour vous connecter à votre projet dans une application cliente.
+1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Azure AI Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
+1. Cliquez sur le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell***. Cloud Shell fournit une interface de ligne de commande dans un volet situé en bas du portail Azure.
+
+    > **Remarque** : si vous avez déjà créé un Cloud Shell qui utilise un environnement *Bash*, basculez-le vers ***PowerShell***.
+
+1. Dans la barre d’outils Cloud Shell, dans le menu **Paramètres**, sélectionnez **Accéder à la version classique** (cela est nécessaire pour utiliser l’éditeur de code).
+
+    > **Conseil** : lorsque vous collez des commandes dans cloudshell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
+
+1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub pour cet exercice :
+
+    ```
+    rm -r mslearn-ai-foundry -f
+    git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
+    ```
+
+> **Note** : suivez les étapes de votre langage de programmation choisi.
+
+1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :  
+
+    **Python**
+
+    ```
+   cd mslearn-ai-foundry/labfiles/rag-app/python
+    ```
+
+    **C#**
+
+    ```
+   cd mslearn-ai-foundry/labfiles/rag-app/c-sharp
+    ```
+
+1. Dans le volet de ligne de commande Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous utiliserez, c’est-à-dire :
+
+    **Python**
+
+    ```
+   pip install python-dotenv azure-ai-projects azure-identity openai
+    ```
+
+    **C#**
+
+    ```
+   dotnet add package Azure.Identity
+   dotnet add package Azure.AI.Projects --prerelease
+   dotnet add package Azure.AI.OpenAI --prerelease
+    ```
+    
+
+1. Saisissez la commande suivante pour modifier le fichier de configuration fourni :
+
+    **Python**
+
+    ```
+   code .env
+    ```
+
+    **C#**
+
+    ```
+   code appsettings.json
+    ```
+
+    Le fichier s’ouvre dans un éditeur de code.
+
+1. Dans le fichier de code, remplacez les espaces réservés suivants : 
+    - **your_project_endpoint** : remplacez par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
+    - **your_model_deployment** :remplacez par le nom que vous avez affecté à votre déploiement de modèle (qui doit être `gpt-4`).
+    - **your_index** : remplacez par votre nom d’index (qui doit être `brochures-index`).
+1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
+
+### Explorer le code pour implémenter le modèle RAG
+
+1. Saisissez la commande suivante pour modifier le fichier de code fourni :
+
+    **Python**
+
+    ```
+   code rag-app.py
+    ```
+
+    **C#**
+
+    ```
+   code Program.cs
+    ```
+
+1. Passez en revue le code dans le fichier, en notant qu’il :
+    - Utilise le kit SDK Azure AI Foundry pour vous connecter à votre projet (à l’aide de la chaîne de connexion du projet)
+    - Récupère la connexion Recherche Azure AI par défaut à partir de votre projet afin qu’il puisse déterminer le point de terminaison et la clé de votre service Recherche Azure AI
+    - Crée un client Azure OpenAI authentifié basé sur la connexion de service Azure OpenAI par défaut dans votre projet
+    - Envoie une invite (y compris un système et un message utilisateur) au client Azure OpenAI, en ajoutant des informations supplémentaires sur l’index Recherche Azure AI à utiliser pour ancrer l’invite
+    - Affiche la réponse à partir de l’invite ancrée
+1. Utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code sans enregistrer les modifications, tout en gardant la ligne de commande Cloud Shell ouverte.
+
+### Exécutez l’application de conversation
+
+1. Dans le volet de ligne de commande Cloud Shell, entrez la commande suivante pour exécuter l’application :
+
+    **Python**
+
+    ```
+   python rag-app.py
+    ```
+
+    **C#**
+
+    ```
+   dotnet run
+    ```
+
+1. Lorsque vous y êtes invité, entrez une question, par exemple `Where can I travel to?`, et passez en revue la réponse de votre modèle d’IA générative.
+
+    Notez que la réponse inclut des références sources pour indiquer les données indexées dans lesquelles la réponse a été trouvée.
+
+1. Essayez quelques questions supplémentaires, par exemple `Where should I stay in London?`.
+
+    > **Note** : cet exemple d’application simple n’inclut aucune logique pour conserver l’historique des conversations. Chaque invite est donc traitée comme une nouvelle conversation.
+
+1. Lorsque vous avez terminé, entrez `quit` pour quitter le programme. Fermez le volet Cloud Shell.
+
+## Défi
 
 Maintenant que vous avez découvert comment intégrer vos propres données dans une application d’IA générative créée avec le portail Azure AI Foundry, allons plus loin.
 
@@ -232,7 +347,7 @@ Essayez d’ajouter une nouvelle source de données via le portail Azure AI Fo
 - Un ensemble de présentations de conférences passées.
 - N’importe quels jeux de données disponibles dans le référentiel [Exemples de données Recherche Azure](https://github.com/Azure-Samples/azure-search-sample-data).
 
-Utilisez toutes vos ressources possibles pour créer votre source de données et l’intégrer dans votre flux d’invite. Essayez le nouveau flux d’invite et envoyez des invites auxquelles seul le jeu de données que vous avez choisi peut répondre !
+Utilisez toutes vos ressources possibles pour créer votre source de données et l’intégrer dans un flux d’invite ou une application cliente. Testez votre solution en envoyant des invites qui ne pourraient obtenir une réponse que par le jeu de données que vous avez choisi.
 
 ## Nettoyage
 
