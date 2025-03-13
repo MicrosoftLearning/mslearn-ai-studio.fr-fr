@@ -55,7 +55,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
 
 > **Conseil** : vous pouvez choisir de développer votre solution à l’aide de Python ou de Microsoft C#. Suivez les instructions de la section appropriée pour votre langue choisie.
 
-### Cloner le référentiel d’application
+### Préparer la configuration de l’application
 
 1. Dans le portail Azure AI Foundry, affichez la page **Vue d’ensemble** de votre projet.
 1. Dans la zone **Détails du projet**, notez la **chaîne de connexion du projet**. Vous utiliserez cette chaîne de connexion pour vous connecter à votre projet dans une application cliente.
@@ -74,8 +74,6 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
     rm -r mslearn-ai-foundry -f
     git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
     ```
-
-### Préparer la configuration de l’application
 
 > **Note** : suivez les étapes de votre langage de programmation choisi.
 
