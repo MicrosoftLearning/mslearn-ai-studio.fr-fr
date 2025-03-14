@@ -1,5 +1,5 @@
 ---
-title: Exercices Azure OpenAI
+title: Développer des solutions d’IA générative (suite)
 permalink: index.html
 layout: home
 ---
