@@ -1,9 +1,3 @@
----
-lab:
-  title: Créer une application d’IA générative à l’aide d’outils de développement orientés code
-  description: Découvrez comment utiliser du code pour créer et mettre à jour les éléments de votre application d’IA générative pour prendre en charge la génération et le déploiement automatisés dans un scénario DevOps.
----
-
 # Créer une application d’IA générative à l’aide d’outils de développement orientés code
 
 Dans cet exercice, vous allez cloner et déployer un modèle Azure Developer CLI qui approvisionne et [déploie votre projet IA sur un point de terminaison en ligne](https://learn.microsoft.com/azure/developer/azure-developer-cli/azure-ai-ml-endpoints?WT.mc_id=academic-140829-cacaste) sur Azure AI Foundry. Vous l’utiliserez ensuite comme base pour créer votre propre copilote personnalisé avec Azure AI et une expérience orientée code.

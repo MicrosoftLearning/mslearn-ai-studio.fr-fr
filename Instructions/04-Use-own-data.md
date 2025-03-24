@@ -8,7 +8,7 @@ lab:
 
 La génération augmentée e récupération (RAG, Retrieval Augmented Generation) est une technique utilisée pour créer des applications qui intègrent des données provenant de sources de données personnalisées dans une invite pour un modèle d’IA générative. La RAG est un modèle couramment utilisé pour développer des applications d’IA générative, qui sont des applications basées sur la conversation instantanée utilisant un modèle de langage pour interpréter les entrées et générer des réponses appropriées.
 
-Dans cet exercice, vous allez utiliser le portail Azure AI Foundry pour intégrer des données personnalisées dans un flux d’invite d’IA générative. Vous allez également découvrir comment implémenter le modèle RAG dans une application cliente à l’aide des kits SDK Azure AI Foundry et Azure OpenAI.
+Dans cet exercice, vous allez utiliser le portail Azure AI Foundry, ainsi que les SDK Azure AI Foundry et Azure OpenAI pour intégrer des données personnalisées dans une application d’IA générative.
 
 Cet exercice prend environ **45** minutes.
 
@@ -21,7 +21,7 @@ Commençons par créer un projet Azure AI Foundry et les ressources de service d
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Dans l‘Assistant **Création d‘un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
@@ -90,125 +90,29 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
         - **Connexion Azure OpenAI** : *Sélectionner la ressource Azure OpenAI par défaut pour votre hub*
 
-1. Attendez que le processus d'indexation soit terminé, ce qui peut prendre plusieurs minutes. L’opération de création d’index est constituée des travaux suivants :
+1. Attendez que le processus d‘indexation soit terminé, ce qui peut prendre un certain temps en fonction des ressources de calcul disponibles dans votre abonnement. L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
     - Créez l’index Recherche Azure AI.
     - Inscrivez la ressource d’index.
 
-## Tester l’index
+## Tester l‘index dans le terrain de jeu
 
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
-1. Dans le volet de navigation de gauche, sélectionnez la page **Terrains de jeu**.
-1. Dans la page Conversation, dans le volet Configuration, vérifiez que votre modèle de déploiement **gpt-4** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
+1. Dans le volet de navigation de gauche, sélectionnez la page **Terrains de jeu**, puis ouvrez le terrain de jeu **Conversation**.
+1. Dans la page du terrain de jeu Conversation, dans le volet Configuration, vérifiez si votre modèle de déploiement **gpt-4** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le volet Configuration, développez le champ **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
 
-   > **Remarque** : certains utilisateurs peuvent ne pas trouver immédiatement les index nouvellement créés. Actualiser le navigateur permet généralement de résoudre le problème, mais si cela ne suffit pas, vous devrez peut-être attendre que l’index soit reconnu.
+   > **Conseil** : dans certains cas, les index nouvellement créés peuvent ne pas être disponibles de suite. Actualiser le navigateur permet généralement de résoudre le problème, mais si cela ne suffit pas, vous devrez peut-être attendre que l’index soit reconnu.
 
 1. Une fois l’index ajouté et la session de conversation redémarrée, soumettez à nouveau l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être basée sur les données de l’index.
 
-## Utiliser l’index dans un flux d’invite
-
-Votre index vectoriel a été enregistré dans votre projet Azure AI Foundry, ce qui vous permet de l’utiliser facilement dans un flux d’invite.
-
-1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Créer et personnaliser**, sélectionnez la page **Flux d’invite**.
-1. Créez un flux d’invite en clonant l’exemple **Multi-Round Q&A on Your Data** (Questions et réponses à plusieurs tours sur vos données) dans la galerie. Enregistrez votre clone de cet exemple dans un dossier nommé `brochure-flow`.
-
-    <details> 
-        <summary><font color="red"><b>Conseil de résolution des problèmes</b> : erreur d’autorisations</font></summary>
-        <p>Si vous recevez une erreur d’autorisations lorsque vous créez un flux d’invite, essayez ce qui suit :</p>
-        <ul>
-            <li>Dans le portail Azure, dans le groupe de ressources de votre hub Azure AI Foundry, sélectionnez la ressource AI Services.</li>
-            <li>Dans l’onglet <b>Identité</b>, dans <b>Gestion des ressources</b>, assurez-vous que le statut de l’identité managée <b>affectée par le système</b> est <b>Activé</b>.</li>
-            <li>Dans le groupe de ressources de votre hub Azure AI Foundry, sélectionnez le compte de stockage.</li>
-            <li>Dans la page <b>Contrôle d’accès (IAM)</b>, ajoutez une attribution de rôle pour affecter le rôle <b>Lecteur de données blob de stockage</b> à l’identité managée pour votre ressource Azure AI Services.</li>
-            <li>Attendez que le rôle soit attribué, puis réessayez l’étape précédente.</li>
-        </ul>
-    </details>
-
-1. Quand la page du concepteur de flux d’invite s’ouvre, passez en revue **brochure-flow**. Son graphique devrait ressembler à l’image suivante :
-
-    ![Une capture d’écran d’un graphique de flux d’invite](./media/chat-flow.png)
-
-    L’exemple de flux d’invite que vous utilisez implémente la logique d’invite pour une application de conversation dans laquelle l’utilisateur peut soumettre de façon itérative une entrée de texte à l’interface de conversation. L’historique de la conversation est conservé et inclus dans le contexte de chaque itération. Le flux d’invite orchestre une séquence d’*outils* pour :
-
-    - Ajoutez l’historique à l’entrée de conversation pour définir une invite sous la forme d’une forme contextualisée d’une question.
-    - Récupérez le contexte à l’aide de votre index et d’un type de requête de votre choix en fonction de la question.
-    - Générer un contexte d’invite en utilisant les données récupérées dans l’index pour augmenter la question.
-    - Créez des variantes d’invite en ajoutant un message système et en structurant l’historique de la conversation.
-    - Soumettre l’invite à un modèle de langage pour générer une réponse en langage naturel.
-
-1. Utilisez le bouton **Démarrer la session de calcul** pour démarrer le calcul d’exécution du flux.
-
-    Attendez que la session de calcul démarre. Ceci fournit un contexte de calcul pour le flux d’invite. Pendant que vous attendez, sous l’onglet **Flux**, passez en revue les sections pour les outils dans le flux.
-
-    >**Note** : en raison des limitations de l’infrastructure et de la capacité, la session de calcul peut échouer au démarrage pendant les périodes à forte demande. Si cela se produit, vous pouvez ignorer l’utilisation du flux d’invite et démarrer la tâche **Créer une application cliente RAG avec les kits SDK Azure AI Foundry et Azure OpenAI**.
-
-    Ensuite, lorsque la session de calcul a démarré...
-
-1. Dans la section **Entrées**, vérifiez que les entrées incluent :
-    - **chat_history**
-    - **chat_input**
-
-    L’historique de conversation par défaut de cet exemple inclut une conversation sur l’IA.
-
-1. Dans la section **Sorties**, vérifiez que la sortie inclut :
-
-    - **chat_output** avec la valeur ${chat_with_context.output}
-
-1. Dans la section **modify_query_with_history**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
-
-    - **Connexion** : *La ressource Azure OpenAI par défaut pour votre hub IA*
-    - **Api**: conversation
-    - **deployment_name** : gpt-4
-    - **response_format** : {"type":"text"}
-
-1. Dans la section de **recherche**, définissez les valeurs de paramètre suivantes :
-
-    - **mlindex_content** : *Sélectionnez le champ vide pour ouvrir le volet Générer*
-        - **index_type** : Index inscrit
-        - **mlindex_asset_id** : brochures-index : 1
-    - **requêtes**: ${modify_query_with_history.output}
-    - **query_type** : Hybride (vecteur + mot clé)
-    - **top_k** : 2
-
-1. Dans la section **generate_prompt_context**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
-
-    - **search_result** *(objet)*  : ${lookup.output}
-
-1. Dans la section **Prompt_variants**, passez en revue le script Python et vérifiez que les **entrées** pour cet outil incluent le paramètre suivant :
-
-    - **contexts** *(string)* : ${generate_prompt_context.output}
-    - **chat_history** *(string)* : ${inputs.chat_history}
-    - **chat_input** *(string)* : ${inputs.chat_input}
-
-1. Dans la section **chat_with_context**, sélectionnez les paramètres suivants (en laissant les autres tels qu’ils sont) :
-
-    - **Connexion** : *La ressource Azure OpenAI par défaut pour votre hub IA*
-    - **Api** : Conversation instantanée
-    - **deployment_name** : gpt-4
-    - **response_format** : {"type":"text"}
-
-    Vérifiez ensuite que les **entrées** pour cet outil incluent les paramètres suivants :
-    - **prompt_text** *(string)* : ${Prompt_variants.output}
-
-1. Dans la barre d’outils, utilisez le bouton **Enregistrer** pour enregistrer les modifications que vous avez apportées aux outils dans le flux d’invite.
-1. Dans la barre d’outils, sélectionnez **Conversation**. Un volet de conversation s’ouvre avec l’exemple d’historique de conversation et l’entrée déjà renseignée en fonction des exemples de valeurs. Vous pouvez les ignorer.
-1. Dans le volet de conversation, remplacez l’entrée par défaut par la question `Where can I stay in London?`, puis soumettez-la.
-1. Examinez la réponse, qui doit être basée sur les données de l’index.
-1. Passez en revue les sorties de chaque outil dans le flux.
-1. Dans le volet de conversation, entrez la question `What can I do there?`
-1. Examinez la réponse, qui doit être basée sur les données de l’index et prendre en compte l’historique de la conversation (« there » est donc compris comme étant « London »).
-1. Examinez les sorties de chaque outil dans le flux, en notant comment chaque outil du flux a fonctionné sur ses entrées pour préparer une invite contextualisée et obtenir une réponse appropriée.
-
-    Vous disposez maintenant d’un flux d’invite fonctionnel qui utilise votre index Recherche Azure AI pour implémenter le modèle RAG. Pour en savoir plus sur le déploiement et l’utilisation de votre flux d’invite, consultez la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/flow-deploy).
-
 ## Créer une application cliente RAG avec les kits SDK Azure AI Foundry et Azure OpenAI
 
-Bien qu’un flux d’invite soit un excellent moyen d’encapsuler votre modèle et vos données dans une application RAG, vous pouvez également utiliser les kits SDK Azure AI Foundry et Azure OpenAI pour implémenter le modèle RAG dans une application cliente. Examinons le code pour y parvenir dans un exemple simple.
+Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les kits SDK Azure AI Foundry et Azure OpenAI pour implémenter le modèle RAG dans une application cliente. Examinons le code pour y parvenir dans un exemple simple.
 
 > **Conseil** : vous pouvez choisir de développer votre solution RAG à l’aide de Python ou de Microsoft C#. Suivez les instructions de la section appropriée pour votre langue choisie.
 
@@ -341,13 +245,13 @@ Bien qu’un flux d’invite soit un excellent moyen d’encapsuler votre modèl
 
 Maintenant que vous avez découvert comment intégrer vos propres données dans une application d’IA générative créée avec le portail Azure AI Foundry, allons plus loin.
 
-Essayez d’ajouter une nouvelle source de données via le portail Azure AI Foundry, indexez-la et intégrez les données indexées dans un flux d’invite. Voici quelques jeux de données que vous pouvez essayer :
+Essayez d’ajouter une nouvelle source de données via le portail Azure AI Foundry, indexez-la et intégrez les données indexées dans une application cliente. Voici quelques jeux de données que vous pouvez essayer :
 
 - Une collection d’articles (de recherche) que vous avez sur votre ordinateur.
 - Un ensemble de présentations de conférences passées.
 - N’importe quels jeux de données disponibles dans le référentiel [Exemples de données Recherche Azure](https://github.com/Azure-Samples/azure-search-sample-data).
 
-Utilisez toutes vos ressources possibles pour créer votre source de données et l’intégrer dans un flux d’invite ou une application cliente. Testez votre solution en envoyant des invites qui ne pourraient obtenir une réponse que par le jeu de données que vous avez choisi.
+Testez votre solution en envoyant des invites qui ne pourraient obtenir une réponse que par le jeu de données que vous avez choisi.
 
 ## Nettoyage
 
