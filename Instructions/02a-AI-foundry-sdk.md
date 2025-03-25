@@ -24,11 +24,18 @@ Commençons par créer un projet Azure AI Foundry.
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
+    - **Région** : Sélectionnez l’une des régions suivantes\* :
+        - USA Est
+        - USA Est 2
+        - Centre-Nord des États-Unis
+        - États-Unis - partie centrale méridionale
+        - Suède Centre
+        - USA Ouest
+        - USA Ouest 3
     - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \* Au moment de l’écriture, le modèle Microsoft *Phi-4* que nous allons utiliser dans cet exercice est disponible dans ces régions. Vous pouvez consulter les dernières disponibilités régionales de certains modèles dans la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability). Si une limite de quota régionale est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -102,9 +109,9 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
     **C#**
 
     ```
-   dotnet add package Azure.AI.Inference --version 1.0.0-beta.3
-   dotnet add package Azure.AI.Projects --version 1.0.0-beta.3
    dotnet add package Azure.Identity
+   dotnet add package Azure.AI.Projects --version 1.0.0-beta.3
+   dotnet add package Azure.AI.Inference --version 1.0.0-beta.3
     ```
     
 
@@ -153,6 +160,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
    from dotenv import load_dotenv
    from azure.identity import DefaultAzureCredential
    from azure.ai.projects import AIProjectClient
+   from azure.ai.inference.models import SystemMessage, UserMessage
     ```
 
     **C#**
@@ -201,14 +209,13 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le SDK Azure
 
     ```python
    response = chat.complete(
-        model=model_deployment,
-        messages=[
-            {"role": "system", "content": "You are a helpful AI assistant that answers questions."},
-            {"role": "user", "content": input_text},
-            ],
-        )
-   print(response.choices[0].message.content)
-    ```
+       model=model_deployment,
+       messages=[
+           SystemMessage("You are a helpful AI assistant that answers questions."),
+           UserMessage(input_text)
+       ])
+   print(response.choices[0].message.content
+```
 
     **C#**
 
