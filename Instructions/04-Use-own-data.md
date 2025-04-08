@@ -12,6 +12,8 @@ Dans cet exercice, vous allez utiliser le portail Azure AI Foundry, ainsi que 
 
 Cet exercice prend environ **45** minutes.
 
+> **Remarque** : cet exercice est basé sur des SDK en préversion, susceptibles d’être modifiés. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles.
+
 ## Créer un projet Azure AI Foundry
 
 Commençons par créer un projet Azure AI Foundry et les ressources de service dont il a besoin pour prendre en charge l’utilisation de vos propres données, y compris une ressource Recherche Azure AI.
@@ -30,7 +32,7 @@ Commençons par créer un projet Azure AI Foundry et les ressources de service d
     - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
     - **Connecter Recherche Azure AI** : *créer une ressource Recherche Azure AI avec un nom unique*
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte et qu’aucune région n'est recommandée pour les deux modèles, sélectionnez un seul d’entre eux et utilisez la région recommandée. Vous créerez une autre ressource dans une région différente pour le deuxième modèle plus tard dans l’exercice.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -189,7 +191,7 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
     - **your_project_endpoint** : remplacez par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
     - **your_model_deployment** :remplacez par le nom que vous avez affecté à votre déploiement de modèle (qui doit être `gpt-4`).
     - **your_index** : remplacez par votre nom d’index (qui doit être `brochures-index`).
-1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
+1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande du Cloud Shell ouverte.
 
 ### Explorer le code pour implémenter le modèle RAG
 

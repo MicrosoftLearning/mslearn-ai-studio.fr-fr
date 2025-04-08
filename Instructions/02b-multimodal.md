@@ -10,6 +10,8 @@ Dans cet exercice, vous utilisez le modèle d’IA générative *Phi-4-multimoda
 
 Cet exercice prend environ **30** minutes.
 
+> **Remarque** : cet exercice est basé sur des SDK en préversion, susceptibles d’être modifiés. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles.
+
 ## Créer un projet Azure AI Foundry
 
 Commençons par créer un projet Azure AI Foundry.
@@ -129,7 +131,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     Le fichier s’ouvre dans un éditeur de code.
 
 10. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry) et l’espace réservé **your_model_deployment** par le nom que vous avez attribué à votre déploiement de modèle Phi-4-multimodal-instruct.
-11. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **Ctrl+S** pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
+11. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande du Cloud Shell ouverte.
 
 ### Écrire du code pour vous connecter à votre projet et obtenir un client de conversation instantanée pour votre modèle
 

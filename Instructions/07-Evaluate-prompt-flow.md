@@ -10,24 +10,28 @@ Dans cet exercice, vous allez explorer les évaluations intégrées et personnal
 
 Cet exercice prend environ **30** minutes.
 
-## Créer un hub IA et un projet dans Azure AI Foundry
+## Créer un projet et un hub Azure AI
 
-Vous commencez par créer un projet Azure AI Foundry au sein d’un hub Azure AI :
+Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet et un hub Azure AI.
 
-1. Dans un navigateur web, ouvrez [https://ai.azure.com](https://ai.azure.com) et connectez-vous à l’aide de vos informations d’identification Azure.
-1. Sélectionnez la page **Accueil**, puis sélectionnez **+ Nouveau projet**.
-1. Dans l’Assistant **Créer un projet**, donnez un nom unique à votre projet, puis sélectionnez **Personnaliser** et définissez les paramètres suivants :
-    - **Hub name** : *Un nom unique*
+1. Dans un navigateur web, ouvrez le [portail Azure Ai Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
+
+1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
+1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
+    - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
-    - **Groupe de ressources** : *Un nouveau groupe de ressources*
+    - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
     - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : (Nouveauté) *permet de remplir automatiquement le nom de votre hub sélectionné*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Les régions répertoriées dans l’assistant de l’emplacement incluent le quota par défaut pour le ou les types de modèles utilisés dans cet exercice. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. En savoir plus sur la [disponibilité du modèle par région](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#availability)
+    > \* Les quotas de modèles sont limités au niveau du locataire par des quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration.
-1. Sélectionnez **Créer un projet** et patientez jusqu’à ce que l’opération se termine.
+1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
+1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+
+    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
 
 ## Déployer un modèle GPT
 
@@ -155,7 +159,7 @@ Pour gagner du temps, nous avons créé un jeu de données de sortie par lot pou
 1. Sélectionnez **Suivant**, puis passez en revue vos données et **soumettez** la nouvelle évaluation.
 1. Attendez que les évaluations soient terminées, vous devrez peut-être actualiser.
 1. Sélectionnez l’exécution d’évaluation que vous venez de créer.
-1. Explorez le **tableau de bord métriques** et **résultat détaillé des métriques**.
+1. Explorez le **Tableau de bord des mesures** dans l’onglet **Rapport** et **Résultat détaillé des mesures** dans l’onglet **Données**.
 
 ## Supprimer les ressources Azure
 

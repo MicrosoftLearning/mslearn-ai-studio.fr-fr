@@ -39,8 +39,8 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
 
 Il existe plusieurs options pour déployer des modèles dans le portail Azure AI Foundry. Dans cet exercice, vous allez utiliser l’option de déploiement d’**inférence de modèle Azure AI**, qui prend en charge les modèles *Azure OpenAI* et les *modèles en tant que service* du catalogue de modèles Azure AI Foundry. Étant donné que tous les modèles sont déployés sur un point de terminaison commun hébergé par votre ressource Azure AI Services, il est facile de basculer entre les modèles lors de leur test afin de comparer le comportement et les performances.
 
-1. Dans la barre d’outils située en haut à droite de votre projet Azure AI Foundry, utilisez l’icône **Préversions de fonctionnalités** pour afficher ces dernières.
-1. Activez la fonctionnalité **Déployer des modèles vers le service d’inférence de modèle Azure AI**. Fermez ensuite le volet **Fonctionnalités en version préliminaire**.
+1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Aperçu des fonctionnalités** (📣) pour afficher l’aperçu des fonctionnalités.
+1. Vérifiez que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée. Fermez ensuite le volet **Fonctionnalités en version préliminaire**.
 
 ## Vérifier les détails et les benchmarks des modèles
 
@@ -101,7 +101,6 @@ Commençons par déployer un modèle à partir du catalogue de modèles. Cette o
     - **Ressource IA connectée** : *votre connexion de ressources Azure OpenAI*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
-    - **Enable dynamic quota** : désactivé
       
     > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
