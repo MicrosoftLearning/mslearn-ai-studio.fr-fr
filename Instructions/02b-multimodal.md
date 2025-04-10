@@ -21,7 +21,7 @@ Commençons par créer un projet Azure AI Foundry.
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 2. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-3. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+3. Dans l‘Assistant **Créer un projet**, entrez un nom de projet approprié (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 4. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
@@ -75,14 +75,14 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
 5. Dans la barre d’outils Cloud Shell, dans le menu **Paramètres**, sélectionnez **Accéder à la version classique** (cela est nécessaire pour utiliser l’éditeur de code).
 
-6. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub pour cet exercice :
+6. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub contenant les fichiers de code pour cet exercice :
 
     ```
     rm -r mslearn-ai-foundry -f
     git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
     ```
 
-    > **Conseil** : lorsque vous collez des commandes dans cloudshell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
+    > **Conseil** : lorsque vous collez des commandes dans Cloud Shell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
 
 7. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application :  
 
@@ -130,7 +130,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     Le fichier s’ouvre dans un éditeur de code.
 
-10. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry) et l’espace réservé **your_model_deployment** par le nom que vous avez attribué à votre déploiement de modèle Phi-4-multimodal-instruct.
+10. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d'ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre déploiement du modèle Phi-4-multimodal-instruct.
 11. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande du Cloud Shell ouverte.
 
 ### Écrire du code pour vous connecter à votre projet et obtenir un client de conversation instantanée pour votre modèle

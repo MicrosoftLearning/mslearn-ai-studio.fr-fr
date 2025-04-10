@@ -23,7 +23,7 @@ Commençons par créer un projet Azure AI Foundry et les ressources de service d
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l‘Assistant **Création d‘un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l‘Assistant **Créer un projet**, entrez un nom de projet approprié (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
@@ -59,7 +59,7 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
 
     > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
 
-1. Répétez les étapes précédentes pour déployer un modèle **gpt-4** avec le nom de déploiement `gpt-4`.
+1. Répétez les étapes précédentes pour déployer un modèle **gpt-4** avec le nom de déploiement `gpt-4` à l’aide d’un déploiement **standard** de la version par défaut avec une limite de débit TPM de 5 000.
 
     > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
@@ -67,7 +67,7 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
 
 Les données de votre copilote sont constituées d’un ensemble de brochures de voyage au format PDF provenant de l’agence de voyage fictive *Margie’s Travel*. Ajoutons-les au projet.
 
-1. Téléchargez l’[archive compressée des brochures](https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip) depuis `https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip` et décompressez-la dans un dossier nommé **brochures** sur votre système de fichiers local.
+1. Dans un nouvel onglet du navigateur, téléchargez l’[archive compressée des brochures](https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip) depuis `https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip` et décompressez-la dans un dossier nommé **brochures** sur votre système de fichiers local.
 1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Données + index**.
 1. Sélectionnez **+ Nouvelles données**.
 1. Dans l’Assistant **Ajouter vos données**, développez le menu déroulant pour sélectionner **Charger des fichiers/dossiers**.
@@ -91,12 +91,18 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
     - **Paramètres de recherche** :
         - **Paramètres de vecteur** : Ajouter la recherche vectorielle à cette ressource de recherche
         - **Connexion Azure OpenAI** : *Sélectionner la ressource Azure OpenAI par défaut pour votre hub*
+        - **Modèle d’incorporation** : text-embedding-ada-002
+        - **Déploiement du modèle d’incorporation** : *votre déploiement du* *modèle* text-embedding-ada-002
 
-1. Attendez que le processus d‘indexation soit terminé, ce qui peut prendre un certain temps en fonction des ressources de calcul disponibles dans votre abonnement. L’opération de création d’index est constituée des travaux suivants :
+1. Créez l’index vectoriel et attendez que le processus d‘indexation soit terminé, ce qui peut prendre un certain temps en fonction des ressources de calcul disponibles dans votre abonnement.
+
+    L’opération de création d’index est constituée des travaux suivants :
 
     - Déchiffrez, segmentez et incorporez des jetons de texte dans les données de vos brochures.
     - Créez l’index Recherche Azure AI.
     - Inscrivez la ressource d’index.
+
+    > **Conseil** : pendant que vous attendez que l’index soit créé, pourquoi ne pas examiner les brochures que vous avez téléchargées pour vous familiariser avec leur contenu ?
 
 ## Tester l‘index dans le terrain de jeu
 
@@ -123,24 +129,31 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
 1. Dans le portail Azure AI Foundry, affichez la page **Vue d’ensemble** de votre projet.
 1. Dans la zone **Détails du projet**, notez la **chaîne de connexion du projet**. Vous utiliserez cette chaîne de connexion pour vous connecter à votre projet dans une application cliente.
 1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Azure AI Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
-1. Cliquez sur le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell***. Cloud Shell fournit une interface de ligne de commande dans un volet situé en bas du portail Azure.
+
+    Fermez les notifications de bienvenue pour afficher la page d’accueil du portail Azure.
+
+1. Utilisez le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell*** avec aucun stockage dans votre abonnement.
+
+    Cloud Shell fournit une interface de ligne de commande dans un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
 
     > **Remarque** : si vous avez déjà créé un Cloud Shell qui utilise un environnement *Bash*, basculez-le vers ***PowerShell***.
 
 1. Dans la barre d’outils Cloud Shell, dans le menu **Paramètres**, sélectionnez **Accéder à la version classique** (cela est nécessaire pour utiliser l’éditeur de code).
 
-    > **Conseil** : lorsque vous collez des commandes dans cloudshell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
+    **<font color="red">Assurez-vous d’avoir basculé vers la version classique du Cloud Shell avant de continuer.</font>**
 
-1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub pour cet exercice :
+1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub contenant les fichiers de code pour cet exercice :
 
     ```
     rm -r mslearn-ai-foundry -f
     git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
     ```
 
-> **Note** : suivez les étapes de votre langage de programmation choisi.
+    > **Conseil** : lorsque vous collez des commandes dans Cloud Shell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
 
-1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :  
+1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :
+
+    > **Note** : suivez les étapes de votre langage de programmation choisi.
 
     **Python**
 
@@ -188,7 +201,7 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
     Le fichier s’ouvre dans un éditeur de code.
 
 1. Dans le fichier de code, remplacez les espaces réservés suivants : 
-    - **your_project_endpoint** : remplacez par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
+    - **your_project_connection_string** : remplacez par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
     - **your_model_deployment** :remplacez par le nom que vous avez affecté à votre déploiement de modèle (qui doit être `gpt-4`).
     - **your_index** : remplacez par votre nom d’index (qui doit être `brochures-index`).
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande du Cloud Shell ouverte.
@@ -211,10 +224,12 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
 
 1. Passez en revue le code dans le fichier, en notant qu’il :
     - Utilise le kit SDK Azure AI Foundry pour vous connecter à votre projet (à l’aide de la chaîne de connexion du projet)
+    - Crée un client Azure OpenAI authentifié à partir de votre connexion de projet
     - Récupère la connexion Recherche Azure AI par défaut à partir de votre projet afin qu’il puisse déterminer le point de terminaison et la clé de votre service Recherche Azure AI
-    - Crée un client Azure OpenAI authentifié basé sur la connexion de service Azure OpenAI par défaut dans votre projet
-    - Envoie une invite (y compris un système et un message utilisateur) au client Azure OpenAI, en ajoutant des informations supplémentaires sur l’index Recherche Azure AI à utiliser pour ancrer l’invite
+    - Crée un message système approprié
+    - Envoie une invite (y compris le système et un message utilisateur basé sur l’entrée utilisateur) au client Azure OpenAI, en ajoutant des informations supplémentaires sur l’index Recherche Azure AI à utiliser pour ancrer l’invite
     - Affiche la réponse à partir de l’invite ancrée
+    - Ajoute la réponse à l’historique des conversations
 1. Utilisez la commande **Ctrl+Q** pour fermer l’éditeur de code sans enregistrer les modifications, tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Exécutez l’application de conversation
@@ -233,27 +248,13 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
    dotnet run
     ```
 
-1. Lorsque vous y êtes invité, entrez une question, par exemple `Where can I travel to?`, et passez en revue la réponse de votre modèle d’IA générative.
+1. Lorsque vous y êtes invité, entrez une question, par exemple `Where should I stay in London?`, et passez en revue la réponse de votre modèle d’IA générative.
 
     Notez que la réponse inclut des références sources pour indiquer les données indexées dans lesquelles la réponse a été trouvée.
 
-1. Essayez quelques questions supplémentaires, par exemple `Where should I stay in London?`.
-
-    > **Note** : cet exemple d’application simple n’inclut aucune logique pour conserver l’historique des conversations. Chaque invite est donc traitée comme une nouvelle conversation.
+1. Essayez une question de suivi, par exemple `What can I do there?`
 
 1. Lorsque vous avez terminé, entrez `quit` pour quitter le programme. Fermez le volet Cloud Shell.
-
-## Défi
-
-Maintenant que vous avez découvert comment intégrer vos propres données dans une application d’IA générative créée avec le portail Azure AI Foundry, allons plus loin.
-
-Essayez d’ajouter une nouvelle source de données via le portail Azure AI Foundry, indexez-la et intégrez les données indexées dans une application cliente. Voici quelques jeux de données que vous pouvez essayer :
-
-- Une collection d’articles (de recherche) que vous avez sur votre ordinateur.
-- Un ensemble de présentations de conférences passées.
-- N’importe quels jeux de données disponibles dans le référentiel [Exemples de données Recherche Azure](https://github.com/Azure-Samples/azure-search-sample-data).
-
-Testez votre solution en envoyant des invites qui ne pourraient obtenir une réponse que par le jeu de données que vous avez choisi.
 
 ## Nettoyage
 

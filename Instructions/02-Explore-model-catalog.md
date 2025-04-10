@@ -16,10 +16,12 @@ Cet exercice prend environ **25** minutes.
 
 Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet et un hub Azure AI.
 
-1. Dans un navigateur web, ouvrez le [portail Azure Ai Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
+1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
+
+    ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Dans l‘Assistant **Créer un projet**, entrez un nom de projet approprié (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
@@ -95,16 +97,18 @@ Commençons par déployer un modèle à partir du catalogue de modèles. Cette o
 1. Revenez à la page d’accueil du **catalogue de modèles**.
 1. Recherchez et sélectionnez le modèle `gpt-4`, comme vous l’avez fait précédemment.
 1. Sur la page **gpt-4**, sélectionnez **Déployer** et déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `gpt-4-model`*
-    - **Type de déploiement** : standard global
-    - **Version du modèle** : *Sélectionnez la version par défaut*
-    - **Ressource IA connectée** : *votre connexion de ressources Azure OpenAI*
+1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
+    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `gpt-4`*
+    - **Type de déploiement** : Standard
+    - **Version du modèle** : 0613
+    - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
     - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
+    - **Enable dynamic quota** : désactivé
       
     > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
-1. Attendez que l’**état d’approvisionnement** du déploiement soit **Réussi**.
+1. Attendez la fin du déploiement.
 
 ### Déployer un modèle par le biais de *Modèles + points de terminaison*
 
@@ -114,11 +118,11 @@ Si vous savez déjà quel modèle vous souhaitez déployer, vous pouvez le faire
 1. Sous l’onglet **Déploiements de modèles**, dans la liste déroulante **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**. Recherchez ensuite `Phi-3.5-mini-instruct`, puis confirmez votre sélection.
 1. Acceptez la licence du modèle.
 1. Déployez un modèle **Phi-3.5-mini-instruct** avec les paramètres suivants :
-    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `phi-35-model`*
+    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `Phi-3.5-mini-instruct`*
     - **Type de déploiement** : standard global
     - **Détails du déploiement** : *utilisez les paramètres par défaut*
 
-1. Attendez que l’**état d’approvisionnement** du déploiement soit **Réussi**.
+1. Attendez la fin du déploiement.
 
 ## Tester vos modèles dans le terrain de jeu de conversation
 
