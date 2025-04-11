@@ -21,7 +21,7 @@ Commençons par créer un projet Azure AI Foundry.
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Dans l‘Assistant **Créer un projet**, entrez un nom de projet approprié (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
     - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
     - **Abonnement** : *votre abonnement Azure*
@@ -30,7 +30,7 @@ Commençons par créer un projet Azure AI Foundry.
     - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \*Dans l’éventualité où un quota régional serait atteint plus tard dans l’exercice, il se peut que vous deviez créer une autre ressource dans une région différente.
+    > \* Les quotas de modèles sont limités au niveau du locataire par des quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -46,17 +46,17 @@ Vous êtes maintenant prêt à déployer un modèle de langage d’IA générati
 1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
 1. Recherchez le modèle **gpt-4** dans la liste, puis sélectionnez-le et confirmez-le.
 1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `gpt-4`*
-    - **Type de déploiement** : standard global
-    - **Version du modèle** : *Sélectionnez la version par défaut*
-    - **Ressource IA connectée** : *votre connexion de ressources Azure OpenAI*
-    - **Limite de débit en jetons par minute (en milliers) **: 5 000 (*ou la valeur maximale disponible si elle est inférieure*)
+    - **Nom du déploiement** : *nom unique de votre déploiement de modèle, par exemple `gpt-4` (souvenez-vous du nom choisi, vous en aurez besoin plus tard*)
+    - **Type de déploiement** : Standard
+    - **Version du modèle** : 0613
+    - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
+    - **Limite de débit en jetons par minute (en milliers)** : 5 000
     - **Filtre de contenu** : DefaultV2
     - **Enable dynamic quota** : désactivé
 
     > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
 
-1. Attendez que l’état d’approvisionnement du déploiement soit **Terminé**.
+1. Attendez la fin du déploiement.
 
 ## Créer une application cliente pour converser avec le modèle
 
@@ -69,7 +69,12 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 1. Dans le portail Azure AI Foundry, affichez la page **Vue d’ensemble** de votre projet.
 1. Dans la zone **Détails du projet**, notez la **chaîne de connexion du projet**. Vous utiliserez cette chaîne de connexion pour vous connecter à votre projet dans une application cliente.
 1. Ouvrez un nouvel onglet de navigateur (en gardant le portail Azure AI Foundry ouvert dans l’onglet existant). Dans un nouvel onglet du navigateur, ouvrez le [portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com` et connectez-vous en utilisant vos informations d’identification Azure.
-1. Cliquez sur le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell***. Cloud Shell fournit une interface de ligne de commande dans un volet situé en bas du portail Azure.
+
+    Fermez les notifications de bienvenue pour afficher la page d’accueil du portail Azure.
+
+1. Utilisez le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell*** avec aucun stockage dans votre abonnement.
+
+    Cloud Shell fournit une interface de ligne de commande dans un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
 
     > **Remarque** : si vous avez déjà créé un Cloud Shell qui utilise un environnement *Bash*, basculez-le vers ***PowerShell***.
 
@@ -77,14 +82,14 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 
     **<font color="red">Assurez-vous d’avoir basculé vers la version classique du Cloud Shell avant de continuer.</font>**
 
-1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub pour cet exercice :
+1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub contenant les fichiers de code pour cet exercice :
 
     ```
     rm -r mslearn-ai-foundry -f
     git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
     ```
 
-    > **Conseil** : lorsque vous collez des commandes dans cloudshell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
+    > **Conseil** : lorsque vous collez des commandes dans Cloud Shell, la sortie peut prendre une grande quantité de mémoire tampon d’écran. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
 
 1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :
 
@@ -135,7 +140,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez l’espace réservé **your_project_endpoint** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d'ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre déploiement du modèle gpt-4.
+1. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d'ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre déploiement du modèle gpt-4.
 1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande du Cloud Shell ouverte.
 
 ### Écrire du code pour vous connecter à votre projet et converser avec votre modèle
@@ -161,6 +166,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **Python**
 
     ```python
+   # Add references
    from dotenv import load_dotenv
    from azure.identity import DefaultAzureCredential
    from azure.ai.projects import AIProjectClient
@@ -170,6 +176,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **C#**
 
     ```csharp
+   // Add references
    using Azure.Identity;
    using Azure.AI.Projects;
    using Azure.AI.Inference;
@@ -183,6 +190,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **Python**
 
     ```python
+   # Initialize the project client
    projectClient = AIProjectClient.from_connection_string(
         conn_str=project_connection,
         credential=DefaultAzureCredential())
@@ -191,6 +199,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **C#**
 
     ```csharp
+   // Initialize the project client
    var projectClient = new AIProjectClient(project_connection,
                         new DefaultAzureCredential());
     ```
@@ -200,12 +209,14 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **Python**
 
     ```python
+   # Get a chat client
    chat = projectClient.inference.get_chat_completions_client()
     ```
 
     **C#**
 
     ```csharp
+   // Get a chat client
    ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
     ```
 
@@ -216,6 +227,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **Python**
 
     ```python
+   # Initialize prompt with system message
    prompt=[
             SystemMessage("You are a helpful AI assistant that answers questions.")
         ]
@@ -224,7 +236,8 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **C#**
 
     ```csharp
-    var prompt = new List<ChatRequestMessage>(){
+   // Initialize prompt with system message
+   var prompt = new List<ChatRequestMessage>(){
                     new ChatRequestSystemMessage("You are a helpful AI assistant that answers questions.")
                 };
     ```
@@ -234,10 +247,11 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **Python**
 
     ```python
+   # Get a chat completion
    prompt.append(UserMessage(input_text))
    response = chat.complete(
-       model=model_deployment,
-       messages=prompt)
+        model=model_deployment,
+        messages=prompt)
    completion = response.choices[0].message.content
    print(completion)
    prompt.append(AssistantMessage(completion))
@@ -246,6 +260,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     **C#**
 
     ```csharp
+   // Get a chat completion
    prompt.Add(new ChatRequestUserMessage(input_text));
    var requestOptions = new ChatCompletionsOptions()
    {
@@ -298,7 +313,7 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
     **C#**
 
     ```
-   dotnet add package Azure.AI.Projects --version 1.0.0-beta.5
+   dotnet add package Azure.AI.Projects --version 1.0.0-beta.6
    dotnet add package Azure.AI.OpenAI --prerelease
     ```
 
@@ -338,12 +353,14 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
     **Python**
 
     ```python
+   # Get a chat client 
    openai_client = projectClient.inference.get_azure_openai_client(api_version="2024-10-21")
     ```
 
     **C#**
 
     ```csharp
+   // Get a chat client
    ChatClient openaiClient = projectClient.GetAzureOpenAIChatClient(model_deployment);
     ```
 
@@ -354,17 +371,19 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
     **Python**
 
     ```python
+   # Initialize prompt with system message
    prompt=[
-       {"role": "system", "content": "You are a helpful AI assistant that answers questions."}
-   ]
+        {"role": "system", "content": "You are a helpful AI assistant that answers questions."}
+    ]
     ```
 
     **C#**
 
     ```csharp
+   // Initialize prompt with system message
     var prompt = new List<ChatMessage>(){
-       new SystemChatMessage("You are a helpful AI assistant that answers questions.")
-   };
+        new SystemChatMessage("You are a helpful AI assistant that answers questions.")
+    };
     ```
 
 1. Recherchez le commentaire « **Obtenir une réponse de conversation** », puis modifiez le code afin d’ajouter l’entrée de l’utilisateur à l’invite, d’obtenir la réponse du modèle, et d’ajouter cette réponse à l’historique de conversation comme suit :
@@ -372,10 +391,11 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
     **Python**
 
     ```python
+   # Get a chat completion
    prompt.append({"role": "user", "content": input_text})
    response = openai_client.chat.completions.create(
-       model=model_deployment,
-       messages=prompt)
+        model=model_deployment,
+        messages=prompt)
    completion = response.choices[0].message.content
    print(completion)
    prompt.append({"role": "assistant", "content": completion})
@@ -384,6 +404,7 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
     **C#**
 
     ```csharp
+   // Get a chat completion
    prompt.Add(new UserChatMessage(input_text));
    ChatCompletion completion = openaiClient.CompleteChat(prompt);
    var completionText = completion.Content[0].Text;
