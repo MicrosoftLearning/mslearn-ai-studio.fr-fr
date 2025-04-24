@@ -14,7 +14,7 @@ Cet exercice prend environ **30** minutes.
 
 Commençons par nous connecter au portail Azure AI Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
+1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
@@ -25,16 +25,16 @@ Commençons par nous connecter au portail Azure AI Foundry.
 Un *hub* Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet et un hub Azure AI, et passer en revue les ressources Azure créées pour les prendre en charge.
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, entrez un nom de projet approprié pour (par exemple, `my-ai-project`), puis passez en revue les ressources Azure qui seront automatiquement créées pour prendre en charge votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
+    - **Nom du hub** : *un nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
-    - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4** dans la fenêtre de l’assistant de l’emplacement et utilisez la région recommandée.\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
+    - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4o** dans la fenêtre d’aide à la sélection de l’emplacement et utilisez la région recommandée\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -75,7 +75,7 @@ Supposons que votre projet a besoin d’accéder à une deuxième ressource **Az
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *le groupe de ressources contenant votre ressource Azure AI Foundry*
     - **Région** : *sélectionnez une région disponible autre que celle contenant vos ressources existantes*
-    - **Nom** : *Nom unique*
+    - **Nom** : *un nom approprié pour votre deuxième ressource Azure AI Services*
     - **Niveau tarifaire** : Standard S0
 1. Attendez que la ressource AI Services soit créée.
 1. Revenez à l’onglet navigateur du portail Azure AI Foundry et, dans la vue **Centre de gestion**, dans le volet de navigation, dans la section de votre *<u>projet</u>*, affichez la page **Ressources connectées**. Les ressources connectées existantes dans votre projet sont répertoriées.
@@ -108,25 +108,34 @@ Votre projet Azure AI Foundry a accès à Azure AI Services. Essayons dans le
 
 ## Déployer un modèle d’IA générative
 
-Votre projet contient également des ressources connectées pour Azure OpenAI, ce qui vous permet d’utiliser des modèles de langage Azure OpenAI pour implémenter des solutions d’IA génératives.
+Votre projet contient également des ressources connectées pour Azure OpenAI, ce qui vous permet d’utiliser des modèles de langage Azure OpenAI pour implémenter des solutions d’IA génératives. Vous pouvez également trouver et utiliser des modèles d’IA générative provenant d’autres fournisseurs dans le catalogue de modèles.
 
 1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **gpt-4** dans la liste, puis sélectionnez-le et confirmez-le.
+1. Recherchez le modèle **gpt-4** dans la liste, puis sélectionnez-le et confirmez votre choix.
 1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom unique pour votre modèle de déploiement, par exemple `gpt-4-model`*
-    - **Type de déploiement** : Standard
-    - **Version du modèle** : *Sélectionnez la version par défaut*
-    - **Ressource IA connectée** : *sélectionnez l’une de vos connexions de ressources Azure OpenAI*
-    - **Limite de débit en jetons par minute (en milliers)** : 5 000
+    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Type de déploiement** : standard global
+    - **Mise à jour automatique de la version** : Activée
+    - **Version du modèle** : *Sélectionnez la version la plus récente disponible*
+    - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
+    - **Limite de jetons par minute (en milliers)**  : 50K *(ou le maximum disponible dans votre abonnement si inférieur à 50K)*
     - **Filtre de contenu** : DefaultV2
-    - **Enable dynamic quota** : désactivé
-      
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
+
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 TPM devraient suffire pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+
+1. Attendez la fin du déploiement.
 
 1. Une fois le modèle déployé, sur la page de vue d’ensemble du déploiement, sélectionnez **Ouvrir dans le terrain de jeu**.
 1. Sur la page **Terrain de jeu de conversation**, vérifiez que votre modèle de déploiement est sélectionné dans la section **Déploiement**.
-1. Dans la fenêtre de conversation, entrez une requête telle que `How can I use Azure AI Services in a software development project?` et affichez la réponse :
+1. Dans le volet **Configuration**, dans la zone **Fournir des instructions et un contexte au modèle**, saisissez les instructions suivantes :
+
+    ```
+    You are a history teacher who can answer questions about past events all around the world.
+    ```
+
+1. Appliquez les modifications pour mettre à jour le message système.
+1. Dans la fenêtre de conversation, entrez une requête telle que `What are the key events in the history of Scotland?` et affichez la réponse :
 
     ![Capture d’écran du terrain de jeu dans le portail Azure AI Foundry.](./media/ai-foundry-playground.png)
 

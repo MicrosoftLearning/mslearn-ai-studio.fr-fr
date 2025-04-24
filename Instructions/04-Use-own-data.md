@@ -23,22 +23,22 @@ Commençons par créer un projet Azure AI Foundry et les ressources de service d
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l‘Assistant **Créer un projet**, entrez un nom de projet approprié (par exemple, `my-ai-project`) et, si un hub existant est suggéré, choisissez l‘option permettant d‘en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom unique, par exemple `my-ai-hub`*
+    - **Nom du hub** : *un nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
-    - **Groupe de ressources** : *créez un groupe de ressources avec un nom unique ( par exemple, `my-ai-resources`) ou sélectionnez un groupe de ressources existant.*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis **gpt-4** et **text-embedding-ada-002** dans la fenêtre de l’assistant d’emplacement et utilisez la région recommandée.\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une ressource AI Services avec un nom approprié (par exemple, `my-ai-services`) ou utiliser une ressource existante*
+    - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4o** dans la fenêtre d’aide à la sélection de l’emplacement et utilisez la région recommandée\*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
     - **Connecter Recherche Azure AI** : *créer une ressource Recherche Azure AI avec un nom unique*
 
-    > \* Les ressources Azure OpenAI sont limitées au niveau du locataire par quotas régionaux. Si une limite de quota est atteinte et qu’aucune région n'est recommandée pour les deux modèles, sélectionnez un seul d’entre eux et utilisez la région recommandée. Vous créerez une autre ressource dans une région différente pour le deuxième modèle plus tard dans l’exercice.
+    > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente.
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
 
     ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
-   
+
 ## Déployer des modèles
 
 Vous avez besoin de deux modèles pour implémenter votre solution :
@@ -49,23 +49,22 @@ Vous avez besoin de deux modèles pour implémenter votre solution :
 1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 1. Créez un déploiement du modèle **text-embedding-ada-002** avec les paramètres suivants en sélectionnant **Personnaliser** dans l’assistant Déployer le modèle :
 
-    - **Nom du déploiement **: `text-embedding-ada-002`
-    - **Type de déploiement** : Standard
+    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Type de déploiement** : standard global
     - **Version du modèle** : *Sélectionnez la version par défaut*
-    -  **Ressource IA** : *sélectionnez la ressource que vous avez créée précédemment.*
-    - **Limite de débit en jetons par minute (en milliers)** : 5 000
+    - **Ressource IA connectée** : *sélectionnez la ressource créée précédemment*
+    - **Limite de jetons par minute (en milliers)**  : 50K *(ou le maximum disponible dans votre abonnement si inférieur à 50K)*
     - **Filtre de contenu** : DefaultV2
-    - **Enable dynamic quota** : désactivé
 
     > **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
 
-1. Répétez les étapes précédentes pour déployer un modèle **gpt-4** avec le nom de déploiement `gpt-4` à l’aide d’un déploiement **standard** de la version par défaut avec une limite de débit TPM de 5 000.
+1. Revenez à la page **Modèles + points de terminaison** et répétez les étapes précédentes pour déployer un modèle **gpt-4o** à l’aide d’un déploiement **Global Standard** de la version la plus récente, avec une limite de **50 000 TPM** (ou le maximum disponible dans votre abonnement si inférieur à 50 000).
 
-    > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 5 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice.
+    > **Remarque** : La réduction du nombre de jetons par minute (TPM) permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 TPM suffisent pour les données utilisées dans cet exercice.
 
 ## Ajouter des données dans votre projet
 
-Les données de votre copilote sont constituées d’un ensemble de brochures de voyage au format PDF provenant de l’agence de voyage fictive *Margie’s Travel*. Ajoutons-les au projet.
+Les données de votre application se composent d’un ensemble de brochures de voyage au format PDF issues de l’agence de voyages fictive *Margie’s Travel*. Ajoutons-les au projet.
 
 1. Dans un nouvel onglet du navigateur, téléchargez l’[archive compressée des brochures](https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip) depuis `https://github.com/MicrosoftLearning/mslearn-ai-studio/raw/main/data/brochures.zip` et décompressez-la dans un dossier nommé **brochures** sur votre système de fichiers local.
 1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Données + index**.
@@ -82,7 +81,7 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 1. Dans le portail Azure AI Foundry, dans votre projet, dans le volet de navigation de gauche, dans **Mes ressources**, sélectionnez la page **Données + index**.
 1. Dans l’onglet **Index**, ajoutez un nouvel index avec les paramètres suivants :
     - **Emplacement source** :
-        - **Source de données** : données dans le portail Azure AI Foundry
+        - **Source de données** : données dans Azure AI Foundry
             - *Sélectionnez la source de données **brochures***
     - **Configuration de l’index** :
         - **Sélectionnez Service Recherche Azure AI** : *Sélectionnez la connexion **AzureAISearch** à votre ressource Recherche Azure AI*
@@ -109,7 +108,7 @@ Maintenant que vous avez ajouté une source de données à votre projet, vous po
 Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allons vérifier qu’il peut être utilisé pour affecter les réponses de l’IA générative.
 
 1. Dans le volet de navigation de gauche, sélectionnez la page **Terrains de jeu**, puis ouvrez le terrain de jeu **Conversation**.
-1. Dans la page du terrain de jeu Conversation, dans le volet Configuration, vérifiez si votre modèle de déploiement **gpt-4** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
+1. Sur la page du terrain de jeu Conversation instantanée, dans le volet Configuration, assurez-vous que votre déploiement du modèle **gpt-4o** est sélectionné. Ensuite, dans le panneau de session de conversation instantanée, soumettez l’invite `Where can I stay in New York?`
 1. Examinez la réponse, qui doit être une réponse générique du modèle sans aucune donnée de l’index.
 1. Dans le volet Configuration, développez le champ **Ajouter vos données**, puis ajoutez l’index du projet **brochures-index**, puis sélectionnez le type de recherche **hybride (vecteur + mot clé)**.
 
@@ -134,7 +133,7 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
 
 1. Utilisez le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell*** avec aucun stockage dans votre abonnement.
 
-    Cloud Shell fournit une interface de ligne de commande dans un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
+    Le Cloud Shell fournit une interface en ligne de commande dans un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
 
     > **Remarque** : si vous avez déjà créé un Cloud Shell qui utilise un environnement *Bash*, basculez-le vers ***PowerShell***.
 
@@ -142,7 +141,7 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
 
     **<font color="red">Assurez-vous d’avoir basculé vers la version classique du Cloud Shell avant de continuer.</font>**
 
-1. Dans le volet PowerShell, entrez les commandes suivantes pour cloner le référentiel GitHub contenant les fichiers de code pour cet exercice :
+1. Dans le volet Cloud Shell, saisissez les commandes suivantes pour cloner le dépôt GitHub contenant les fichiers de code pour cet exercice (saisissez la commande, ou copiez-la dans le presse-papiers puis effectuez un clic droit dans la ligne de commande pour la coller en texte brut) :
 
     ```
     rm -r mslearn-ai-foundry -f
@@ -167,11 +166,13 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
    cd mslearn-ai-foundry/labfiles/rag-app/c-sharp
     ```
 
-1. Dans le volet de ligne de commande Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous utiliserez, c’est-à-dire :
+1. Dans le volet en ligne de commande du Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous utiliserez :
 
     **Python**
 
     ```
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
    pip install python-dotenv azure-ai-projects azure-identity openai
     ```
 
@@ -202,9 +203,9 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
 
 1. Dans le fichier de code, remplacez les espaces réservés suivants : 
     - **your_project_connection_string** : remplacez par la chaîne de connexion de votre projet (copiée à partir de la page **Vue d’ensemble** du projet dans le portail Azure AI Foundry).
-    - **your_model_deployment** :remplacez par le nom que vous avez affecté à votre déploiement de modèle (qui doit être `gpt-4`).
+    - **your_model_deployment** :remplacez par le nom que vous avez attribué à votre déploiement du modèle **gpt-4o**
     - **your_index** : remplacez par votre nom d’index (qui doit être `brochures-index`).
-1. Une fois que vous avez remplacé les espaces réservés, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande du Cloud Shell ouverte.
+1. Une fois les espaces réservés remplacés, dans l’éditeur de code, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Explorer le code pour implémenter le modèle RAG
 
@@ -234,7 +235,7 @@ Maintenant que vous disposez d‘un index de travail, vous pouvez utiliser les k
 
 ### Exécutez l’application de conversation
 
-1. Dans le volet de ligne de commande Cloud Shell, entrez la commande suivante pour exécuter l’application :
+1. Dans le volet en ligne de commande du Cloud Shell, saisissez la commande suivante pour exécuter l’application :
 
     **Python**
 

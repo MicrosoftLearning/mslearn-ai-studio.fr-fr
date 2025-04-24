@@ -10,7 +10,7 @@ Dans cet exercice, vous utilisez le modèle d’IA générative *Phi-4-multimoda
 
 Cet exercice prend environ **30** minutes.
 
-> **Remarque** : cet exercice est basé sur des SDK en préversion, susceptibles d’être modifiés. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles. Vous pouvez rencontrer un comportement inattendu, des avertissements ou des erreurs.
+> **Remarque** : cet exercice est basé sur des SDK en préversion, susceptibles d’être modifiés. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles.
 
 ## Créer un projet Azure AI Foundry
 
@@ -21,9 +21,9 @@ Commençons par créer un projet Azure AI Foundry.
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 2. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-3. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+3. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 4. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom valide pour votre hub*
+    - **Nom du hub** : *un nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Région** : Sélectionnez l’une des régions suivantes\* :
@@ -34,7 +34,7 @@ Commençons par créer un projet Azure AI Foundry.
         - Suède Centre
         - USA Ouest
         - USA Ouest 3
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Au moment de l’écriture, le modèle Microsoft *Phi-4-multimodal-instruct* que nous allons utiliser dans cet exercice est disponible dans ces régions. Vous pouvez consulter les dernières disponibilités régionales de certains modèles dans la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability). Si une limite de quota régionale est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
@@ -48,12 +48,12 @@ Commençons par créer un projet Azure AI Foundry.
 
 Vous êtes maintenant prêt à déployer un modèle *Phi-4-multimodal-instruct* pour prendre en charge les invites multimodales.
 
-1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en version préliminaire** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles sur le service d’inférence de modèle Azure AI** est activée. Cette fonctionnalité garantit que votre déploiement de modèle est disponible pour le service Inférence Azure AI, que vous utiliserez dans votre code d’application.
+1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en préversion** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée. Cette fonctionnalité garantit que votre déploiement de modèle est disponible pour le service Inférence Azure AI, que vous utiliserez dans votre code d’application.
 2. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 3. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
 4. Recherchez le modèle **Phi-4-multimodal-instruct** dans la liste, puis sélectionnez-le et confirmez-le.
 5. Acceptez le contrat de licence si vous y êtes invité, puis déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
+    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Détails du déploiement** : *utilisez les paramètres par défaut*
 6. Attendez que l’état d’approvisionnement du déploiement soit **Terminé**.
@@ -74,7 +74,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
 1. Utilisez le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell*** avec aucun stockage dans votre abonnement.
 
-    Cloud Shell fournit une interface de ligne de commande via un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
+    Le Cloud Shell fournit une interface en ligne de commande dans un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
 
     > **Remarque** : si vous avez déjà créé un Cloud Shell qui utilise un environnement *Bash*, basculez-le vers ***PowerShell***.
 
@@ -82,7 +82,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     **<font color="red">Assurez-vous d’avoir basculé vers la version classique du Cloud Shell avant de continuer.</font>**
 
-1. Dans le volet Cloud Shell, entrez les commandes suivantes pour cloner le référentiel GitHub contenant les fichiers de code de cet exercice (saisissez la commande, ou copiez-la vers le presse-papiers et cliquez avec le bouton droit dans la ligne de commande pour la coller sous forme de texte brut) :
+1. Dans le volet Cloud Shell, saisissez les commandes suivantes pour cloner le dépôt GitHub contenant les fichiers de code pour cet exercice (saisissez la commande, ou copiez-la dans le presse-papiers puis effectuez un clic droit dans la ligne de commande pour la coller en texte brut) :
 
     ```
     rm -r mslearn-ai-foundry -f
@@ -105,7 +105,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
    cd mslearn-ai-foundry/labfiles/multimodal/c-sharp
     ```
 
-8. Dans le volet de ligne de commande Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous allez utiliser :
+8. Dans le volet en ligne de commande du Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous utiliserez :
 
     **Python**
 
@@ -140,7 +140,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     Le fichier s’ouvre dans un éditeur de code.
 
 10. Dans le fichier de code, remplacez l’espace réservé **your_project_connection_string** par la chaîne de connexion de votre projet (copiée depuis la page **Vue d'ensemble** du projet dans le portail Azure AI Foundry), et remplacez **your_model_deployment** par le nom que vous avez attribué à votre déploiement du modèle Phi-4-multimodal-instruct.
-11. Une fois que vous avez remplacé les espaces réservés, dans l’éditeur de code, utilisez la commande **Ctrl+S** ou **Clic droit > Enregistrer** dans l’éditeur de code pour enregistrer vos modifications, puis utilisez la commande **Ctrl+Q** ou **Clic droit > Quitter** pour fermer l’éditeur tout en gardant la ligne de commande Cloud Shell ouverte.
+11. Une fois les espaces réservés remplacés, dans l’éditeur de code, utilisez la commande **CTRL+S** ou **Clic droit > Enregistrer** pour enregistrer vos modifications, puis utilisez la commande **CTRL+Q** ou **Clic droit > Quitter** pour fermer l’éditeur de code tout en gardant la ligne de commande Cloud Shell ouverte.
 
 ### Écrire du code pour vous connecter à votre projet et obtenir un client de conversation instantanée pour votre modèle
 
@@ -164,8 +164,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     **Python**
 
-    ```python
-   # Add references
+    ```
    from dotenv import load_dotenv
    from azure.identity import DefaultAzureCredential
    from azure.ai.projects import AIProjectClient
@@ -183,20 +182,18 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     **C#**
 
-    ```csharp
-   // Add references
+    ```
    using Azure.Identity;
    using Azure.AI.Projects;
    using Azure.AI.Inference;
     ```
 
 3. Dans la fonction **main**, sous le commentaire **Obtenir les paramètres de configuration**, notez que le code charge les valeurs de chaîne de connexion du projet et de nom de déploiement du modèle que vous avez définies dans le fichier de configuration.
-4. Sous le commentaire **Initialiser le client du projet**, ajoutez le code suivant pour vous connecter à votre projet Azure AI Foundry à l’aide des informations d’identification Azure que vous utilisez actuellement :
+4. Sous le commentaire **Initialiser le client du projet**, ajoutez le code suivant pour vous connecter à votre projet Azure AI Foundry à l’aide des identifiants Azure actuellement utilisés pour votre session :
 
     **Python**
 
-    ```python
-   # Get configuration settings
+    ```
    project_client = AIProjectClient.from_connection_string(
         conn_str=project_connection,
         credential=DefaultAzureCredential())
@@ -204,8 +201,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     **C#**
 
-    ```csharp
-   // Get configuration settings
+    ```
    var projectClient = new AIProjectClient(project_connection,
                         new DefaultAzureCredential());
     ```
@@ -214,15 +210,13 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     **Python**
 
-    ```python
-   # Get a chat client
+    ```
    chat_client = project_client.inference.get_chat_completions_client(model=model_deployment)
     ```
 
     **C#**
 
-    ```csharp
-   // Get a chat client
+    ```
    ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
     ```
 
@@ -234,7 +228,6 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     **Python**
 
     ```python
-   # Get a response to text input
    response = chat_client.complete(
        messages=[
            SystemMessage(system_message),
@@ -245,8 +238,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
     **C#**
 
-    ```csharp
-   // Get a response to text input
+    ```
    var requestOptions = new ChatCompletionsOptions()
    {
    Model = model_deployment,
@@ -263,7 +255,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
 2. Utilisez la commande **Ctrl+S** pour enregistrer les modifications que vous avez apportées au fichier de code. Laissez-le encore.
 
-3. Dans le volet de ligne de commande Cloud Shell, sous l’éditeur de code, entrez la commande suivante pour exécuter l’application :
+3. Dans le volet en ligne de commande du Cloud Shell, sous l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
 
     **Python**
 
@@ -289,7 +281,6 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     **Python**
 
     ```python
-   # Get a response to image input
    image_url = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/multimodal/orange.jpg"
    image_format = "jpeg"
    request = Request(image_url, headers={"User-Agent": "Mozilla/5.0"})
@@ -311,8 +302,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     **C#**
 
     ```csharp
-  // Get a response to image input
-   string imageUrl = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/multimodal/orange.jpg";
+  string imageUrl = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/multimodal/orange.jpg";
    ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
    {
        Messages = {
@@ -330,7 +320,7 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
 
 2. Utilisez la commande **Ctrl+S** pour enregistrer les modifications que vous avez apportées au fichier de code. Laissez-le encore.
 
-3. Dans le volet de ligne de commande Cloud Shell, sous l’éditeur de code, entrez la commande suivante pour exécuter l’application :
+3. Dans le volet en ligne de commande du Cloud Shell, sous l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
 
     **Python**
 
@@ -356,7 +346,6 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     **Python**
 
     ```python
-   # Get a response to audio input
    file_path="https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/multimodal/manzanas.mp3"
    response = chat_client.complete(
            messages=[
@@ -378,7 +367,6 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
     **C#**
 
     ```csharp
-   // Get a response to audio input
    string audioUrl="https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/multimodal/manzanas.mp3";
    var requestOptions = new ChatCompletionsOptions()
    {
@@ -395,9 +383,10 @@ Maintenant que vous avez déployé le modèle, vous pouvez utiliser le déploiem
    Console.WriteLine(response.Value.Content);
     ```
 
+
 2. Utilisez la commande **Ctrl+S** pour enregistrer les modifications que vous avez apportées au fichier de code. Vous pouvez également fermer l’éditeur de code (**Ctrl+Q**) si vous le souhaitez.
 
-3. Dans le volet de ligne de commande Cloud Shell, sous l’éditeur de code, entrez la commande suivante pour exécuter l’application :
+3. Dans le volet en ligne de commande du Cloud Shell, sous l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
 
     **Python**
 
