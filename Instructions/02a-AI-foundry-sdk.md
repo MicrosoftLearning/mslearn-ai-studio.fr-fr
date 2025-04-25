@@ -10,6 +10,8 @@ Dans cet exercice, vous utilisez le SDK Azure AI Foundry pour créer une appli
 
 Cet exercice prend environ **40** minutes.
 
+> **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
+
 > **Remarque** : cet exercice est basé sur des SDK en préversion, susceptibles d’être modifiés. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles.
 
 ## Créer un projet Azure AI Foundry
@@ -21,13 +23,13 @@ Commençons par créer un projet Azure AI Foundry.
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *un nom valide pour votre hub*
+    - **Nom du hub** : *nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4o** dans la fenêtre d’aide à la sélection de l’emplacement et utilisez la région recommandée\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente.
@@ -39,22 +41,22 @@ Commençons par créer un projet Azure AI Foundry.
 
 ## Déployer un modèle d’IA générative
 
-Vous êtes maintenant prêt à déployer un modèle de langage d’IA générative pour prendre en charge votre application de conversation instantanée. Dans cet exemple, vous utiliserez le modèle gpt-4o d’OpenAI ; toutefois, les principes sont les mêmes pour tout modèle.
+Vous êtes maintenant prêt à déployer un modèle de langage d’IA générative pour prendre en charge votre application de conversation instantanée. Dans cet exemple, vous allez utiliser le modèle gpt-4o d’OpenAI. Toutefois, les principes sont les mêmes pour tout modèle.
 
-1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en préversion** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée. Cette fonctionnalité garantit que votre déploiement de modèle est disponible pour le service Inférence Azure AI, que vous utiliserez dans votre code d’application.
+1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en version préliminaire** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles sur le service d’inférence de modèle Azure AI** est activée. Cette fonctionnalité garantit que votre déploiement de modèle est disponible pour le service Inférence Azure AI, que vous utiliserez dans votre code d’application.
 1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **gpt-4** dans la liste, puis sélectionnez-le et confirmez votre choix.
+1. Recherchez le modèle **gpt-4o** dans la liste, puis sélectionnez-le et confirmez.
 1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
-    - **Mise à jour automatique de la version** : Activée
-    - **Version du modèle** : *Sélectionnez la version la plus récente disponible*
+    - **Mise à jour automatique de la version** : activée
+    - **Version du modèle** : *sélectionnez la version la plus récente disponible*
     - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
-    - **Limite de jetons par minute (en milliers)**  : 50K *(ou le maximum disponible dans votre abonnement si inférieur à 50K)*
+    - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
     - **Filtre de contenu** : DefaultV2
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 TPM devraient suffire pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
 
 1. Attendez la fin du déploiement.
 
@@ -74,7 +76,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 
 1. Utilisez le bouton **[\>_]** à droite de la barre de recherche, en haut de la page, pour créer un environnement Cloud Shell dans le portail Azure, puis sélectionnez un environnement ***PowerShell*** avec aucun stockage dans votre abonnement.
 
-    Le Cloud Shell fournit une interface en ligne de commande dans un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
+    Cloud Shell fournit une interface de ligne de commande via un volet situé en bas du portail Azure. Vous pouvez redimensionner ou agrandir ce volet pour faciliter le travail.
 
     > **Remarque** : si vous avez déjà créé un Cloud Shell qui utilise un environnement *Bash*, basculez-le vers ***PowerShell***.
 
@@ -82,14 +84,14 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 
     **<font color="red">Assurez-vous d’avoir basculé vers la version classique du Cloud Shell avant de continuer.</font>**
 
-1. Dans le volet Cloud Shell, saisissez les commandes suivantes pour cloner le dépôt GitHub contenant les fichiers de code pour cet exercice (saisissez la commande, ou copiez-la dans le presse-papiers puis effectuez un clic droit dans la ligne de commande pour la coller en texte brut) :
+1. Dans le volet Cloud Shell, entrez les commandes suivantes pour cloner le référentiel GitHub contenant les fichiers de code de cet exercice (saisissez la commande, ou copiez-la vers le presse-papiers et cliquez avec le bouton droit dans la ligne de commande pour la coller sous forme de texte brut) :
 
     ```
     rm -r mslearn-ai-foundry -f
     git clone https://github.com/microsoftlearning/mslearn-ai-studio mslearn-ai-foundry
     ```
 
-    > **Conseil** : lorsque vous saisissez des commandes dans le Cloud Shell, la sortie peut occuper une grande partie du tampon d’affichage. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
+    > **Conseil** : lorsque vous saisissez des commandes dans Cloud Shell, la sortie peut occuper un grand nombre de lignes. Vous pouvez effacer le contenu de l’écran en saisissant la commande `cls` pour faciliter le focus sur chaque tâche.
 
 1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :
 
@@ -107,7 +109,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
    cd mslearn-ai-foundry/labfiles/chat-app/c-sharp
     ```
 
-1. Dans le volet en ligne de commande du Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous utiliserez :
+1. Dans le volet de ligne de commande Cloud Shell, saisissez la commande suivante pour installer les bibliothèques que vous allez utiliser :
 
     **Python**
 
@@ -185,7 +187,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     ```
 
 1. Dans la fonction **main**, sous le commentaire **Obtenir les paramètres de configuration**, notez que le code charge les valeurs de chaîne de connexion du projet et de nom de déploiement du modèle que vous avez définies dans le fichier de configuration.
-1. Recherchez le commentaire **Initialiser le client du projet**, puis ajoutez le code suivant pour vous connecter à votre projet Azure AI Foundry à l’aide des identifiants Azure actuellement utilisés pour votre session :
+1. Recherchez le commentaire **Initialiser le client du projet**, puis ajoutez le code suivant pour vous connecter à votre projet Azure AI Foundry à l’aide des identifiants Azure que vous utilisez actuellement pour votre session :
 
     > **Conseil** : veillez à respecter le niveau d’indentation correct dans votre code.
 
@@ -280,7 +282,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 
 ### Exécutez l’application de conversation
 
-1. Dans le volet en ligne de commande du Cloud Shell, sous l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
+1. Dans le volet de ligne de commande de Cloud Shell, dans l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
 
     **Python**
 
@@ -298,7 +300,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
 1. Essayez de poser quelques questions de suivi, comme : « `Where can I see one?` » ou « `Are they endangered?` ». La conversation doit se poursuivre en utilisant l’historique des échanges comme contexte pour chaque itération.
 1. Lorsque vous avez terminé, entrez `quit` pour quitter le programme.
 
-> **Conseil** : si l’application échoue en raison du dépassement de la limite de débit. Patientez quelques secondes, puis réessayez. Si le quota disponible dans votre abonnement est insuffisant, le modèle peut ne pas être en mesure de répondre.
+> **Conseil** : dans le cas où l’application échoue en raison du dépassement de la limite de débit. Patientez quelques secondes, puis réessayez. Si le quota disponible dans votre abonnement est insuffisant, le modèle peut ne pas être en mesure de répondre.
 
 ## Utilisation du SDK Azure OpenAI
 
@@ -390,7 +392,7 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
     };
     ```
 
-1. Recherchez le commentaire « **Obtenir une réponse de conversation** », puis modifiez le code afin d’ajouter l’entrée de l’utilisateur à l’invite, d’obtenir la réponse du modèle, et d’ajouter cette réponse à l’historique de conversation comme suit :
+1. Recherchez le commentaire **Obtenir une réponse de conversation**, puis modifiez le code afin d’ajouter l’entrée de l’utilisateur à l’invite, récupérer la réponse de votre modèle, et ajouter cette réponse à l’invite comme suit :
 
     **Python**
 
@@ -418,7 +420,7 @@ Apportons quelques modifications au code pour voir comment implémenter une appl
 
 1. Utilisez la commande **Ctrl+S** pour enregistrer les modifications que vous avez apportées au fichier de code.
 
-1. Dans le volet en ligne de commande du Cloud Shell, sous l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
+1. Dans le volet de ligne de commande de Cloud Shell, dans l’éditeur de code, saisissez la commande suivante pour exécuter l’application :
 
     **Python**
 

@@ -10,6 +10,8 @@ Dans cet exercice, vous utilisez le portail Azure AI Foundry pour créer un hu
 
 Cet exercice prend environ **30** minutes.
 
+> **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
+
 ## Ouvrir le portail Azure AI Foundry
 
 Commençons par nous connecter au portail Azure AI Foundry.
@@ -25,13 +27,13 @@ Commençons par nous connecter au portail Azure AI Foundry.
 Un *hub* Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet et un hub Azure AI, et passer en revue les ressources Azure créées pour les prendre en charge.
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *un nom valide pour votre hub*
+    - **Nom du hub** : *nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4o** dans la fenêtre d’aide à la sélection de l’emplacement et utilisez la région recommandée\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente.
@@ -75,7 +77,7 @@ Supposons que votre projet a besoin d’accéder à une deuxième ressource **Az
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *le groupe de ressources contenant votre ressource Azure AI Foundry*
     - **Région** : *sélectionnez une région disponible autre que celle contenant vos ressources existantes*
-    - **Nom** : *un nom approprié pour votre deuxième ressource Azure AI Services*
+    - **Nom** : *nom approprié pour votre deuxième ressource Azure AI Services*
     - **Niveau tarifaire** : Standard S0
 1. Attendez que la ressource AI Services soit créée.
 1. Revenez à l’onglet navigateur du portail Azure AI Foundry et, dans la vue **Centre de gestion**, dans le volet de navigation, dans la section de votre *<u>projet</u>*, affichez la page **Ressources connectées**. Les ressources connectées existantes dans votre projet sont répertoriées.
@@ -108,21 +110,21 @@ Votre projet Azure AI Foundry a accès à Azure AI Services. Essayons dans le
 
 ## Déployer un modèle d’IA générative
 
-Votre projet contient également des ressources connectées pour Azure OpenAI, ce qui vous permet d’utiliser des modèles de langage Azure OpenAI pour implémenter des solutions d’IA génératives. Vous pouvez également trouver et utiliser des modèles d’IA générative provenant d’autres fournisseurs dans le catalogue de modèles.
+Votre projet contient également des ressources connectées pour Azure OpenAI, ce qui vous permet d’utiliser des modèles de langage Azure OpenAI pour implémenter des solutions d’IA génératives. Vous pouvez également rechercher et utiliser des modèles d’IA générative d’autres fournisseurs dans le catalogue de modèles.
 
 1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **gpt-4** dans la liste, puis sélectionnez-le et confirmez votre choix.
+1. Recherchez le modèle **gpt-4o** dans la liste, puis sélectionnez-le et confirmez.
 1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
-    - **Mise à jour automatique de la version** : Activée
-    - **Version du modèle** : *Sélectionnez la version la plus récente disponible*
+    - **Mise à jour automatique de la version** : activée
+    - **Version du modèle** : *sélectionnez la version la plus récente disponible*
     - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
-    - **Limite de jetons par minute (en milliers)**  : 50K *(ou le maximum disponible dans votre abonnement si inférieur à 50K)*
+    - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
     - **Filtre de contenu** : DefaultV2
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 TPM devraient suffire pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
 
 1. Attendez la fin du déploiement.
 

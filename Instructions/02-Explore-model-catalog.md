@@ -12,6 +12,8 @@ Dans cet exercice, vous allez explorer le catalogue de modèles dans le portail 
 
 Cet exercice prend environ **25** minutes.
 
+> **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
+
 ## Créer un projet et un hub Azure AI
 
 Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouvez définir un ou plusieurs *projets*. Nous allons créer un projet et un hub Azure AI.
@@ -21,13 +23,13 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *un nom valide pour votre hub*
+    - **Nom du hub** : *nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4o** dans la fenêtre d’aide à la sélection de l’emplacement et utilisez la région recommandée\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente.
@@ -39,9 +41,9 @@ Un hub Azure AI fournit un espace de travail collaboratif dans lequel vous pouve
 
 ## Configurer le déploiement du service d’inférence Azure AI
 
-Il existe plusieurs options pour déployer des modèles dans le portail Azure AI Foundry. Dans cet exercice, vous allez utiliser l’option de déploiement d’**inférence de modèle Azure AI**, qui prend en charge les modèles *Azure OpenAI* et les *modèles en tant que service* du catalogue de modèles Azure AI Foundry. Étant donné que tous les modèles sont déployés sur un point de terminaison commun hébergé par votre ressource Azure AI Services, il est facile de passer d’un modèle à un autre lors des tests pour comparer leur comportement et leurs performances.
+Il existe plusieurs options pour déployer des modèles dans le portail Azure AI Foundry. Dans cet exercice, vous allez utiliser l’option de déploiement d’**inférence de modèle Azure AI**, qui prend en charge les modèles *Azure OpenAI* et les *modèles en tant que service* du catalogue de modèles Azure AI Foundry. Étant donné que tous les modèles sont déployés sur un point de terminaison commun hébergé par votre ressource Azure AI Services, il est facile de basculer entre les modèles lors de leur test afin de comparer le comportement et les performances.
 
-1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en préversion** (**&#9215;**) pour afficher les fonctionnalités en préversion.
+1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités de version préliminaire** (**&#9215;**) pour afficher les fonctionnalités de version préliminaire.
 1. Vérifiez que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée. Fermez ensuite le volet **Fonctionnalités en version préliminaire**.
 
 ## Vérifier les détails et les benchmarks des modèles
@@ -49,19 +51,19 @@ Il existe plusieurs options pour déployer des modèles dans le portail Azure A
 Pour vous aider à choisir un modèle, vous pouvez explorer les descriptions et les benchmarks de modèles pour déterminer le modèle le mieux adapté à vos besoins.
 
 1. Dans le volet de navigation de gauche du portail de projet Azure AI Foundry, sélectionnez **Catalogue de modèles**.
-1. Sur la page d’accueil du catalogue de modèles, recherchez `gpt-4o` pour trouver le modèle de complétion de conversation instantanée **gpt-4o**.
+1. Sur la page d’accueil du catalogue de modèles, recherchez `gpt-4o` pour trouver le modèle de saisie semi-automatique conversationnel **gpt-4o**.
 
-    ![Capture d’écran d’une recherche « gpt-4o » dans le catalogue de modèles.](./media/model-catalog-search-gpt4.png)
+    ![Capture d’écran d’une recherche du modèle « gpt-4o » dans le catalogue des modèles.](./media/model-catalog-search-gpt4.png)
 
 1. Sélectionnez le modèle **gpt-4o** et affichez ses détails. Lisez la description et passez en revue les autres informations disponibles sur la page.
 
-    ![Capture d’écran de la page de détails du modèle gpt-4o.](./media/gpt4-details.png)
+    ![Capture d’écran de la page des détails du modèle gpt-4o.](./media/gpt4-details.png)
 
 1. Sur la page **gpt-4o**, ouvrez l’onglet **Références** pour voir comment le modèle se compare, selon des indicateurs de performance standard, à d’autres modèles utilisés dans des scénarios similaires.
 
-    ![Capture d’écran de la page des références du modèle gpt-4o.](./media/gpt4-benchmarks.png)
+    ![Capture d’écran de la page des benchmarks du modèle gpt-4o.](./media/gpt4-benchmarks.png)
 
-1. Utilisez la flèche de retour (**&larr;**) à côté du titre de la page **gpt-4o** pour revenir à la page d’accueil du catalogue de modèles.
+1. Utilisez la flèche précédent (**&larr;**) en regard du titre de la page **gpt-4o** pour revenir à la page d’accueil du catalogue de modèles.
 1. Dans le catalogue de modèles, recherchez `Phi-3.5-mini-instruct` et affichez les détails et les benchmarks du modèle **Phi-3.5-mini-instruct**.
 
 ## Comparer des modèles
@@ -78,7 +80,7 @@ Vous avez examiné deux modèles différents, qui peuvent être utilisés pour i
 1.  Utilisez le bouton **+ Modèle à comparer** pour ajouter le modèle **gpt-4o** à la liste. Utilisez ensuite le même bouton pour ajouter le modèle **Phi-3.5-mini-instruct** à la liste.
 1. Passez en revue le graphique, qui compare les modèles en fonction de l’**index de qualité** (un score standardisé indiquant la qualité du modèle) et le **coût**. Vous pouvez voir les valeurs spécifiques d’un modèle en maintenant la souris sur le point qui le représente dans le graphique.
 
-    ![Capture d’écran du graphique de comparaison des modèles gpt-4o et Phi-3.5-mini-instruct.](./media/comparison-chart.png)
+    ![Capture d’écran du graphique de comparaison des modèles pour gpt-4o et Phi-3.5-mini-instruct.](./media/comparison-chart.png)
 
 1. Dans le menu déroulant **Axe X**, sous **Qualité**, sélectionnez les mesures suivantes et observez chaque graphique obtenu avant de passer au suivant :
     - Précision
@@ -98,15 +100,15 @@ Commençons par déployer un modèle à partir du catalogue de modèles. Cette o
 1. Recherchez et sélectionnez le modèle `gpt-4o`, comme vous l’avez fait précédemment.
 1. Sur la page **gpt-4o**, sélectionnez **Déployer** et déployez le modèle avec les paramètres suivants en cliquant sur **Personnaliser** dans les détails du déploiement :
 1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
-    - **Mise à jour automatique de la version** : Activée
-    - **Version du modèle** : *Sélectionnez la version la plus récente disponible*
+    - **Mise à jour automatique de la version** : activée
+    - **Version du modèle** : *sélectionnez la version la plus récente disponible*
     - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
-    - **Limite de jetons par minute (en milliers)**  : 50K *(ou le maximum disponible dans votre abonnement si inférieur à 50K)*
+    - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
     - **Filtre de contenu** : DefaultV2
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 TPM devraient suffire pour les données utilisées dans cet exercice. Si le quota disponible est inférieur à cette valeur, vous pourrez terminer l’exercice, mais vous devrez peut-être patienter et soumettre à nouveau les invites en cas de dépassement de la limite de débit.
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à ce montant, vous serez en mesure d’effectuer l’exercice, mais vous devrez peut-être patienter et soumettre à nouveau les invites si la limite de jetons est dépassée.
 
 1. Attendez la fin du déploiement.
 
@@ -118,7 +120,7 @@ Si vous savez déjà quel modèle vous souhaitez déployer, vous pouvez le faire
 1. Sous l’onglet **Déploiements de modèles**, dans la liste déroulante **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**. Recherchez ensuite `Phi-3.5-mini-instruct`, puis confirmez votre sélection.
 1. Acceptez la licence du modèle.
 1. Déployez un modèle **Phi-3.5-mini-instruct** avec les paramètres suivants :
-    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Détails du déploiement** : *utilisez les paramètres par défaut*
 
