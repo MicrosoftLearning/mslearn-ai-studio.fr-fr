@@ -6,11 +6,13 @@ lab:
 
 # Appliquer les filtres de contenu pour empêcher la production de contenu dangereux
 
-Azure AI Foundry inclut des filtres de contenu par défaut pour contribuer à garantir que les invites et les saisies semi-automatiques potentiellement dangereuses sont identifiées et supprimées lors des interactions avec le service. Vous pouvez également demander l’autorisation de définir des filtres de contenu personnalisés pour vos besoins spécifiques afin de vous assurer que vos modèles de déploiements appliquent les principes d’IA responsable appropriés pour votre scénario d’IA générative. Lorsque l’on travaille avec des modèles d’IA générative, le filtrage du contenu est l’un des éléments d’une approche efficace de l’IA responsable.
+Azure AI Foundry inclut des filtres de contenu par défaut pour contribuer à garantir que les invites et les saisies semi-automatiques potentiellement dangereuses sont identifiées et supprimées lors des interactions avec le service. Vous pouvez également définir des filtres de contenu personnalisés pour vos besoins spécifiques afin de vous assurer que vos déploiements de modèle appliquent les principes d’IA responsable appropriés pour votre scénario d’IA générative. Lorsque l’on travaille avec des modèles d’IA générative, le filtrage du contenu est l’un des éléments d’une approche efficace de l’IA responsable.
 
 Dans cet exercice, vous allez explorerer l’impact des filtres de contenu par défaut dans Azure AI Foundry.
 
 Cet exercice prend environ **25** minutes.
+
+> **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
 ## Créer un projet Azure AI Foundry
 
@@ -21,9 +23,9 @@ Commençons par créer un projet Azure AI Foundry.
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un nouveau. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *un nom valide pour votre hub*
+    - **Nom du hub** : *nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Région** : Sélectionnez l’une des régions suivantes\* :
@@ -34,7 +36,7 @@ Commençons par créer un projet Azure AI Foundry.
         - Suède Centre
         - USA Ouest
         - USA Ouest 3
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Au moment de l’écriture, le modèle Microsoft *Phi-4* que nous allons utiliser dans cet exercice est disponible dans ces régions. Vous pouvez consulter les dernières disponibilités régionales de certains modèles dans la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability). Si une limite de quota régionale est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
@@ -48,15 +50,15 @@ Commençons par créer un projet Azure AI Foundry.
 
 Vous êtes maintenant prêt à déployer votre modèle. Nous utiliserons un modèle *Phi-4* dans cet exercice, mais les principes et techniques de filtrage de contenu que nous allons explorer peuvent également être appliqués à d’autres modèles.
 
-1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en préversion** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée.
+1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en préversion** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée.
 1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
 1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
 1. Recherchez le modèle **Phi-4** dans la liste, puis sélectionnez-le et confirmez-le.
 1. Acceptez le contrat de licence si vous y êtes invité, puis déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *Un nom valide pour le modèle de déploiement*
+    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Détails du déploiement** :
-        - **Activer les mises à jour automatiques de version** : Activé
+        - **Activer les mises à jour automatiques de version** : activé
         - **Version du modèle** : *la dernière version disponible*
         - **Ressource IA connectée** : *votre ressource IA par défaut*
         - **Filtre de contenu** : <u>aucun</u>\*
@@ -65,7 +67,7 @@ Vous êtes maintenant prêt à déployer votre modèle. Nous utiliserons un mod�
 
 1. Attendez que l’état d’approvisionnement du déploiement soit **Terminé**.
 
-## Conversation instantanée sans filtre de contenu
+## Converser sans filtre de contenu
 
 Très bien, voyons comment se comporte le modèle sans filtre.
 
@@ -155,11 +157,11 @@ Si le filtre de contenu par défaut ne répond pas à vos besoins, vous pouvez c
 
     Pour chacune de ces catégories, des filtres sont appliqués aux invites et aux compléments, avec un paramètre de sévérité **sans danger**, **faible**, **moyen** et **élevé** utilisé pour déterminer les types de langage spécifiques qui sont interceptés et bloqués par le filtre.
 
-    Des protections *prompt shield* sont également mises en place pour limiter les tentatives délibérées d’abus de votre application d’IA générative.
+    Des protections *bouclier d’invite* sont également mises en place pour limiter les tentatives délibérées d’abus de votre application d’IA générative.
 
-1.  Sur la page **Filtre de sortie**, examinez les paramètres applicables aux réponses en sortie, puis définissez le seuil de chaque catégorie sur **Faible**.
+1. Sur la page **Filtre de sortie**, examinez les paramètres applicables aux réponses en sortie, puis définissez le seuil de chaque catégorie sur **Faible**.
 
-1. Dans l’onglet **Déploiement**, sélectionnez le déploiement de votre modèle Phi-4 pour lui appliquer le nouveau filtre de contenu, en confirmant le remplacement du filtre existant DefaultV2 lorsqu’il vous est demandé.
+1. Dans l’onglet **Déploiement**, sélectionnez le déploiement de votre modèle Phi-4 pour lui appliquer le nouveau filtre de contenu, en confirmant le remplacement du filtre existant DefaultV2 lorsque vous y êtes demandé.
 
 1. Sur la page **Révision**, sélectionnez **Créer un filtre**, puis attendez que le filtre de contenu soit créé.
 
@@ -196,7 +198,7 @@ Effectuons une dernière conversation instantanée avec le modèle pour observer
 
     Là encore, le contenu devrait être bloqué par votre filtre de contenu.
 
-Dans cet exercice, vous avez exploré les filtres de contenu et les moyens par lesquels ils permettent de se protéger contre les contenus potentiellement nuisibles ou offensants. Les filtres de contenu ne constituent qu’un des éléments d’une solution complète d’IA responsable — consultez [IA responsable pour Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/responsible-use-of-ai-overview) pour en savoir plus.
+Dans cet exercice, vous avez exploré les filtres de contenu et les moyens par lesquels ils permettent de se protéger contre les contenus potentiellement nuisibles ou offensants. Les filtres de contenu ne constituent qu’un des éléments d’une solution complète d’IA responsable. Consultez [IA responsable pour Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/responsible-use-of-ai-overview) pour en savoir plus.
 
 ## Nettoyage
 
