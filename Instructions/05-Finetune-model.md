@@ -14,11 +14,11 @@ Imaginez que vous travaillez pour une agence de voyage et que vous développez u
 
 Cet exercice prend environ **60 minutes**\*.
 
-> \***Note** : cette durée est une estimation basée sur une moyenne des expériences. L’ajustement dépend des ressources de l’infrastructure cloud, celles-ci pouvant nécessiter un certain temps d’approvisionnement en fonction de la capacité du centre de données et de la demande simultanée. Certaines activités de cet exercice peuvent prendre <u>beaucoup</u> de temps et nécessiter de la patience. Si des éléments prennent beaucoup de temps, envisagez de consulter la [documentation relative à l’ajustement d’Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/fine-tuning-overview) ou de prendre une pause. Certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
+> \***Note** : cette durée est une estimation basée sur une moyenne des expériences. L’ajustement dépend des ressources de l’infrastructure cloud, celles-ci pouvant nécessiter un certain temps d’approvisionnement en fonction de la capacité du centre de données et de la demande simultanée. Certaines activités de cet exercice peuvent prendre <u>beaucoup</u> de temps et nécessiter de la patience. Si des éléments prennent beaucoup de temps, envisagez de consulter la [documentation relative à l’ajustement d’Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/fine-tuning-overview) ou de prendre une pause. Certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Il se peut que vous rencontriez des comportements, inattendus, des avertissements ou des erreurs.
 
 ## Créer un projet et un hub IA dans le portail Azure AI Foundry
 
-Commençons par créer un projet dans le portail Azure AI Foundry au sein d’un hub Azure AI :
+Commençons par créer un projet dans le portail Azure AI Foundry au sein d’un hub Azure AI :
 
 1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
 
@@ -30,11 +30,11 @@ Commençons par créer un projet dans le portail Azure AI Foundry au sein d’un
     - **Nom du hub** : *nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis choisissez **gpt-4o-finetune** dans la fenêtre d’aide à la sélection de région et utilisez la région recommandée\*
+    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis choisissez **gpt-4o-finetune** dans la fenêtre d’assistant de l’emplacement et utilisez la région recommandée\*.
     - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
     - **Connecter Recherche Azure AI** : *créer une ressource Recherche Azure AI avec un nom unique*
 
-    > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente. 
+    > \* Les ressources Azure OpenAI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. 
 
 1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
 1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
@@ -50,9 +50,10 @@ Commençons par créer un projet dans le portail Azure AI Foundry au sein d’un
     > **Remarque** : votre appareil peut par défaut enregistrer le fichier en tant que fichier .txt. Sélectionnez tous les fichiers et supprimez le suffixe .txt pour vous assurer que vous enregistrez le fichier au format JSONL.
 
 1. Accédez à la page **Ajustement** dans la section **Créer et personnaliser**, à l’aide du menu de gauche.
-1. Cliquez sur le bouton permettant d’ajouter un nouveau modèle ajusté, sélectionnez le modèle **gpt-4o**, puis cliquez sur **Suivant**.
+1. Sélectionnez le bouton permettant d’ajouter un nouveau modèle ajusté, le modèle **gpt-4o**, puis **Suivant**.
 1. **Ajustez** le modèle à l’aide de la configuration suivante :
     - **Version du modèle** : *Sélectionnez la version par défaut*
+    - **Méthode de personnalisation** : supervisée
     - **Suffixe de modèle** : `ft-travel`
     - **Ressource IA connectée** : *sélectionnez la connexion qui a été créée lors de la création de votre hub. Elle devrait être sélectionnée par défaut.*
     - **Données d’apprentissage** : charger des fichiers
@@ -74,7 +75,7 @@ Commençons par créer un projet dans le portail Azure AI Foundry au sein d’un
     - **Paramètres de tâche** : *conserver les paramètres par défaut*
 1. L’ajustement commence et peut prendre un certain temps. Vous pouvez poursuivre vers la section suivante de l’exercice pendant que vous patientez.
 
-> **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps (30 minutes ou plus). Vous devrez donc peut-être vérifier l’avancement régulièrement. Vous pouvez consulter plus de détails sur la progression en sélectionnant la tâche d’ajustement du modèle et en consultant l’onglet **Journaux**.
+> **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps (30 minutes ou plus). Vous devrez donc peut-être vérifier l’avancement régulièrement. Vous pouvez consulter plus de détails sur l’avancement en sélectionnant la tâche d’ajustement du modèle et en affichant son onglet **Journaux**.
 
 ## Discuter avec un modèle de base
 
@@ -87,12 +88,12 @@ En attendant que la tâche d’ajustement se termine, discutons avec un modèle 
     - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Mise à jour automatique de la version** : activée
-    - **Version du modèle** : *sélectionnez la version la plus récente disponible*
-    - **Ressource IA connectée** : *sélectionnez votre connexion à la ressource Azure OpenAI (si la région actuelle de votre ressource IA ne dispose pas de quota pour le modèle que vous souhaitez déployer, vous devrez choisir une autre région où une nouvelle ressource IA sera créée et rattachée à votre projet)*
+    - **Version du modèle** : *sélectionnez la version la plus récente disponible.*
+    - **Ressource IA connectée** : *sélectionnez votre connexion à la ressource Azure OpenAI (si la région actuelle de votre ressource IA ne dispose pas de quota pour le modèle que vous souhaitez déployer, vous devrez choisir une autre région où une nouvelle ressource IA sera créée et rattachée à votre projet)*
     - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
     - **Filtre de contenu** : DefaultV2
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
 
 1. Attendez la fin du déploiement.
 
@@ -157,7 +158,7 @@ Une fois l’ajustement terminé, vous pouvez déployer le modèle ajusté.
 
     > **Conseil** : utilisez le bouton **Actualiser** sur la page d’ajustement pour actualiser l’affichage. Si la tâche d’ajustement disparaît, actualisez la page dans le navigateur.
 
-1. Sélectionnez le lien de la tâche d’ajustement pour ouvrir sa page des détails. Puis, sélectionnez l’onglet **Indicateurs** et explorez les indicateurs d’ajustement.
+1. Sélectionnez le lien de la tâche d’ajustement pour ouvrir sa page des détails. Puis, sélectionnez l’onglet **Mesures** et explorez les mesures d’ajustement.
 1. Déployez le modèle ajusté avec les paramètres suivants :
     - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : Standard
