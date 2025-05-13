@@ -21,9 +21,9 @@ Commençons par créer un projet Azure AI Foundry.
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom valide pour votre hub*
+    - **Nom du hub** : *un nom valide pour votre hub*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
     - **Région** : sélectionnez l’une des régions suivantes\*
@@ -31,7 +31,7 @@ Commençons par créer un projet Azure AI Foundry.
         - France Centre
         - Sud du Royaume-Uni
         - Suède Centre
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
+    - **Connecter Azure AI Services ou Azure OpenAI** : *créer une nouvelle ressource AI Services*
     - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* À la date de rédaction, ces régions prennent en charge l’évaluation des indicateurs de sécurité de l’IA. La disponibilité des modèles est limitée par les quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre projet dans une autre région.
@@ -52,12 +52,12 @@ Dans cet exercice, vous allez évaluer les performances d’un modèle gpt-4o-mi
     - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Mise à jour automatique de la version** : activée
-    - **Version du modèle** : *sélectionnez la version la plus récente disponible*
+    - **Version du modèle** : *sélectionnez la version la plus récente disponible.*
     - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
     - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
     - **Filtre de contenu** : DefaultV2
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
 
 1. Attendez la fin du déploiement.
 1. Revenez à la page **Modèles + points de terminaison** et répétez les étapes précédentes pour déployer un modèle **gpt-4o-mini** avec les mêmes paramètres.
@@ -66,31 +66,17 @@ Dans cet exercice, vous allez évaluer les performances d’un modèle gpt-4o-mi
 
 Vous pouvez examiner manuellement les réponses de modèle en fonction des données de test. L’évaluation manuelle permet de tester différentes entrées afin de vérifier si le modèle se comporte comme prévu.
 
-1. Dans un nouvel onglet de navigateur, téléchargez le fichier [travel_evaluation_data.csv](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel_evaluation_data.csv) à partir de l’adresse `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel_evaluation_data.csv` et enregistrez-le dans un dossier local.
+1. Dans un nouvel onglet de navigateur, téléchargez le fichier [travel_evaluation_data.jsonl](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel_evaluation_data.jsonl) depuis `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel_evaluation_data.jsonl`, puis enregistrez-le dans un dossier local sous le nom **travel_evaluation_data.jsonl** (assurez-vous de l’enregistrer en tant que fichier .jsonl, et non en tant que fichier .txt).
 1. De retour sur l’onglet du portail Azure AI Foundry, dans le volet de navigation, dans la section **Évaluer et améliorer**, sélectionnez **Évaluation**.
 1. Sur la page **Évaluation**, ouvrez l’onglet **Évaluations manuelles**, puis sélectionnez **+ Nouvelle évaluation manuelle**.
+1. Dans la section **Configurations**, dans la liste **Modèle**, sélectionnez votre déploiement du modèle **gpt-4o-mini**.
 1. Remplacez le **message système** par les instructions suivantes pour un assistant IA de voyages :
 
    ```
-   Objective: Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent.
-
-   Capabilities:
-   - Provide up-to-date travel information, including destinations, accommodations, transportation, and local attractions.
-   - Offer personalized travel suggestions based on user preferences, budget, and travel dates.
-   - Share tips on packing, safety, and navigating travel disruptions.
-   - Help with itinerary planning, including optimal routes and must-see landmarks.
-   - Answer common travel questions and provide solutions to potential travel issues.
-    
-   Instructions:
-   1. Engage with the user in a friendly and professional manner, as a travel agent would.
-   2. Use available resources to provide accurate and relevant travel information.
-   3. Tailor responses to the user's specific travel needs and interests.
-   4. Ensure recommendations are practical and consider the user's safety and comfort.
-   5. Encourage the user to ask follow-up questions for further assistance.
+   Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent.
    ```
 
-1. Dans la section **Configurations**, dans la liste **Modèle**, sélectionnez votre déploiement du modèle **gpt-4o-mini**.
-1. Dans la section **Résultat de l’évaluation manuelle**, sélectionnez **Importer des données de test** et chargez le fichier **travel_evaluation_data.csv** que vous avez téléchargé précédemment, en mappant les champs du jeu de données comme suit :
+1. Dans la section **Résultat de l’évaluation manuelle**, sélectionnez **Importer des données de test** et chargez le fichier **travel_evaluation_data.jsonl** que vous avez téléchargé précédemment, en associant les champs du jeu de données comme suit :
     - **Entrée** : Question
     - **Réponse attendue** : ExpectedResponse
 1. Passez en revue les questions et les réponses attendues dans le fichier de test. Vous les utiliserez pour évaluer les réponses générées par le modèle.
@@ -114,24 +100,10 @@ L’évaluation automatisée vise à pallier ces limites en calculant des indica
 1. Modifiez le **Message système** en y entrant les mêmes instructions pour l’assistant de voyage IA que vous avez utilisées précédemment :
 
    ```
-   Objective: Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent.
-
-   Capabilities:
-   - Provide up-to-date travel information, including destinations, accommodations, transportation, and local attractions.
-   - Offer personalized travel suggestions based on user preferences, budget, and travel dates.
-   - Share tips on packing, safety, and navigating travel disruptions.
-   - Help with itinerary planning, including optimal routes and must-see landmarks.
-   - Answer common travel questions and provide solutions to potential travel issues.
-    
-   Instructions:
-   1. Engage with the user in a friendly and professional manner, as a travel agent would.
-   2. Use available resources to provide accurate and relevant travel information.
-   3. Tailor responses to the user's specific travel needs and interests.
-   4. Ensure recommendations are practical and consider the user's safety and comfort.
-   5. Encourage the user to ask follow-up questions for further assistance.
+   Assist users with travel-related inquiries, offering tips, advice, and recommendations as a knowledgeable travel agent.
    ```
 
-1. Dans la section **Configurer les données de test**, notez que vous pouvez utiliser un modèle GPT pour générer des données de test (que vous pourrez ensuite modifier et compléter selon vos attentes), utiliser un jeu de données existant, ou charger un fichier. Dans cet exercice, sélectionnez **Utiliser un jeu de données existant**, puis sélectionnez le jeu de données **travel_evaluation_data_csv_xxxx...** (créé lors du chargement préalable du fichier .csv).
+1. Dans la section **Configurer les données de test**, notez que vous pouvez utiliser un modèle GPT pour générer des données de test (que vous pourrez ensuite modifier et compléter selon vos attentes), utiliser un jeu de données existant, ou charger un fichier. Dans cet exercice, sélectionnez **Utiliser un jeu de données existant**, puis sélectionnez le jeu de données **travel_evaluation_data_jsonl_xxxx...** (créé lors du chargement précédent du fichier .jsonl).
 1. Passez en revue les lignes d’exemple du jeu de données, puis, dans la section **Choisir vos colonnes de données**, sélectionnez les correspondances de colonnes suivantes :
     - **Requête** : Question
     - **Contexte** : *laissez ce champ vide. Il est utilisé pour évaluer le niveau de relation avec les sources lorsque des sources de données contextuelles sont associées au modèle.*
@@ -140,7 +112,7 @@ L’évaluation automatisée vise à pallier ces limites en calculant des indica
     - Qualité de l’IA (avec l’assistance de l’IA)
     - Risques et sécurité (avec l’assistance de l’IA)
     - Qualité de l’IA (NLP)
-1. Dans la liste **Choisir un modèle déployé comme juge**, sélectionnez votre modèle **gpt-4o**. Ce modèle sera utilisé pour évaluer les réponses du modèle **gpt-4o-mini** en termes de qualité linguistique et selon les indicateurs standard pour l’IA générative.
+1. Dans la liste **Choisir un modèle déployé comme juge**, sélectionnez votre modèle **gpt-4o**. Ce modèle sera utilisé pour évaluer les réponses du modèle **gpt-4o-mini** selon des critères de qualité linguistique et des métriques standard de comparaison en IA générative.
 1. Sélectionnez **Créer** pour démarrer le processus d’évaluation, puis attendez qu’il se termine. Cette opération peut prendre quelques minutes.
 
     > **Conseil** : si une erreur indiquant que les autorisations du projet sont en cours de définition s’affiche, attendez une minute puis sélectionnez de nouveau **Créer**. La propagation des autorisations pour un projet nouvellement créé peut prendre un certain temps.
