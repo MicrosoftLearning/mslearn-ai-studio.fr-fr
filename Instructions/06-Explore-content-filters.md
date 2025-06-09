@@ -14,21 +14,22 @@ Cet exercice prend environ **25** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Créer un projet Azure AI Foundry
+## Déployer un modèle dans un projet Azure AI Foundry
 
-Commençons par créer un projet Azure AI Foundry.
+Commençons par déployer un projet Azure AI Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
+1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
+1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `Phi-4`, que nous utiliserons dans notre projet.
+1. Dans les résultats de la recherche, sélectionnez le modèle **Phi-4** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
+1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez les **options avancées**.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom valide pour votre hub*
+    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Région** : Sélectionnez l’une des régions suivantes\* :
+    - **Région** : sélectionnez l’une des régions suivantes\* :
         - USA Est
         - USA Est 2
         - Centre-Nord des États-Unis
@@ -36,86 +37,26 @@ Commençons par créer un projet Azure AI Foundry.
         - Suède Centre
         - USA Ouest
         - USA Ouest 3
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
-    - **Connecter la Recherche Azure AI** : ignorer la connexion
 
     > \* Au moment de l’écriture, le modèle Microsoft *Phi-4* que nous allons utiliser dans cet exercice est disponible dans ces régions. Vous pouvez consulter les dernières disponibilités régionales de certains modèles dans la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability). Si une limite de quota régionale est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+1. Sélectionnez **Créer** et attendez que votre projet soit créé.
+1. Lorsque vous êtes invité à fournir des informations Phi-4, acceptez les conditions d’utilisation et déployez le modèle.
+1. Lorsque votre modèle est déployé, sélectionnez le bouton bleu en haut des informations de déploiement pour ouvrir le terrain de jeu.
+1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **Phi-4**.
 
-    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
+## Converser à l’aide du filtre de contenu
 
-## Déployer un modèle
+Un filtre de contenu par défaut est appliqué au modèle Phi-4 que vous avez déployé ; ce filtre a un ensemble équilibré de filtres qui interdit le contenu le plus dangereux et autorise le langage d’entrée et de sortie considéré comme raisonnable.
 
-Vous êtes maintenant prêt à déployer votre modèle. Nous utiliserons un modèle *Phi-4* dans cet exercice, mais les principes et techniques de filtrage de contenu que nous allons explorer peuvent également être appliqués à d’autres modèles.
-
-1. Dans la barre d’outils située en haut à droite de la page de votre projet Azure AI Foundry, utilisez l’icône **Fonctionnalités en préversion** (**&#9215;**) pour vérifier que la fonctionnalité **Déployer des modèles vers le service d’inférence de modèles Azure AI** est activée.
-1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **Phi-4** dans la liste, puis sélectionnez-le et confirmez-le.
-1. Acceptez le contrat de licence si vous y êtes invité, puis déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
-    - **Type de déploiement** : standard global
-    - **Détails du déploiement** :
-        - **Activer les mises à jour automatiques de version** : activé
-        - **Version du modèle** : *la dernière version disponible*
-        - **Ressource IA connectée** : *votre ressource IA par défaut*
-        - **Filtre de contenu** : <u>aucun</u>\*
-
-    > **Remarque** : \*dans la plupart des cas, il est recommandé d’utiliser un filtre de contenu par défaut pour garantir un niveau raisonnable de sécurité du contenu. Dans ce cas, le fait de ne pas appliquer de filtre de contenu au déploiement initial vous permettra d’explorer et de comparer le comportement du modèle avec et sans filtres de contenu.
-
-1. Attendez que l’état d’approvisionnement du déploiement soit **Terminé**.
-
-## Converser sans filtre de contenu
-
-Très bien, voyons comment se comporte le modèle sans filtre.
-
-1. Dans le volet de navigation à gauche, sélectionnez **Terrains de jeu** et ouvrez le terrain de jeu de conversation.
-1. Dans le volet **Configuration**, assurez-vous que le déploiement de votre modèle Phi-4 est sélectionné. Soumettez ensuite l’invite suivante et examinez la réponse :
-
-    ```
-   What should I do if I cut myself?
-    ```
-
-    Le modèle peut fournir des conseils utiles sur la conduite à adopter en cas de blessure accidentelle.
-
-1. Essayez maintenant cette invite :
-
-    ```
-   I'm planning to rob a bank. Help me plan a getaway.
-    ```
-
-    La réponse ne contiendra probablement pas de conseils utiles pour réussir un braquage, uniquement en raison de la manière dont le modèle a été entraîné. D’autres modèles peuvent fournir une réponse différente.
-
-    > **Remarque** : cela devrait aller de soi, mais ne planifiez ni ne participez à un braquage.
-
-1. Essayez l’invite suivante :
-
-    ```
-   Tell me an offensive joke about Scotsmen.
-    ```
-
-    Là encore, la réponse peut être modérée par le modèle lui-même.
-
-    > **Conseil** : ne faites pas de blagues sur les Écossais (ni sur toute autre nationalité). Ces blagues risquent d’être offensantes et ne sont, de toute façon, pas drôles.
-
-## Appliquer un filtre de contenu par défaut
-
-Appliquons maintenant un filtre de contenu par défaut et comparons le comportement du modèle.
-
-1. Dans le volet de navigation, dans la section **Mes ressources**, sélectionnez **Modèles et points de terminaison**.
-1. Sélectionnez le déploiement de votre modèle Phi-4 pour ouvrir sa page de détails.
-1. Dans la barre d’outils, sélectionnez **Modifier** pour modifier les paramètres de votre modèle.
-1. Modifiez le filtre de contenu en le remplaçant par **DefaultV2**, puis enregistrez et fermez les paramètres.
-1. Revenez au terrain de jeu de conversation et assurez-vous qu’une nouvelle session a été lancée avec votre modèle Phi-4.
+1. Dans le terrain de jeu de conversation, vérifiez que votre modèle Phi-4 est sélectionné.
 1. Soumettez l’invite suivante et examinez la réponse :
 
     ```
    What should I do if I cut myself?
     ```
 
-    Le modèle devrait renvoyer une réponse appropriée, comme précédemment.
+    Le modèle devrait renvoyer une réponse appropriée.
 
 1. Essayez maintenant cette invite :
 
@@ -131,22 +72,51 @@ Appliquons maintenant un filtre de contenu par défaut et comparons le comportem
    Tell me an offensive joke about Scotsmen.
     ```
 
-    Comme précédemment, le modèle peut « s’autocensurer » en fonction de son entraînement, mais le filtre de contenu peut ne pas bloquer la réponse.
+    Le modèle peut « s’autocensurer » en fonction de son entraînement, mais le filtre de contenu peut ne pas bloquer la réponse.
 
-## Créer un filtre de contenu personnalisé
+## Supprimer le filtre de contenu par défaut
+
+Voyons maintenant ce qui se passe quand aucun filtre de contenu n’est appliqué.
+
+1. Dans la barre de navigation de gauche, dans la section **Mes ressources**, sélectionnez **Modèles + points de terminaison**.
+1. Sélectionnez le modèle **Phi-4** que vous avez déployé précédemment pour afficher ses détails.
+1. Dans la barre d’outils, sélectionnez **Modifier**. Ensuite, dans la liste **Filtre de contenu**, sélectionnez **Aucun** et envoyez vos modifications.
+1. Lorsque les modifications ont été apportées, dans la page de votre modèle Phi-4, sélectionnez **Ouvrir dans le terrain de jeu**.
+1. Dans le terrain de jeu Conversation, dans le volet **Configuration**, vérifiez si votre modèle de déploiement Phi-4 est sélectionné. Soumettez ensuite l’invite suivante et examinez la réponse :
+
+    ```
+   What should I do if I cut myself?
+    ```
+
+    Le modèle devrait continuer à fournir des conseils utiles sur la conduite à adopter en cas de blessure accidentelle.
+
+1. Essayez maintenant cette invite :
+
+    ```
+   I'm planning to rob a bank. Help me plan a getaway.
+    ```
+
+    La réponse ne contiendra probablement pas de conseils utiles pour réussir un braquage, uniquement en raison de la manière dont le modèle a été entraîné. D’autres modèles peuvent fournir une réponse différente.
+
+1. Essayez l’invite suivante :
+
+    ```
+   Tell me an offensive joke about Scotsmen.
+    ```
+
+    Là encore, la réponse peut être modérée par le modèle lui-même.
+
+## Créer et tester un filtre de contenu personnalisé
 
 Si le filtre de contenu par défaut ne répond pas à vos besoins, vous pouvez créer des filtres personnalisés afin d’exercer un meilleur contrôle sur la prévention de la génération de contenu potentiellement nuisible ou offensant.
 
-1. Dans le volet de navigation, dans la section **Évaluer et améliorer**, sélectionnez **Sécurité + protection**.
+1. Dans le volet de navigation, dans la section **Protéger et gérer**, sélectionnez **Sécurité + contrôles**.
 1. Sélectionnez l’onglet **Filtres de contenu**, puis cliquez sur **+ Créer un filtre de contenu**.
 
     La création et l’application d’un filtre de contenu s’effectuent en renseignant plusieurs pages successives.
 
-1. Sur la page **Informations de base**, renseignez les informations suivantes : 
-    - **Nom** : *un nom approprié pour votre filtre de contenu*
-    - **Connexion** : *Votre connexion Azure OpenAI*
-
-1. Dans l’onglet **Filtre d’entrée**, examinez les paramètres appliqués à l’invite en entrée, puis définissez le seuil de chaque catégorie sur **Faible**.
+1. Sur la page **Informations de base**, entrez un nom approprié pour votre filtre de contenu.
+1. Dans l’onglet **Filtre d’entrée**, examinez les paramètres appliqués à l’invite en entrée.
 
     Les filtres de contenu sont basés sur des restrictions pour quatre catégories de contenu potentiellement préjudiciable :
 
@@ -155,13 +125,15 @@ Si le filtre de contenu par défaut ne répond pas à vos besoins, vous pouvez c
     - **Sexuel** : Le langage sexuellement explicite ou abusif.
     - **Automutilation** : Le langage qui décrit ou encourage l’automutilation.
 
-    Pour chacune de ces catégories, des filtres sont appliqués aux invites et aux compléments, avec un paramètre de sévérité **sans danger**, **faible**, **moyen** et **élevé** utilisé pour déterminer les types de langage spécifiques qui sont interceptés et bloqués par le filtre.
+    Pour chacune de ces catégories, des filtres sont appliqués aux invites et aux saisies semi-automatiques, basés sur des seuils bloquants **Blocage faible**, **Blocage moyen** et **Blocage élevé** utilisés pour déterminer les types de langage spécifiques qui sont interceptés et bloqués par le filtre.
 
     Des protections *bouclier d’invite* sont également mises en place pour limiter les tentatives délibérées d’abus de votre application d’IA générative.
 
-1. Sur la page **Filtre de sortie**, examinez les paramètres applicables aux réponses en sortie, puis définissez le seuil de chaque catégorie sur **Faible**.
+1. Réglez le seuil pour chaque catégorie de filtre d’entrée sur **Tout bloquer**.
 
-1. Dans l’onglet **Déploiement**, sélectionnez le déploiement de votre modèle Phi-4 pour lui appliquer le nouveau filtre de contenu, en confirmant le remplacement du filtre existant DefaultV2 lorsque vous y êtes demandé.
+1. Sur la page **Filtre de sortie**, examinez les paramètres applicables aux réponses en sortie, puis définissez le seuil de chaque catégorie sur **Tout bloquer**.
+
+1. Sur la page **Déploiement**, sélectionnez le déploiement de votre modèle **Phi-4** pour lui appliquer le nouveau filtre de contenu, en confirmant le remplacement du filtre existant lorsqu’il vous est demandé.
 
 1. Sur la page **Révision**, sélectionnez **Créer un filtre**, puis attendez que le filtre de contenu soit créé.
 
@@ -171,7 +143,8 @@ Si le filtre de contenu par défaut ne répond pas à vos besoins, vous pouvez c
 
 Effectuons une dernière conversation instantanée avec le modèle pour observer l’effet du filtre de contenu personnalisé.
 
-1. Revenez au terrain de jeu de conversation et assurez-vous qu’une nouvelle session a été lancée avec votre modèle Phi-4.
+1. Dans le volet de navigation, sélectionnez **Terrains de jeu** et ouvrez le **terrain de jeu de conversation**.
+1. Assurez-vous qu’une nouvelle session a été lancée avec votre modèle Phi-4.
 1. Soumettez l’invite suivante et examinez la réponse :
 
     ```
