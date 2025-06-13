@@ -72,7 +72,7 @@ Un *projet* Azure AI fournit un espace de travail collaboratif pour le dévelop
 
 Votre projet Azure AI Foundry et la ressource Azure AI Foundry à laquelle il appartient incluent des connexions à des ressources que vous pouvez utiliser dans des applications d’IA.
 
-1. Dans la page Centre de gestion, dans le volet de navigation, dans votre projet, sélectionnez **Accéder au projet**.
+1. Dans la page Centre de gestion, dans le volet de navigation, dans votre projet, sélectionnez **Accéder à la ressource**.
 1. Dans la page **Vue d’ensemble** du projet, consultez la section **Points de terminaison et clés**, qui contient des points de terminaison et des clés d’autorisation à utiliser dans le code de votre application pour accéder :
     - au projet Azure AI Foundry et aux modèles qui y sont déployés.
     - à Azure OpenAI dans les modèles Azure AI Foundry.

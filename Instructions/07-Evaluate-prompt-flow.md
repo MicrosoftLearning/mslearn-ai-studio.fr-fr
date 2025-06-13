@@ -14,24 +14,25 @@ Cet exercice prend environ **30** minutes.
 
 ## Créer un hub et un projet Azure AI Foundry
 
-Les fonctionnalités d’Azure AI Foundry que nous allons utiliser dans cet exercice nécessitent un projet basé sur une ressource de *hub* Azure AI Foundry.
+Les fonctionnalités d’Azure AI Foundry que nous allons utiliser dans cet exercice nécessitent un projet basé sur une ressource de *hub* Azure AI Foundry.
 
 1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
 1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et sélectionnez **Créer**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
-1. Dans l’assistant **Créer un projet**, entrez un nom valide pour votre projet. Si un hub existant est suggéré, sélectionnez l’option pour en créer un et développez les **options avancées** pour spécifier les paramètres suivants pour votre projet :
+1. Dans l’assistant **Créer un projet**, entrez un nom valide pour votre projet et utilisez le lien **Renommer le hub** pour spécifier un nom valide pour votre nouveau hub. Développez ensuite les **Options avancées** pour définir les paramètres suivants de votre projet :
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Nom du hub** : un nom valide pour votre hub.
-    - **Emplacement** : *sélectionnez l’un des emplacements ci-dessous* :\*
+    - **Région** : sélectionnez l’un des emplacements suivants (*si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région*) :
         - USA Est 2
         - France Centre
         - Sud du Royaume-Uni
         - Suède Centre
 
-    > \* À la date de rédaction, ces régions prennent en charge l’évaluation des indicateurs de sécurité de l’IA. La disponibilité des modèles est limitée par les quotas régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer un autre projet dans une autre région.
+    > **Note** : si vous travaillez dans un abonnement Azure dans lequel les stratégies sont utilisées pour restreindre les noms de ressources autorisés, vous devrez peut-être utiliser le lien en bas de la boîte de dialogue **Créer un projet** pour créer le hub à l’aide du portail Azure.
+
+    > **Conseil** : si le bouton **Créer** est toujours désactivé, veillez à renommer votre hub en une valeur alphanumérique unique.
 
 1. Attendez que votre projet soit créé.
 
