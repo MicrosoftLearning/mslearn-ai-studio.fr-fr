@@ -31,7 +31,7 @@ Un *projet* Azure AI fournit un espace de travail collaboratif pour le dévelop
 1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
 1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
 1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre projet :
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*

@@ -16,7 +16,7 @@ Cet exercice prend environ **60 minutes**\*.
 
 > \***Note** : cette durée est une estimation basée sur une moyenne des expériences. L’ajustement dépend des ressources de l’infrastructure cloud, celles-ci pouvant nécessiter un certain temps d’approvisionnement en fonction de la capacité du centre de données et de la demande simultanée. Certaines activités de cet exercice peuvent prendre <u>beaucoup</u> de temps et nécessiter de la patience. Si des éléments prennent beaucoup de temps, envisagez de consulter la [documentation relative à l’ajustement d’Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/fine-tuning-overview) ou de prendre une pause. Il est possible que certains processus expirent ou semblent s’exécuter indéfiniment. Certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Il se peut que vous rencontriez des comportements, inattendus, des avertissements ou des erreurs.
 
-## Déployer un modèle DALL-E dans un projet Azure AI Foundry
+## Déployer un modèle dans un projet Azure AI Foundry
 
 Commençons par déployer un projet Azure AI Foundry.
 
@@ -27,7 +27,7 @@ Commençons par déployer un projet Azure AI Foundry.
 1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
 1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
 1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre projet :
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*

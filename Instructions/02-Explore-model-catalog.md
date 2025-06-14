@@ -69,7 +69,7 @@ Pour utiliser un modèle, vous devez créer un *projet* Azure AI Foundry.
 
 1. En haut de la page de vue d’ensemble du modèle **gpt-4o**, sélectionnez **Utiliser ce modèle**.
 1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
-1. Dans la section **Options avancées**, indiquez les paramètres suivants pour votre hub :
+1. Dans la section **Options avancées**, indiquez les paramètres suivants pour votre projet :
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*

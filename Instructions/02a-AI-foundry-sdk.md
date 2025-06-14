@@ -12,7 +12,7 @@ Cet exercice prend environ **40** minutes.
 
 > **Remarque** : cet exercice est basé sur des SDK en préversion, susceptibles d’être modifiés. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles. Il se peut que vous rencontriez des comportements, inattendus, des avertissements ou des erreurs.
 
-## Déployer un modèle DALL-E dans un projet Azure AI Foundry
+## Déployer un modèle dans un projet Azure AI Foundry
 
 Commençons par déployer un projet Azure AI Foundry.
 
@@ -23,7 +23,7 @@ Commençons par déployer un projet Azure AI Foundry.
 1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
 1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
 1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre projet :
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
