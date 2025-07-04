@@ -46,8 +46,6 @@ Un *projet* Azure AI fournit un espace de travail collaboratif pour le dévelop
 
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    > **Remarque** : si une erreur *Autorisations insuffisantes* s’affiche, utilisez le bouton **Corriger** pour la résoudre.
-
     ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./media/ai-foundry-project.png)
 
 1. En bas à gauche du volet de navigation, sélectionnez **Centre de gestion**. Le centre de gestion permet de configurer les paramètres aux niveaux *ressource* et *projet*, tous deux visibles dans le volet de navigation.

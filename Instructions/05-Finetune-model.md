@@ -43,8 +43,6 @@ Commençons par déployer un projet Azure AI Foundry.
 1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
-
     ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./media/ai-foundry-project.png)
 
 ## Ajuster vos modèles
