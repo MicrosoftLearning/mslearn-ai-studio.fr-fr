@@ -14,36 +14,40 @@ Imaginez que vous travaillez pour une agence de voyage et que vous développez u
 
 Cet exercice prend environ **60 minutes**\*.
 
-> \***Note** : cette durée est une estimation basée sur une moyenne des expériences. L’ajustement dépend des ressources de l’infrastructure cloud, celles-ci pouvant nécessiter un certain temps d’approvisionnement en fonction de la capacité du centre de données et de la demande simultanée. Certaines activités de cet exercice peuvent prendre <u>beaucoup</u> de temps et nécessiter de la patience. Si des éléments prennent beaucoup de temps, envisagez de consulter la [documentation relative à l’ajustement d’Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/fine-tuning-overview) ou de prendre une pause. Certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Il se peut que vous rencontriez des comportements, inattendus, des avertissements ou des erreurs.
+> \***Note** : cette durée est une estimation basée sur une moyenne des expériences. L’ajustement dépend des ressources de l’infrastructure cloud, celles-ci pouvant nécessiter un certain temps d’approvisionnement en fonction de la capacité du centre de données et de la demande simultanée. Certaines activités de cet exercice peuvent prendre <u>beaucoup</u> de temps et nécessiter de la patience. Si des éléments prennent beaucoup de temps, envisagez de consulter la [documentation relative à l’ajustement d’Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/concepts/fine-tuning-overview) ou de prendre une pause. Il est possible que certains processus expirent ou semblent s’exécuter indéfiniment. Certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Il se peut que vous rencontriez des comportements, inattendus, des avertissements ou des erreurs.
 
-## Créer un projet et un hub IA dans le portail Azure AI Foundry
+## Déployer un modèle dans un projet Azure AI Foundry
 
-Commençons par créer un projet dans le portail Azure AI Foundry au sein d’un hub Azure AI :
+Commençons par déployer un projet Azure AI Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
+1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide et, si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom valide pour votre hub*
+1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
+1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
+1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
+1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre projet :
+    - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis choisissez **gpt-4o-finetune** dans la fenêtre d’assistant de l’emplacement et utilisez la région recommandée\*.
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
-    - **Connecter Recherche Azure AI** : *créer une ressource Recherche Azure AI avec un nom unique*
+    - **Région** : *sélectionnez l’une des régions suivantes* :\*
+        - USA Est 2
+        - Centre-Nord des États-Unis
+        - Suède Centre
 
-    > \* Les ressources Azure OpenAI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région. 
+    > \* À la date de rédaction, ces régions prennent en charge l’ajustement fin des modèles gpt-4o.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+1. Sélectionnez **Créer** et attendez que votre projet, y compris le déploiement du modèle gpt-4 que vous avez sélectionné, soit créé.
+1. Une fois le projet créé, le terrain de jeu de conversation instantanée s’ouvrira automatiquement.
+1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
+1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
+    ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./media/ai-foundry-project.png)
 
 ## Ajuster vos modèles
 
-Étant donné que l’ajustement d’un modèle prend un certain temps, vous allez commencer l’ajustement dès maintenant et y revenir après avoir examiné un modèle de base qui n’a pas été ajusté, à des fins de comparaison.
+Comme l’ajustement fin d’un modèle prend du temps, commencez le travail d’ajustement dès maintenant, puis revenez-y après avoir exploré le modèle gpt-4o de base déjà déployé.
 
 1. Téléchargez le [jeu de données de démo](https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl) à l’adresse `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-ai-studio/refs/heads/main/data/travel-finetune-hotel.jsonl` et enregistrez-le en tant que fichier JSONL localement.
 
@@ -52,28 +56,12 @@ Commençons par créer un projet dans le portail Azure AI Foundry au sein d’
 1. Accédez à la page **Ajustement** dans la section **Créer et personnaliser**, à l’aide du menu de gauche.
 1. Sélectionnez le bouton permettant d’ajouter un nouveau modèle ajusté, le modèle **gpt-4o**, puis **Suivant**.
 1. **Ajustez** le modèle à l’aide de la configuration suivante :
-    - **Version du modèle** : *Sélectionnez la version par défaut*
     - **Méthode de personnalisation** : supervisée
+    - **Modèle de base** : *sélectionnez la version par défaut de **gpt-4o.***
+    - **Données d’entraînement** : *sélectionnez l’option **Ajouter des données d’entraînement**, puis chargez et appliquez le fichier .jsonl que vous avez téléchargé précédemment.*
     - **Suffixe de modèle** : `ft-travel`
-    - **Ressource IA connectée** : *sélectionnez la connexion qui a été créée lors de la création de votre hub. Elle devrait être sélectionnée par défaut.*
-    - **Données d’apprentissage** : charger des fichiers
-
-    <details>  
-    <summary><b>Conseil de résolution des problèmes</b> : erreur d’autorisations</summary>
-    <p>Si vous recevez une erreur d’autorisation, essayez ce qui suit pour résoudre le problème :</p>
-    <ul>
-        <li>Dans le Portail Azure, sélectionnez la ressource AI Services.</li>
-        <li>Dans Gestion des ressources, dans l’onglet Identité, confirmez qu’il s’agit d’une identité managée attribuée par le système.</li>
-        <li>Accédez au compte de stockage associé. Sur la page IAM, ajoutez l’attribution de rôle <em>Propriétaire de données de stockage Blob</em>.</li>
-        <li>Sous <strong>Attribuer l’accès à</strong>, choisissez <strong>Identité managée</strong>, <strong>+Sélectionner des membres</strong>, <strong>Toutes les identités managées attribuées par le système</strong>, puis sélectionnez votre ressource Azure AI Services.</li>
-        <li>À l’aide de Passer en revue et attribuer, enregistrez les nouveaux paramètres et procédez à nouveau à l’étape précédente.</li>
-    </ul>
-    </details>
-
-    - **Charger fichier** : sélectionnez le fichier JSONL que vous avez téléchargé lors d’une étape précédente.
-    - **Données de validation** : aucune
-    - **Paramètres de tâche** : *conserver les paramètres par défaut*
-1. L’ajustement commence et peut prendre un certain temps. Vous pouvez poursuivre vers la section suivante de l’exercice pendant que vous patientez.
+    - **Valeur initiale** : *aléatoire
+1. Soumettez les détails de réglage précis pour lancer le travail. Cela peut prendre un certain temps. Vous pouvez poursuivre vers la section suivante de l’exercice pendant que vous patientez.
 
 > **Remarque** : l’ajustement et le déploiement peuvent prendre un certain temps (30 minutes ou plus). Vous devrez donc peut-être vérifier l’avancement régulièrement. Vous pouvez consulter plus de détails sur l’avancement en sélectionnant la tâche d’ajustement du modèle et en affichant son onglet **Journaux**.
 
@@ -81,37 +69,22 @@ Commençons par créer un projet dans le portail Azure AI Foundry au sein d’
 
 En attendant que la tâche d’ajustement se termine, discutons avec un modèle de base GPT-4o afin d’évaluer ses performances.
 
-1. Dans le volet de gauche de votre projet, dans la section **Mes ressources**, sélectionnez la page **Modèles + points de terminaison**.
-1. Sur la page **Modèles + points de terminaison**, dans l’onglet **Déploiements de modèles**, dans le menu **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**.
-1. Recherchez le modèle **gpt-4o** dans la liste, puis sélectionnez-le et confirmez.
-1. Déployez le modèle avec les paramètres suivants en sélectionnant **Personnaliser** dans les détails du déploiement :
-    - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
-    - **Type de déploiement** : standard global
-    - **Mise à jour automatique de la version** : activée
-    - **Version du modèle** : *sélectionnez la version la plus récente disponible.*
-    - **Ressource IA connectée** : *sélectionnez votre connexion à la ressource Azure OpenAI (si la région actuelle de votre ressource IA ne dispose pas de quota pour le modèle que vous souhaitez déployer, vous devrez choisir une autre région où une nouvelle ressource IA sera créée et rattachée à votre projet)*
-    - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
-    - **Filtre de contenu** : DefaultV2
-
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
-
-1. Attendez la fin du déploiement.
-
-> **Remarque** : si votre emplacement actuel de ressource IA n’a pas de quota disponible pour le modèle que vous souhaitez déployer, vous êtes invité à choisir un autre emplacement où une nouvelle ressource IA sera créée et connectée à votre projet.
-
-1. Lorsque le déploiement est terminé, sélectionnez le bouton **Ouvrir dans le terrain de jeu**.
-1. Vérifiez que votre modèle de base gpt-4o déployé est sélectionné dans le volet de configuration.
+1. Dans le volet de navigation à gauche, sélectionnez **Terrains de jeu** et ouvrez le **terrain de jeu de conversation instantanée**.
+1. Vérifiez que votre modèle de base **gpt-4o** déployé est sélectionné dans le volet de configuration.
 1. Dans la fenêtre de conversation, entrez la requête `What can you do?` et lisez la réponse.
 
     Les réponses peuvent être assez génériques. N’oubliez pas que nous voulons créer une application de conversation qui inspire les gens à voyager.
 
 1. Mettez à jour le message système dans le volet d’installation avec l’invite suivante :
 
-    ```md
-    You are an AI assistant that helps people plan their holidays.
+    ```
+    You are an AI assistant that helps people plan their travel.
     ```
 
-1. Sélectionnez **Appliquer les modifications**, puis **Effacer la conversation** et demandez à nouveau `What can you do?`. En réponse, l’assistant peut vous indiquer qu’il peut vous aider à réserver des vols, des hôtels et des voitures de location pour votre voyage. Supposons que vous souhaitez éviter ce comportement.
+1. Sélectionnez **Appliquer les modifications** pour mettre à jour le message système.
+1. Dans la fenêtre de conversation, saisissez à nouveau la requête `What can you do?`, puis affichez la réponse.
+1 En réponse, l’assistant peut vous indiquer qu’il peut vous aider à réserver des vols, des hôtels et des voitures de location pour votre voyage. Supposons que vous souhaitez éviter ce comportement.
+
 1. Remettez à jour le message système avec une nouvelle invite :
 
     ```
@@ -119,8 +92,7 @@ En attendant que la tâche d’ajustement se termine, discutons avec un modèle 
     You should not provide any hotel, flight, rental car or restaurant recommendations.
     Ask engaging questions to help someone plan their trip and think about what they want to do on their holiday.
     ```
-
-1. Sélectionnez **Appliquer les modifications** et **Effacer la conversation**.
+.
 1. Continuez à tester votre application de conversation pour vérifier qu’elle ne fournit aucune information qui ne soit fondée sur des données récupérées. Par exemple, posez les questions suivantes et passez en revue les réponses du modèle, en accordant une attention particulière au ton et au style d’écriture que le modèle utilise pour répondre :
    
     `Where in Rome should I stay?`

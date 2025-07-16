@@ -4,7 +4,7 @@ lab:
   description: Découvrez comment utiliser des flux d’invite pour gérer les dialogues conversationnels et vérifier que les invites sont construites et orchestrées pour obtenir de meilleurs résultats.
 ---
 
-# Utiliser un flux d’invite pour gérer la conversation dans une application de conversation
+## Utiliser un flux d’invite pour gérer la conversation dans une application de conversation
 
 Dans cet exercice, vous allez utiliser le flux d’invite du portail Azure AI Foundry pour créer une application de conversation personnalisée qui utilise une invite utilisateur et un historique des conversations comme entrées, et qui utilise un modèle GPT d’Azure OpenAI pour générer un résultat.
 
@@ -12,44 +12,32 @@ Cet exercice prend environ **30** minutes.
 
 > **Note** : certaines des technologies utilisées dans cet exercice sont en version préliminaire ou en cours de développement. Un comportement inattendu, des avertissements ou des erreurs peuvent se produire.
 
-## Créer un projet Azure AI Foundry
+## Créer un hub et un projet Azure AI Foundry
 
-Commençons par créer un projet Azure AI Foundry.
+Les fonctionnalités d’Azure AI Foundry que nous allons utiliser dans cet exercice nécessitent un projet basé sur une ressource de *hub* Azure AI Foundry.
 
-1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante :
+1. Dans un navigateur web, ouvrez le [portail Azure AI Foundry](https://ai.azure.com) à l’adresse `https://ai.azure.com` et connectez-vous en utilisant vos informations d’identification Azure. Fermez les conseils ou les volets de démarrage rapide ouverts la première fois que vous vous connectez et, si nécessaire, utilisez le logo **Azure AI Foundry** en haut à gauche pour accéder à la page d’accueil, qui ressemble à l’image suivante (fermez le volet **Aide** s’il est ouvert) :
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Sur la page d’accueil, sélectionnez **+Créer un projet**.
-1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet. Si un hub existant est suggéré, choisissez l’option permettant d’en créer un. Passez ensuite en revue les ressources Azure qui seront créées automatiquement pour prendre en charge votre hub et votre projet.
-1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre hub :
-    - **Nom du hub** : *nom valide pour votre hub*
+1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et sélectionnez **Créer**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
+1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et sélectionnez l’option permettant de créer un nouveau hub. Utilisez ensuite le lien **Renommer le hub** pour spécifier un nom valide pour votre nouveau hub, développez les **Options avancées** et définissez les paramètres suivants pour votre projet :
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Emplacement** : sélectionnez **Aidez-moi à choisir**, puis sélectionnez **gpt-4o** dans la fenêtre d’aide à la sélection de l’emplacement et utilisez la région recommandée\*
-    - **Connecter Azure AI Services ou Azure OpenAI** : *créer des ressources AI Services*
-    - **Connecter la Recherche Azure AI** : ignorer la connexion
+    - **Région** : USA Est 2 ou Suède Centre (*si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.*)
 
-    > \*Les ressources Azure OpenAI sont soumises à des quotas de modèle par région. En cas de dépassement de quota au cours de l’exercice, vous devrez peut-être créer une autre ressource dans une région différente.
+    > **Note** : si vous travaillez dans un abonnement Azure dans lequel les stratégies sont utilisées pour restreindre les noms de ressources autorisés, vous devrez peut-être utiliser le lien en bas de la boîte de dialogue **Créer un projet** pour créer le hub à l’aide du portail Azure.
 
-1. Sélectionnez **Suivant** et passez en revue votre configuration. Sélectionnez **Créer** et patientez jusqu’à ce que l’opération se termine.
-1. Une fois votre projet créé, fermez les conseils affichés et passez en revue la page du projet dans le portail Azure AI Foundry, qui doit ressembler à l’image suivante :
+    > **Conseil** : si le bouton **Créer** est toujours désactivé, veillez à renommer votre hub en une valeur alphanumérique unique.
 
-    ![Capture d’écran des détails d’un projet Azure AI dans le portail Azure AI Foundry.](./media/ai-foundry-project.png)
+1. Attendez que votre projet soit créé.
 
 ## Configurer les autorisations des ressources
 
-Les outils de flux d’invite dans Azure AI Foundry créent des ressources basées sur des fichiers qui définissent le flux d’invite dans un dossier du stockage Blob. Avant d’explorer le flux d’invite, assurons-nous que votre ressource Azure AI Services dispose des accès requis au stockage Blob afin de pouvoir le lire.
+Les outils de flux d’invite dans Azure AI Foundry créent des ressources basées sur des fichiers qui définissent le flux d’invite dans un dossier du stockage Blob. Avant d’explorer le flux d’invite, assurez-vous que la ressource Azure AI Foundry dispose des accès requis au magasin d’objets blob afin de pouvoir le lire.
 
-1. Dans le portail Azure AI Foundry, dans le volet de navigation, sélectionnez le **Centre de gestion** et affichez la page des détails de votre projet, qui doit ressembler à l’image suivante :
-
-    ![Capture d’écran du centre de gestion.](./media/ai-foundry-manage-project.png)
-
-1. Dans **Groupe de ressources**, sélectionnez votre groupe de ressources pour l’ouvrir dans le portail Azure dans un nouvel onglet de navigateur. Connectez-vous avec vos identifiants Azure si cela vous est demandé et fermez les notifications de bienvenue pour afficher la page du groupe de ressources.
-
-    Le groupe de ressources contient toutes les ressources Azure pour prendre en charge votre hub et votre projet.
-
-1. Sélectionnez la ressource **Azure AI Services** associée à votre hub pour l’ouvrir. Déployez ensuite la section **Gestion des ressources**, puis sélectionnez la page **Identité** :
+1. Dans un nouvel onglet de navigateur, ouvrez le [Portail Azure](https://portal.azure.com) à l’adresse `https://portal.azure.com`, connectez-vous avec vos informations d’identification Azure si nécessaire et affichez le groupe de ressources contenant vos ressources de hub Azure AI.
+1. Sélectionnez la ressource **Azure AI Foundry** associée à votre hub pour l’ouvrir. Déployez ensuite la section **Gestion des ressources**, puis sélectionnez la page **Identité** :
 
     ![Capture d’écran de la page Identité d’Azure AI Services dans le portail Azure.](./media/ai-services-identity.png)
 
@@ -58,12 +46,11 @@ Les outils de flux d’invite dans Azure AI Foundry créent des ressources basé
 
     ![Capture d’écran de la page de contrôle d’accès du compte de stockage dans le portail Azure.](./media/storage-access-control.png)
 
-1. Ajoutez une attribution de rôle au rôle `Storage blob data reader`pour l’identité managée utilisée par votre ressource Azure AI Services :
+1. Ajoutez une attribution de rôle au rôle `Storage blob data reader` pour l’identité managée utilisée par votre ressource Azure AI Foundry :
 
     ![Capture d’écran de la page de contrôle d’accès du compte de stockage dans le portail Azure.](./media/assign-role-access.png)
 
-1. Une fois que vous avez vérifié et attribué les accès de rôles permettant à l’identité managée d’Azure AI Services de lire les blobs dans le compte de stockage, fermez l’onglet du portail Azure et retournez dans le portail Azure AI Foundry.
-1. Dans le portail Azure AI Foundry, dans le volet de navigation, sélectionnez **Accéder au projet** pour revenir à la page d’accueil de votre projet.
+1. Une fois que vous avez vérifié et attribué les accès de rôles permettant à l’identité managée d’Azure AI Foundry de lire les blobs dans le compte de stockage, fermez l’onglet du Portail Azure et retournez dans le Portail Azure AI Foundry.
 
 ## Déployer un modèle d’IA générative
 
@@ -76,12 +63,12 @@ Vous êtes maintenant prêt à déployer un modèle de langage d’IA générati
     - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Mise à jour automatique de la version** : activée
-    - **Version du modèle** : *sélectionnez la version la plus récente disponible*
+    - **Version du modèle** : *sélectionnez la version la plus récente disponible.*
     - **Ressource IA connectée** : *sélectionnez votre connexion de ressources Azure OpenAI*
     - **Limite de jetons par minute (en milliers)**  : 50 *(ou le maximum disponible dans votre abonnement si inférieur à 50 000)*
     - **Filtre de contenu** : DefaultV2
 
-    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
 
 1. Attendez la fin du déploiement.
 
@@ -93,6 +80,8 @@ Un flux d’invite permet d’orchestrer des invites et d’autres activités af
 1. Créez un nouveau flux basé sur le modèle **Flux de conversation**, en utilisant `Travel-Chat` comme nom de dossier.
 
     Un flux de conversation instantanée simple est créé pour vous.
+
+    > **Conseil** : si une erreur d’autorisation se produit. Patientez quelques minutes et réessayez, en spécifiant un autre nom de flux si nécessaire.
 
 1. Pour pouvoir tester votre flux, vous devez le calculer, et cela peut prendre du temps à démarrer. Sélectionnez donc **Démarrer une session de calcul** pour lancer le processus pendant que vous explorez et modifiez le flux par défaut.
 
