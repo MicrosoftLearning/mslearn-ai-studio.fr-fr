@@ -36,8 +36,6 @@ Commençons par déployer un projet Azure AI Foundry.
 1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
-    > **Remarque** : si une erreur *Autorisations insuffisantes** s’affiche, utilisez le bouton **Corriger** pour la résoudre.
-
     ![Capture d’écran d’une page de présentation d’un projet Azure AI Foundry.](./media/ai-foundry-project.png)
 
 ## Créer une application cliente pour converser avec le modèle
@@ -152,8 +150,9 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     ```python
    # Add references
    from dotenv import load_dotenv
+   from urllib.parse import urlparse
    from azure.identity import DefaultAzureCredential
-   from azure.ai.projects import AIProjectClient
+   from azure.ai.inference import ChatCompletionsClient
    from azure.ai.inference.models import SystemMessage, UserMessage, AssistantMessage
     ```
 
@@ -167,48 +166,36 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     ```
 
 1. Dans la fonction **main**, sous le commentaire **Obtenir les paramètres de configuration**, notez que le code charge les valeurs de chaîne de connexion du projet et de nom de déploiement du modèle que vous avez définies dans le fichier de configuration.
-1. Recherchez le commentaire **Initialiser le client du projet**, puis ajoutez le code suivant pour vous connecter à votre projet Azure AI Foundry à l’aide des identifiants Azure que vous utilisez actuellement pour votre session :
+1. Recherchez le commentaire **Obtenir un client de conversation instantanée**, puis ajoutez le code suivant pour créer un objet client permettant d’interagir avec un modèle :
 
     > **Conseil** : veillez à respecter le niveau d’indentation correct dans votre code.
 
     **Python**
 
     ```python
-   # Initialize the project client
-   projectClient = AIProjectClient(            
-            credential=DefaultAzureCredential(
-                exclude_environment_credential=True,
-                exclude_managed_identity_credential=True
-            ),
-            endpoint=project_connection,
-        )
-    ```
-
-    **C#**
-
-    ```csharp
-   // Initialize the project client
-   DefaultAzureCredentialOptions options = new()
-       { ExcludeEnvironmentCredential = true,
-        ExcludeManagedIdentityCredential = true };
-   var projectClient = new AIProjectClient(
-        new Uri(project_connection),
-        new DefaultAzureCredential(options));
-    ```
-
-1. Recherchez le commentaire **Obtenir un client de conversation instantanée**, puis ajoutez le code suivant pour créer un objet client permettant d’interagir avec un modèle :
-
-    **Python**
-
-    ```python
    # Get a chat client
-   chat = projectClient.inference.get_chat_completions_client()
+   inference_endpoint = f"https://{urlparse(project_endpoint).netloc}/models"
+
+   credential = DefaultAzureCredential(exclude_environment_credential=True,
+                                        exclude_managed_identity_credential=True,
+                                        exclude_interactive_browser_credential=False)
+
+   chat = ChatCompletionsClient(
+            endpoint=inference_endpoint,
+            credential=credential,
+            credential_scopes=["https://ai.azure.com/.default"])
     ```
 
     **C#**
 
     ```csharp
    // Get a chat client
+   DefaultAzureCredentialOptions options = new()More actions
+           { ExcludeEnvironmentCredential = true,
+            ExcludeManagedIdentityCredential = true };
+   var projectClient = new AIProjectClient(
+            new Uri(project_connection),
+            new DefaultAzureCredential(options));
    ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
     ```
 
@@ -294,6 +281,8 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser les SDK Azur
     ```
    dotnet run
     ```
+
+    > **Conseil** : Si une erreur de compilation survient parce que .NET version 9.0 n’est pas installé, utilisez la commande `dotnet --version` pour déterminer la version de .NET installée dans votre environnement, puis modifiez le fichier **chat_app.csproj** dans le dossier de code pour mettre à jour le paramètre **TargetFramework** en conséquence.
 
 1. Lorsque vous y êtes invité, entrez une question, par exemple `What is the fastest animal on Earth?`, et passez en revue la réponse de votre modèle d’IA générative.
 1. Essayez de poser quelques questions de suivi, comme : « `Where can I see one?` » ou « `Are they endangered?` ». La conversation doit se poursuivre en utilisant l’historique des échanges comme contexte pour chaque itération.

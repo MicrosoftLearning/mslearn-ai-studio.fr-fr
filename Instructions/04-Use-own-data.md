@@ -22,7 +22,7 @@ Les fonctionnalités d’Azure AI Foundry que nous allons utiliser dans cet ex
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et sélectionnez **Créer**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
+1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et cliquez sur **Créer un nouveau**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
 1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et sélectionnez l’option permettant de créer un nouveau hub. Utilisez ensuite le lien **Renommer le hub** pour spécifier un nom valide pour votre nouveau hub, développez les **Options avancées** et définissez les paramètres suivants pour votre projet :
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
@@ -198,8 +198,8 @@ Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le ki
     Le fichier s’ouvre dans un éditeur de code.
 
 1. Dans le fichier de code, remplacez les espaces réservés suivants : 
-    - **your_openai_endpoint** : point de terminaison OpenAI disponible sur la page **Vue d’ensemble** de votre projet dans le portail Azure AI Foundry (veillez à sélectionner l’onglet de fonctionnalité **Azure OpenAI**, et non la fonctionnalité Azure AI Inference ou Azure AI Services).
-    - **your_openai_api_key** : clé API OpenAI disponible sur la page **Vue d’ensemble** de votre projet dans le portail Azure AI Foundry (veillez à sélectionner l’onglet fonctionnalité **Azure OpenAI**, et non la fonctionnalité Azure AI Inference ou Azure AI Services).
+    - **your_openai_endpoint** : Il s’agit du point de terminaison OpenAI disponible dans l’onglet **Vue d’ensemble** de votre projet sur le portail Azure AI Foundry (assurez-vous de sélectionner l’onglet **Azure OpenAI**, et non Azure AI Inference ou Azure AI Services).
+    - **your_openai_api_key** : La clé API OpenAI se trouve également dans l’onglet **Vue d’ensemble** de votre projet sur le portail Azure AI Foundry (vérifiez bien que l’onglet fonctionnalité **Azure OpenAI** est sélectionné et non Azure AI Inference ou Azure AI Services).
     - **your_chat_model** : nom que vous avez affecté à votre modèle de déploiement **gpt-4o**, disponible sur la page **Modèles + points de terminaison** du portail Azure AI Foundry (le nom par défaut est `gpt-4o`).
     - **your_embedding_model** : nom que vous avez attribué à votre modèle de déploiement **text-embedding-ada-002**, disponible sur la page **Modèles + points de terminaison** du portail Azure AI Foundry (le nom par défaut est `text-embedding-ada-002`).
     - **your_search_endpoint** : URL de votre ressource Recherche Azure AI. Vous la trouverez dans le **Centre de gestion** du portail Azure AI Foundry.
@@ -251,6 +251,8 @@ Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le ki
     ```
    dotnet run
     ```
+
+    > **Conseil** : Si une erreur de compilation survient parce que la version .NET 9.0 n’est pas installée, utilisez la commande `dotnet --version` pour connaître la version .NET installée dans votre environnement, puis modifiez le fichier **rag_app.csproj** dans le dossier du code pour mettre à jour la valeur de **TargetFramework**.
 
 1. Lorsque vous y êtes invité, entrez une question, par exemple `Where should I go on vacation to see architecture?`, et passez en revue la réponse de votre modèle d’IA générative.
 

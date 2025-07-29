@@ -34,7 +34,7 @@ Commençons par nous connecter au portail Azure AI Foundry et explorer certain
     ![Capture d’écran de la page des benchmarks du modèle gpt-4o.](./media/gpt4-benchmarks.png)
 
 1. Utilisez la flèche de retour (**&larr;**) à côté du titre de la page **gpt-4o** pour revenir au catalogue des modèles.
-1. Recherchez `Phi-3.5-mini-instruct` et affichez les détails ainsi que les benchmarks du modèle **Phi-3.5-mini-instruct**.
+1. Recherchez `Phi-4-mini-instruct`, puis affichez les détails et les performances du modèle **Phi-4-mini-instruct**.
 
 ## Comparer des modèles
 
@@ -47,16 +47,14 @@ Vous avez examiné deux modèles différents, qui peuvent être utilisés pour i
 
 1. Dans le volet **Modèles à comparer**, notez que vous pouvez sélectionner des tâches courantes, comme *répondre à des questions*, pour sélectionner automatiquement les modèles les plus utilisés pour ces tâches spécifiques.
 1. Utilisez l’icône **Effacer tous les modèles** (&#128465;) pour supprimer tous les modèles pré-sélectionnés.
-1.  Utilisez le bouton **+ Modèle à comparer** pour ajouter le modèle **gpt-4o** à la liste. Utilisez ensuite le même bouton pour ajouter le modèle **Phi-3.5-mini-instruct** à la liste.
+1.  Utilisez le bouton **+ Modèle à comparer** pour ajouter le modèle **gpt-4o** à la liste. Utilisez ensuite le même bouton pour ajouter le modèle **Phi-4-mini-instruct** à la liste.
 1. Passez en revue le graphique, qui compare les modèles en fonction de l’**index de qualité** (un score standardisé indiquant la qualité du modèle) et le **coût**. Vous pouvez voir les valeurs spécifiques d’un modèle en maintenant la souris sur le point qui le représente dans le graphique.
 
-    ![Capture d’écran du graphique de comparaison des modèles pour gpt-4o et Phi-3.5-mini-instruct.](./media/comparison-chart.png)
+    ![Capture d’écran du graphique de comparaison de modèles pour gpt-4o et Phi-4-mini-instruct.](./media/comparison-chart.png)
 
 1. Dans le menu déroulant **Axe X**, sous **Qualité**, sélectionnez les mesures suivantes et observez chaque graphique obtenu avant de passer au suivant :
     - Précision
-    - Cohérence
-    - Fluidité
-    - Pertinence
+    - Index de qualité
 
     D’après les benchmarks, le modèle gpt-4o semble offrir les meilleures performances globales, mais à un coût plus élevé.
 
@@ -77,7 +75,10 @@ Pour utiliser un modèle, vous devez créer un *projet* Azure AI Foundry.
 
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Créer** et attendez que votre projet, y compris le déploiement du modèle gpt-4 que vous avez sélectionné, soit créé.
+1. Sélectionnez **Créer** et attendez que votre projet soit créé. Si vous y êtes invité, déployez le modèle gpt-4o en utilisant le type de déploiement **norme Global**, puis personnalisez les détails du déploiement pour définir une **limite de taux de jetons par minute** de 50 000 (ou le maximum disponible s'il est inférieur à 50 000).
+
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+
 1. Une fois le projet créé, le terrain de jeu de conversation instantanée s’ouvrira automatiquement pour vous permettre de tester votre modèle :
 
     ![Capture d’écran du terrain de jeu de conversation instantanée d’un projet Azure AI Foundry.](./media/ai-foundry-chat-playground.png)
@@ -103,27 +104,25 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser le terrain d
 
 ## Déployer un autre modèle
 
-Lorsque vous avez créé votre projet, le modèle **gpt-4o** que vous aviez sélectionné a été automatiquement déployé. Déployons maintenant le modèle **Phi-3.5-mini-instruct** que vous aviez également envisagé.
+Lorsque vous avez créé votre projet, le modèle **gpt-4o** que vous aviez sélectionné a été automatiquement déployé. Déployons le modèle * **Phi-4-mini-instruct** que vous avez également considéré.
 
 1. Dans la barre de navigation de gauche, dans la section **Mes ressources**, sélectionnez **Modèles + points de terminaison**.
-1. Sous l’onglet **Déploiements de modèles**, dans la liste déroulante **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**. Recherchez ensuite `Phi-3.5-mini-instruct`, puis confirmez votre sélection.
+1. Sous l’onglet **Déploiements de modèles**, dans la liste déroulante **+ Déployer un modèle**, sélectionnez **Déployer le modèle de base**. Recherchez ensuite `Phi-4-mini-instruct`, puis confirmez votre sélection.
 1. Acceptez la licence du modèle.
-1. Déployez un modèle **Phi-3.5-mini-instruct** avec les paramètres suivants :
+1. Déployez un modèle **Phi-4-mini-instruct** avec les paramètres suivants :
     - **Nom du déploiement** : *nom valide pour votre modèle de déploiement*
     - **Type de déploiement** : standard global
     - **Détails du déploiement** : *utilisez les paramètres par défaut*
 
 1. Attendez la fin du déploiement.
 
-## Discuter avec le modèle *Phi-3.5*
+## Converser avec le modèle *Phi-4*
 
 Discutons maintenant avec le nouveau modèle dans le terrain de jeu.
 
 1. Dans la barre de navigation, sélectionnez **Terrains de jeu**. Sélectionnez ensuite le **terrain de jeu de conversation**.
-1. Dans le terrain de jeu de conversation instantanée, dans le volet **Configuration**, vérifiez que votre modèle **Phi-3.5-mini-instruct** est sélectionné, puis définissez l’invite du système dans le champ **Fournir des instructions et un contexte au modèle** à `You are an AI assistant that helps solve problems.` (la même invite du système que celle utilisée pour tester le modèle gpt-4o.)
-1. Sélectionnez **Appliquer les modifications** pour mettre à jour l’invite système.
-1. Vérifiez qu’une nouvelle session de conversation est démarrée avant de répéter les mêmes invites que celles que vous avez précédemment utilisées pour tester le modèle gpt-4.
-1. Dans la fenêtre de conversation, entrez la requête suivante :
+1. Dans le terrain de jeu de conversation, dans le volet **Configuration**, assurez-vous que votre modèle **Phi-4-mini-instruct** est sélectionné et dans la zone de conversation, fournissez la première ligne comme `System message: You are an AI assistant that helps solve problems.` (la même invite système que vous avez utilisée pour tester le modèle gpt-4o, mais étant donné qu’il n’existe aucune configuration de message système, nous le fournissons dans la première conversation pour le contexte.)
+1. Sur une nouvelle ligne dans la fenêtre de conversation (sous votre message système), entrez la requête suivante.
 
     ```
    I have a fox, a chicken, and a bag of grain that I need to take over a river in a boat. I can only take one thing at a time. If I leave the chicken and the grain unattended, the chicken will eat the grain. If I leave the fox and the chicken unattended, the fox will eat the chicken. How can I get all three things across the river without anything being eaten?

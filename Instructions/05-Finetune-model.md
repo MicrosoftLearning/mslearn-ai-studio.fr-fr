@@ -38,8 +38,11 @@ Commençons par déployer un projet Azure AI Foundry.
 
     > \* À la date de rédaction, ces régions prennent en charge l’ajustement fin des modèles gpt-4o.
 
-1. Sélectionnez **Créer** et attendez que votre projet, y compris le déploiement du modèle gpt-4 que vous avez sélectionné, soit créé.
-1. Une fois le projet créé, le terrain de jeu de conversation instantanée s’ouvrira automatiquement.
+1. Sélectionnez **Créer** et attendez que votre projet soit créé. Si vous y êtes invité, déployez le modèle gpt-4o en utilisant le type de déploiement **norme Global**, puis personnalisez les détails du déploiement pour définir une **limite de taux de jetons par minute** de 50 000 (ou le maximum disponible s'il est inférieur à 50 000).
+
+    > **Remarque** : La réduction du nombre de jetons par minute permet d’éviter une surutilisation du quota disponible dans l’abonnement que vous utilisez. 50 000 jetons par minute sont suffisants pour les données utilisées dans cet exercice. Si votre quota disponible est inférieur à cette valeur, vous pourrez tout de même terminer l’exercice, mais vous pourriez rencontrer des erreurs en cas de dépassement de la limite.
+
+1. Une fois le projet créé, le terrain de jeu de conversation instantanée s’ouvrira automatiquement pour vous permettre de tester votre modèle :
 1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**. Vous pouvez le confirmer en affichant le déploiement dans la page **Modèles et points de terminaison** (ouvrez simplement cette page dans le volet de navigation à gauche).
 1. Dans le volet de navigation à gauche, sélectionnez **Vue d’ensemble** pour accéder à la page principale de votre projet ; elle se présente comme suit :
 
