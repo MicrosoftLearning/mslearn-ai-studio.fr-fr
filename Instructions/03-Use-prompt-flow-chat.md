@@ -20,7 +20,7 @@ Les fonctionnalités d’Azure AI Foundry que nous allons utiliser dans cet ex
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et sélectionnez **Créer**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
+1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et cliquez sur **Créer un nouveau**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
 1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et sélectionnez l’option permettant de créer un nouveau hub. Utilisez ensuite le lien **Renommer le hub** pour spécifier un nom valide pour votre nouveau hub, développez les **Options avancées** et définissez les paramètres suivants pour votre projet :
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*

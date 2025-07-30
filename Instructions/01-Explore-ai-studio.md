@@ -66,9 +66,9 @@ Un *projet* Azure AI fournit un espace de travail collaboratif pour le dévelop
 
 1. Fermez l’onglet du portail Azure et revenez au portail Azure AI Foundry.
 
-## Examiner les connexions de projet
+## Passer en revue les points de terminaison de projet
 
-Votre projet Azure AI Foundry et la ressource Azure AI Foundry à laquelle il appartient incluent des connexions à des ressources que vous pouvez utiliser dans des applications d’IA.
+Le projet Azure AI Foundry inclut plusieurs *points de terminaison* que les applications clientes peuvent utiliser pour se connecter au projet, aux modèles et aux services IA associés.
 
 1. Dans la page Centre de gestion, dans le volet de navigation, dans votre projet, sélectionnez **Accéder à la ressource**.
 1. Dans la page **Vue d’ensemble** du projet, consultez la section **Points de terminaison et clés**, qui contient des points de terminaison et des clés d’autorisation à utiliser dans le code de votre application pour accéder :
