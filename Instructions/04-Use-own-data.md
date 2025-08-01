@@ -10,9 +10,15 @@ La génération augmentée e récupération (RAG, Retrieval Augmented Generation
 
 Dans cet exercice, vous allez utiliser le portail Azure AI Foundry pour intégrer des données personnalisées dans une solution d’IA générative.
 
-Cet exercice prend environ **45** minutes.
+> **Remarque** : Le code utilisé dans cet exercice est basé sur une version préliminaire du logiciel SDK, qui est susceptible d'être modifiée. Le cas échéant, nous avons utilisé des versions spécifiques de certains packages, qui ne correspondent pas forcément aux versions les plus récentes disponibles. Il se peut que vous rencontriez des comportements, inattendus, des avertissements ou des erreurs.
 
-> **Remarque** : cet exercice est basé sur des services en préversion, susceptibles d’être modifiés.
+Bien que cet exercice soit basé sur le SDK Python Azure OpenAI, vous pouvez développer des applications de chat IA à l'aide de plusieurs SDK spécifiques à chaque langage, notamment :
+
+- [OpenAI pour Python](https://pypi.org/project/openai/)
+- [Azure Open AI pour Microsoft .NET](https://www.nuget.org/packages/Azure.AI.OpenAI)
+- [Azure OpenAI pour TypeScript](https://www.npmjs.com/package/@azure/openai)
+
+Cet exercice prend environ **45** minutes.
 
 ## Créer un hub et un projet Azure AI Foundry
 
@@ -22,7 +28,7 @@ Les fonctionnalités d’Azure AI Foundry que nous allons utiliser dans cet ex
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et cliquez sur **Créer un nouveau**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
+1. Dans le navigateur, accédez à `https://ai.azure.com/managementCenter/allResources` et sélectionnez **Créer un nouveau**. Choisissez ensuite l’option permettant de créer une **ressource de hub AI**.
 1. Dans l’assistant **Créer un projet**, saisissez un nom valide pour votre projet et sélectionnez l’option permettant de créer un nouveau hub. Utilisez ensuite le lien **Renommer le hub** pour spécifier un nom valide pour votre nouveau hub, développez les **Options avancées** et définissez les paramètres suivants pour votre projet :
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
@@ -124,8 +130,6 @@ Avant d’utiliser votre index dans un flux d’invite basé sur RAG, nous allon
 
 Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le kit SDK Azure OpenAI pour implémenter le modèle RAG dans une application cliente. Examinons le code pour y parvenir dans un exemple simple.
 
-> **Conseil** : vous pouvez choisir de développer votre solution RAG à l’aide de Python ou de Microsoft C#. Suivez les instructions de la section appropriée pour votre langue choisie.
-
 ### Préparer la configuration de l’application
 
 1. Revenez à l’onglet du navigateur contenant le portail Azure (en gardant le portail Azure AI Foundry ouvert dans l’onglet existant).
@@ -150,23 +154,11 @@ Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le ki
 
 1. Une fois le référentiel cloné, accédez au dossier contenant les fichiers de code de l’application de conversation :
 
-    > **Note** : suivez les étapes de votre langage de programmation choisi.
-
-    **Python**
-
     ```
    cd mslearn-ai-foundry/labfiles/rag-app/python
     ```
 
-    **C#**
-
-    ```
-   cd mslearn-ai-foundry/labfiles/rag-app/c-sharp
-    ```
-
 1. Dans le volet de ligne de commande Cloud Shell, saisissez la commande suivante pour installer la bibliothèque du SDK OpenAI :
-
-    **Python**
 
     ```
    python -m venv labenv
@@ -174,30 +166,15 @@ Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le ki
    pip install -r requirements.txt openai
     ```
 
-    **C#**
-
-    ```
-   dotnet add package Azure.AI.OpenAI
-    ```
-    
-
 1. Saisissez la commande suivante pour modifier le fichier de configuration fourni :
-
-    **Python**
 
     ```
    code .env
     ```
 
-    **C#**
-
-    ```
-   code appsettings.json
-    ```
-
     Le fichier s’ouvre dans un éditeur de code.
 
-1. Dans le fichier de code, remplacez les espaces réservés suivants : 
+1. Dans le fichier de configuration, remplacez les espaces réservés suivants : 
     - **your_openai_endpoint** : Il s’agit du point de terminaison OpenAI disponible dans l’onglet **Vue d’ensemble** de votre projet sur le portail Azure AI Foundry (assurez-vous de sélectionner l’onglet **Azure OpenAI**, et non Azure AI Inference ou Azure AI Services).
     - **your_openai_api_key** : La clé API OpenAI se trouve également dans l’onglet **Vue d’ensemble** de votre projet sur le portail Azure AI Foundry (vérifiez bien que l’onglet fonctionnalité **Azure OpenAI** est sélectionné et non Azure AI Inference ou Azure AI Services).
     - **your_chat_model** : nom que vous avez affecté à votre modèle de déploiement **gpt-4o**, disponible sur la page **Modèles + points de terminaison** du portail Azure AI Foundry (le nom par défaut est `gpt-4o`).
@@ -211,16 +188,8 @@ Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le ki
 
 1. Saisissez la commande suivante pour modifier le fichier de code fourni :
 
-    **Python**
-
     ```
    code rag-app.py
-    ```
-
-    **C#**
-
-    ```
-   code Program.cs
     ```
 
 1. Passez en revue le code dans le fichier, en notant qu’il :
@@ -240,19 +209,9 @@ Maintenant que vous disposez d’un index de travail, vous pouvez utiliser le ki
 
 1. Dans le volet en ligne de commande du Cloud Shell, saisissez la commande suivante pour exécuter l’application :
 
-    **Python**
-
     ```
    python rag-app.py
     ```
-
-    **C#**
-
-    ```
-   dotnet run
-    ```
-
-    > **Conseil** : Si une erreur de compilation survient parce que la version .NET 9.0 n’est pas installée, utilisez la commande `dotnet --version` pour connaître la version .NET installée dans votre environnement, puis modifiez le fichier **rag_app.csproj** dans le dossier du code pour mettre à jour la valeur de **TargetFramework**.
 
 1. Lorsque vous y êtes invité, entrez une question, par exemple `Where should I go on vacation to see architecture?`, et passez en revue la réponse de votre modèle d’IA générative.
 

@@ -103,7 +103,7 @@ L’évaluation automatisée vise à pallier ces limites en calculant des indica
 1. Cliquez sur **Suivant** pour passer à la page suivante.
 1. Sur la page **Configurer les programmes d’évaluation**, utilisez le bouton **+Ajouter** pour ajouter les programmes d’évaluation suivants, en configurant chacun comme suit :
     - **Évaluateur de modèle** :
-        - **Nom du critère** : Semantic_similarity
+        - **Nom du critère** : *Sélectionnez le **préréglage **Semantic_similarity*
         - **Classer avec** : *sélectionnez votre modèle **gpt-4o***
         - Paramètres **utilisateur** (en bas) :
 
@@ -113,12 +113,12 @@ L’évaluation automatisée vise à pallier ces limites en calculant des indica
             <br>
         
     - **Likert-scale evaluator** :
-        - **Nom du critère** : Relevance
+        - **Nom du critère** : *Sélectionnez le **préréglage **Relevance*
         - **Classer avec** : *sélectionnez votre modèle **gpt-4o***
         - **Requête** : \{\{item.question\}\}
 
     - **Similarité du texte** :
-        - **Nom du critère** : F1_Score
+        - **Nom du critère** : *Sélectionnez le **préréglage ** F1_Score*
         - **Vérité de référence** : \{\{item.ExpectedResponse\}\}
 
     - **Contenus haineux et injustes** :
