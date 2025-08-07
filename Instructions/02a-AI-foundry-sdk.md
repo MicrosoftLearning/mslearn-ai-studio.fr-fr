@@ -147,7 +147,7 @@ Maintenant que vous avez déployé un modèle, vous pouvez utiliser Azure AI Fou
 
     ```python
    # Get a chat client
-   openai_client = project_client.inference.get_azure_openai_client(api_version="2024-10-21")
+   openai_client = project_client.get_openai_client(api_version="2024-10-21")
     ```
 
 1. Trouvez le commentaire : **Initialiser l’invite avec le message système**, puis ajoutez le code suivant pour initialiser une collection de messages avec une invite système.
