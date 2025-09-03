@@ -33,7 +33,7 @@ Commençons par déployer un projet Azure AI Foundry.
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Région** : *sélectionnez n’importe quel emplacement pris en charge par les services d’IA***\*
+    - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
 
     > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 

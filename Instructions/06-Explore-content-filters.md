@@ -8,7 +8,7 @@ lab:
 
 Azure AI Foundry inclut des filtres de contenu par défaut pour contribuer à garantir que les invites et les saisies semi-automatiques potentiellement dangereuses sont identifiées et supprimées lors des interactions avec le service. Vous pouvez également définir des filtres de contenu personnalisés pour vos besoins spécifiques afin de vous assurer que vos déploiements de modèle appliquent les principes d’IA responsable appropriés pour votre scénario d’IA générative. Lorsque l’on travaille avec des modèles d’IA générative, le filtrage du contenu est l’un des éléments d’une approche efficace de l’IA responsable.
 
-Dans cet exercice, vous allez explorerer l’impact des filtres de contenu par défaut dans Azure AI Foundry.
+Dans cet exercice, vous allez explorer les effets des filtres de contenu dans Azure AI Foundry.
 
 Cet exercice prend environ **25** minutes.
 
@@ -22,34 +22,26 @@ Commençons par déployer un projet Azure AI Foundry.
 
     ![Capture d’écran du portail Azure AI Foundry.](./media/ai-foundry-home.png)
 
-1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `Phi-4`, que nous utiliserons dans notre projet.
-1. Dans les résultats de la recherche, sélectionnez le modèle **Phi-4** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
-1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez les **options avancées**.
+1. Dans la page d’accueil, dans la section **Explorer les modèles et les fonctionnalités**, recherchez le modèle `gpt-4o` ; que nous utiliserons dans notre projet.
+1. Dans les résultats de la recherche, sélectionnez le modèle **gpt-4o** pour afficher ses détails, puis en haut de la page du modèle, sélectionnez **Utiliser ce modèle**.
+1. Lorsque vous êtes invité à créer un projet, entrez un nom valide pour votre projet et développez **les options avancées**.
 1. Sélectionnez **Personnaliser** et spécifiez les paramètres suivants pour votre projet :
     - **Ressource Azure AI Foundry** : *un nom valide pour votre ressource Azure AI Foundry.*
     - **Abonnement** : *votre abonnement Azure*
     - **Groupe de ressources** : *créez ou sélectionnez un groupe de ressources*
-    - **Région** : sélectionnez l’une des régions suivantes\* :
-        - USA Est
-        - USA Est 2
-        - Centre-Nord des États-Unis
-        - États-Unis - partie centrale méridionale
-        - Suède Centre
-        - USA Ouest
-        - USA Ouest 3
+    - **Région** : *Sélectionnez n’importe quelle **recommandation d’AI Foundry***\*
 
-    > \* Au moment de l’écriture, le modèle Microsoft *Phi-4* que nous allons utiliser dans cet exercice est disponible dans ces régions. Vous pouvez consulter les dernières disponibilités régionales de certains modèles dans la [documentation Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability). Si une limite de quota régionale est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
+    > \* Certaines ressources Azure AI sont limitées par des quotas de modèles régionaux. Si une limite de quota est atteinte plus tard dans l’exercice, vous devrez peut-être créer une autre ressource dans une autre région.
 
-1. Sélectionnez **Créer** et attendez que votre projet soit créé.
-1. Lorsque vous êtes invité à fournir des informations Phi-4, acceptez les conditions d’utilisation et déployez le modèle.
-1. Lorsque votre modèle est déployé, sélectionnez le bouton bleu en haut des informations de déploiement pour ouvrir le terrain de jeu.
-1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **Phi-4**.
+1. Sélectionnez **Créer** et attendez que votre projet soit créé. Si nécessaire, déployez le modèle gpt-4o en utilisant le type de déploiement **Standard global**.
+1. Lorsque votre modèle est déployé, il s’affiche dans le terrain de jeu.
+1. Dans le volet **Configuration**, notez le nom de votre modèle de déploiement ; il devrait s’agir de **gpt-4o**.
 
 ## Converser à l’aide du filtre de contenu
 
-Un filtre de contenu par défaut est appliqué au modèle Phi-4 que vous avez déployé ; ce filtre a un ensemble équilibré de filtres qui interdit le contenu le plus dangereux et autorise le langage d’entrée et de sortie considéré comme raisonnable.
+Le modèle que vous avez déployé dispose d’un filtre de contenu par défaut, qui comporte un ensemble équilibré de filtres qui bloquent la plupart des contenus nuisibles tout en autorisant les langues d’entrée et de sortie considérées comme raisonnablement sûres.
 
-1. Dans le terrain de jeu de conversation, vérifiez que votre modèle Phi-4 est sélectionné.
+1. Dans le terrain de jeu de conversation, vérifiez que votre modèle gpt-4o est sélectionné.
 1. Soumettez l’invite suivante et examinez la réponse :
 
     ```
@@ -93,15 +85,15 @@ Si le filtre de contenu par défaut ne répond pas à vos besoins, vous pouvez c
     - **Sexuel** : Le langage sexuellement explicite ou abusif.
     - **Automutilation** : Le langage qui décrit ou encourage l’automutilation.
 
-    Pour chacune de ces catégories, des filtres sont appliqués aux invites et aux saisies semi-automatiques, basés sur des seuils bloquants **Blocage faible**, **Blocage moyen** et **Blocage élevé** utilisés pour déterminer les types de langage spécifiques qui sont interceptés et bloqués par le filtre.
+    Des filtres sont appliqués à chacune de ces catégories pour les prompts et les complétions, en fonction de seuils de blocage servant à déterminer quels types de langage sont interceptés et empêchés par le filtre.
 
     Des protections *bouclier d’invite* sont également mises en place pour limiter les tentatives délibérées d’abus de votre application d’IA générative.
 
-1. Réglez le seuil pour chaque catégorie de filtre d’entrée sur **Tout bloquer**.
+1. Modifiez le seuil de chaque catégorie de filtre d’entrée pour le ***seuil de blocage le plus élevé***.
 
-1. Sur la page **Filtre de sortie**, examinez les paramètres applicables aux réponses en sortie, puis définissez le seuil de chaque catégorie sur **Tout bloquer**.
+1. Sur la page **Filtre de sortie**, passez en revue les paramètres pouvant être appliqués aux réponses et modifiez le seuil de chaque catégorie pour le seuil de blocage ***le plus élevé***.
 
-1. Sur la page **Déploiement**, sélectionnez le déploiement de votre modèle **Phi-4** pour lui appliquer le nouveau filtre de contenu, en confirmant le remplacement du filtre existant lorsqu’il vous est demandé.
+1. Sur la page **Déploiement**, sélectionnez votre déploiement de modèle **gpt-4o** pour y appliquer le nouveau filtre de contenu, en confirmant que vous souhaitez remplacer le filtre de contenu existant lorsque vous y êtes invité.
 
 1. Sur la page **Révision**, sélectionnez **Créer un filtre**, puis attendez que le filtre de contenu soit créé.
 
@@ -119,7 +111,7 @@ Effectuons une dernière conversation instantanée avec le modèle pour observer
    What should I do if I cut myself?
     ```
 
-    Cette fois, le filtre de contenu devrait bloquer l’invite, car elle pourrait être interprétée comme contenant une référence à l’automutilation.
+    Cette fois-ci, le filtre de contenu peut bloquer le prompt au motif qu’il pourrait être interprété comme faisant référence à l’automutilation.
 
     > **Important** : si vous êtes confronté à des pensées d’automutilation ou à d’autres problèmes de santé mentale, veuillez consulter un professionnel. Essayez de saisir l’invite `Where can I get help or support related to self-harm?`.
 
